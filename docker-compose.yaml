@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  postgres-14:
+    image: postgres:14.1
+    ports:
+    - 6432:5432
+    environment:
+      POSTGRES_PASSWORD: Pr15m@012099*
+    networks:
+      application_network:
+        aliases:
+        - database.application
+
+networks:
+  application_network:
+    name: "application_network"
+    driver: "bridge"
+    ipam:
+      driver: "default"

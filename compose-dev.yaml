@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  postgres-14:
+    image: postgres:14.1
+    environment:
+      POSTGRES_PASSWORD: Pr15m@012099*
+    networks:
+      application_network:
+        aliases:
+        - database.application
+  backend:
+    build:
+      context: ./dockerfiles/backend
+      target: development
+    depends_on:
+      - postgres-14
+    networks:
+      application_network:
+        aliases:
+        - backend.application
+
+networks:
+  application_network:
+    name: "application_network"
+    driver: "bridge"
+    ipam:
+      driver: "default"

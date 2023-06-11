@@ -1,0 +1,1364 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Clube de Sócios",
+    "description": "Documentação da API do Clube de Sócios",
+    "contact": {
+      "name": "Guilherme Vieira",
+      "email": "guilherme.dino@unifei.edu.br"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "colaboradores",
+      "description": "Gerencia os colaboradores que acessam a aplicação"
+    },
+    {
+      "name": "socios",
+      "description": "Gerencia os sócios da aplicação"
+    },
+    {
+      "name": "papeis",
+      "description": "Gerencia os papéis da aplicação"
+    },
+    {
+      "name": "planos",
+      "description": "Gerencia os planos da aplicação"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "authorization",
+      "description": "Insira o token seguido de 'Bearer '"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/colaboradores": {
+      "post": {
+        "tags": [
+          "colaboradores"
+        ],
+        "summary": "Adiciona um novo colaborador",
+        "description": "Adiciona um novo colaborador na aplicação",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Novo Colaborador",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdicionarColaboradorInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/AdicionarColaboradorResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        }
+      }
+    },
+    "/colaboradores/login": {
+      "post": {
+        "tags": [
+          "colaboradores"
+        ],
+        "summary": "Login do colaborador",
+        "description": "Realiza o login do colaborador",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados do colaborador",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/LoginResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        }
+      }
+    },
+    "/papeis": {
+      "get": {
+        "tags": [
+          "papeis"
+        ],
+        "summary": "Obtem todos os papéis",
+        "description": "Obtem todos os papéis cadastrados na aplicação",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ObterPapelResultProcessed"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/papeis/{idPapel}": {
+      "get": {
+        "tags": [
+          "papeis"
+        ],
+        "summary": "Obtem o papel pelo id",
+        "description": "Obtem o papel pelo id informado",
+        "parameters": [
+          {
+            "name": "idPapel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ObterPapelPorIdResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/planos": {
+      "get": {
+        "tags": [
+          "planos"
+        ],
+        "summary": "Obtem todos os planos",
+        "description": "Obtem todos os planos cadastrados na aplicação",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ObterPlanoResultProcessed"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/planos/{idPlano}": {
+      "get": {
+        "tags": [
+          "planos"
+        ],
+        "summary": "Obtem o plano pelo id",
+        "description": "Obtém o plano pelo id informado",
+        "parameters": [
+          {
+            "name": "idPlano",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ObterPlanoResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/socios": {
+      "post": {
+        "tags": [
+          "socios"
+        ],
+        "summary": "Adiciona um novo sócio",
+        "description": "Adiciona um novo sócio na aplicação",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Novo Sócio",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdicionarSocioInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/AdicionarSocioResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "socios"
+        ],
+        "summary": "Obtem todos os sócios",
+        "description": "Obtem todos os sócios cadastrados na aplicação",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ObterSocioResultProcessed"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/socios/{idSocio}": {
+      "put": {
+        "tags": [
+          "socios"
+        ],
+        "summary": "Atualiza um sócio",
+        "description": "Atualiza um sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Sócio atualizado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AtualizarSocioInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AtualizarSocioResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "socios"
+        ],
+        "summary": "Ativa/Inativa um sócio",
+        "description": "Faz a ativação e inativação do sócio da aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Sócio atualizado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SocioStatusInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SocioStatusResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "socios"
+        ],
+        "summary": "Obtem o sócio pelo id",
+        "description": "Obtem todos os sócios cadastrados na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ObterSocioPorIdResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ObterPapelPorIdResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/ObterPapelResult"
+        }
+      }
+    },
+    "ObterPapelResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObterPapelResult"
+          }
+        }
+      }
+    },
+    "ObterPapelResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "ativo": {
+          "type": "boolean",
+          "example": false
+        },
+        "dataCriacao": {
+          "type": "object",
+          "properties": {}
+        },
+        "dataAtualizacao": {}
+      }
+    },
+    "ObterPlanoResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObterPlanoResult"
+          }
+        }
+      }
+    },
+    "ObterPlanoPorIdResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/ObterPlanoResult"
+        }
+      }
+    },
+    "ObterSocioPorIdResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/ObterSocioResult"
+        }
+      }
+    },
+    "ObterSocioResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObterSocioResult"
+          }
+        }
+      }
+    },
+    "ObterClienteResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "documento": {
+          "type": "string",
+          "example": ""
+        },
+        "login": {
+          "type": "string",
+          "example": ""
+        },
+        "email": {
+          "type": "string",
+          "example": ""
+        },
+        "ativo": {
+          "type": "boolean",
+          "example": false
+        },
+        "dataCriacao": {
+          "type": "object",
+          "properties": {}
+        },
+        "dataAtualizacao": {}
+      }
+    },
+    "ObterPlanoResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "descricao": {
+          "type": "string",
+          "example": ""
+        },
+        "tipoRecorrencia": {
+          "type": "string",
+          "example": ""
+        },
+        "valorMensalidade": {
+          "type": "number",
+          "example": 0
+        },
+        "modalidade": {
+          "type": "string",
+          "example": ""
+        },
+        "ativo": {
+          "type": "boolean",
+          "example": false
+        },
+        "dataCriacao": {
+          "type": "object",
+          "properties": {}
+        },
+        "dataAtualizacao": {}
+      }
+    },
+    "ObterEnderecoResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "pais": {
+          "type": "string",
+          "example": ""
+        },
+        "cidade": {
+          "type": "string",
+          "example": ""
+        },
+        "cep": {
+          "type": "string",
+          "example": ""
+        },
+        "bairro": {
+          "type": "string",
+          "example": ""
+        },
+        "rua": {
+          "type": "string",
+          "example": ""
+        },
+        "numero": {
+          "type": "number",
+          "example": 1
+        },
+        "dataCriacao": {
+          "type": "object",
+          "properties": {}
+        },
+        "dataAtualizacao": {}
+      }
+    },
+    "ObterSocioResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "apelido": {},
+        "diaVencimentoPagamento": {
+          "type": "number",
+          "example": 10
+        },
+        "contato": {
+          "type": "string",
+          "example": ""
+        },
+        "cliente": {
+          "$ref": "#/definitions/ObterClienteResult"
+        },
+        "plano": {
+          "$ref": "#/definitions/ObterPlanoResult"
+        },
+        "endereco": {
+          "$ref": "#/definitions/ObterEnderecoResult"
+        },
+        "dataCriacao": {
+          "type": "object",
+          "properties": {}
+        },
+        "dataAtualizacao": {}
+      }
+    },
+    "SocioStatusInput": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "SocioStatusResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/SocioStatusResult"
+        }
+      }
+    },
+    "SocioStatusResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "status": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "AdicionarClienteResult": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "login": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AdicionarPlanoResult": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "descricao": {
+          "type": "string",
+          "example": ""
+        },
+        "tipoRecorrencia": {
+          "type": "string",
+          "example": ""
+        },
+        "modalidade": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AdicionarEnderecoResult": {
+      "type": "object",
+      "properties": {
+        "pais": {
+          "type": "string",
+          "example": ""
+        },
+        "cidade": {
+          "type": "string",
+          "example": ""
+        },
+        "cep": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AdicionarSocioResult": {
+      "type": "object",
+      "properties": {
+        "apelido": {
+          "type": "string",
+          "example": ""
+        },
+        "diaVencimentoPagamento": {
+          "type": "number",
+          "example": 1
+        },
+        "cliente": {
+          "$ref": "#/definitions/AdicionarClienteResult"
+        },
+        "plano": {
+          "$ref": "#/definitions/AdicionarPlanoResult"
+        },
+        "endereco": {
+          "$ref": "#/definitions/AdicionarEnderecoResult"
+        }
+      }
+    },
+    "AdicionarSocioResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/AdicionarSocioResult"
+        }
+      }
+    },
+    "AtualizarClienteResult": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "login": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AtualizarPlanoResult": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "descricao": {
+          "type": "string",
+          "example": ""
+        },
+        "tipoRecorrencia": {
+          "type": "string",
+          "example": ""
+        },
+        "modalidade": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AtualizarEnderecoResult": {
+      "type": "object",
+      "properties": {
+        "pais": {
+          "type": "string",
+          "example": ""
+        },
+        "cidade": {
+          "type": "string",
+          "example": ""
+        },
+        "cep": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AtualizarSocioResult": {
+      "type": "object",
+      "properties": {
+        "apelido": {
+          "type": "string",
+          "example": ""
+        },
+        "diaVencimentoPagamento": {
+          "type": "number",
+          "example": 0
+        },
+        "contato": {
+          "type": "string",
+          "example": ""
+        },
+        "cliente": {
+          "$ref": "#/definitions/AtualizarClienteResult"
+        },
+        "plano": {
+          "$ref": "#/definitions/AtualizarPlanoResult"
+        },
+        "endereco": {
+          "$ref": "#/definitions/AtualizarEnderecoResult"
+        },
+        "id": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AtualizarSocioResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/AtualizarSocioResult"
+        }
+      }
+    },
+    "AtualizarStatusSocioInput": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "false"
+        }
+      }
+    },
+    "AtualizarSocioInput": {
+      "type": "object",
+      "properties": {
+        "apelido": {
+          "type": "string",
+          "example": ""
+        },
+        "diaVencimentoPagamento": {
+          "type": "number",
+          "example": 1
+        },
+        "contato": {
+          "type": "string",
+          "example": ""
+        },
+        "nomePlano": {
+          "type": "string",
+          "example": ""
+        },
+        "cliente": {
+          "$ref": "#/definitions/AtualizarClienteInput"
+        },
+        "endereco": {
+          "$ref": "#/definitions/AtualizarEnderecoInput"
+        }
+      }
+    },
+    "AtualizarClienteInput": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "documento": {
+          "type": "string",
+          "example": ""
+        },
+        "login": {
+          "type": "string",
+          "example": ""
+        },
+        "email": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AtualizarEnderecoInput": {
+      "type": "object",
+      "properties": {
+        "pais": {
+          "type": "string",
+          "example": ""
+        },
+        "cidade": {
+          "type": "string",
+          "example": ""
+        },
+        "cep": {
+          "type": "string",
+          "example": ""
+        },
+        "bairro": {
+          "type": "string",
+          "example": ""
+        },
+        "rua": {
+          "type": "string",
+          "example": ""
+        },
+        "numero": {
+          "type": "number",
+          "example": 0
+        }
+      }
+    },
+    "AdicionarEnderecoInput": {
+      "type": "object",
+      "properties": {
+        "pais": {
+          "type": "string",
+          "example": ""
+        },
+        "cidade": {
+          "type": "string",
+          "example": ""
+        },
+        "cep": {
+          "type": "string",
+          "example": ""
+        },
+        "bairro": {
+          "type": "string",
+          "example": ""
+        },
+        "rua": {
+          "type": "string",
+          "example": ""
+        },
+        "numero": {
+          "type": "number",
+          "example": 0
+        }
+      }
+    },
+    "AdicionarPlanoInput": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "descricao": {
+          "type": "string",
+          "example": ""
+        },
+        "tipoRecorrencia": {
+          "type": "string",
+          "example": ""
+        },
+        "valorMensalidade": {
+          "type": "number",
+          "example": 0
+        },
+        "modalidade": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AdicionarSocioInput": {
+      "type": "object",
+      "properties": {
+        "apelido": {
+          "type": "string",
+          "example": ""
+        },
+        "diaVencimentoPagamento": {
+          "type": "number",
+          "example": 1
+        },
+        "contato": {
+          "type": "string",
+          "example": ""
+        },
+        "idPlano": {
+          "type": "string",
+          "example": ""
+        },
+        "plano": {
+          "$ref": "#/definitions/AdicionarPlanoInput"
+        },
+        "idCliente": {
+          "type": "string",
+          "example": ""
+        },
+        "cliente": {
+          "$ref": "#/definitions/AdicionarClienteInput"
+        },
+        "endereco": {
+          "$ref": "#/definitions/AdicionarEnderecoInput"
+        }
+      }
+    },
+    "AdicionarClienteInput": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "documento": {
+          "type": "string",
+          "example": ""
+        },
+        "login": {
+          "type": "string",
+          "example": ""
+        },
+        "senha": {
+          "type": "string",
+          "example": ""
+        },
+        "email": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AdicionarPapelInput": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AdicionarColaboradorInput": {
+      "type": "object",
+      "properties": {
+        "idCliente": {
+          "type": "string",
+          "example": ""
+        },
+        "cliente": {
+          "$ref": "#/definitions/AdicionarClienteInput"
+        },
+        "idPapel": {
+          "type": "string",
+          "example": ""
+        },
+        "papel": {
+          "$ref": "#/definitions/AdicionarPapelInput"
+        }
+      }
+    },
+    "LoginInput": {
+      "type": "object",
+      "properties": {
+        "login": {
+          "type": "string",
+          "example": ""
+        },
+        "senha": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AdicionarPapelResult": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AdicionarColaboradorResult": {
+      "type": "object",
+      "properties": {
+        "cliente": {
+          "$ref": "#/definitions/AdicionarClienteResult"
+        },
+        "papel": {
+          "$ref": "#/definitions/AdicionarPapelResult"
+        }
+      }
+    },
+    "LoginResult": {
+      "type": "string",
+      "example": ""
+    },
+    "AdicionarColaboradorResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/AdicionarColaboradorResult"
+        }
+      }
+    },
+    "LoginResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/LoginResult"
+        }
+      }
+    },
+    "ErroResult": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": false
+        },
+        "erros": {
+          "type": "array",
+          "example": [
+            ""
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

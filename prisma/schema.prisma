@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  Id              String    @id @default(uuid()) @map("id") @db.Uuid
+  Nome            String    @map("nome") @db.VarChar(100)
+  Documento       String    @unique @map("documento") @db.VarChar(11)
+  Ativo           Boolean   @map("ativo") @db.Boolean
+  Email           String    @unique @map("email") @db.VarChar(50)
+  Login           String    @unique @map("login") @db.VarChar(30)
+  Senha           String    @map("senha") @db.VarChar(256)
+  DataCriacao     DateTime  @default(now()) @map("data_criacao") @db.Timestamp
+  DataAtualizacao DateTime? @map("data_atualizacao") @db.Timestamp
+
+  Socio         Socio?
+  Dependente    Dependente?
+  Colaboradores Colaborador[]
+
+  @@map("clientes")
+}
+
+model Endereco {
+  Id              String    @id @default(uuid()) @map("id") @db.Uuid
+  Pais            String    @map("pais") @db.VarChar(30)
+  Cidade          String    @map("cidade") @db.VarChar(30)
+  Cep             String    @map("cep") @db.VarChar(9)
+  Bairro          String    @map("bairro") @db.VarChar(40)
+  Rua             String    @map("rua") @db.VarChar(40)
+  Numero          Int?      @map("numero") @db.Integer
+  DataCriacao     DateTime  @default(now()) @map("data_criacao") @db.Timestamp
+  DataAtualizacao DateTime? @map("data_atualizacao") @db.Timestamp
+
+  Socio Socio?
+
+  @@map("enderecos")
+}
+
+model Plano {
+  Id               String    @id @default(uuid()) @map("id") @db.Uuid
+  Nome             String    @unique @map("nome") @db.VarChar(40)
+  Descricao        String    @map("descricao") @db.VarChar(256)
+  TipoRecorrencia  String    @map("tipo_recorrencia") @db.VarChar(15)
+  ValorMensalidade Decimal   @map("valor_mensalidade") @db.Decimal(7, 2)
+  Modalidade       String    @map("modalidade") @db.VarChar(30)
+  Ativo            Boolean   @map("ativo") @db.Boolean
+  DataCriacao      DateTime  @default(now()) @map("data_criacao") @db.Timestamp
+  DataAtualizacao  DateTime? @map("data_atualizacao") @db.Timestamp
+
+  Socio      Socio[]
+  Pagamentos PagamentoSocio[]
+
+  @@map("planos")
+}
+
+model Socio {
+  Id                     String    @id @default(uuid()) @map("id") @db.Uuid
+  Apelido                String?   @map("apelido") @db.VarChar(30)
+  DiaVencimentoPagamento Int       @map("dia_vencimento_pagamento") @db.Integer
+  Contato                String    @unique @map("contato") @db.VarChar(15)
+  DataCriacao            DateTime  @default(now()) @map("data_criacao") @db.Timestamp
+  DataAtualizacao        DateTime? @map("data_atualizacao") @db.Timestamp
+
+  FkPlano    String @map("fk_plano") @db.Uuid
+  FkCliente  String @unique @map("fk_cliente") @db.Uuid
+  FkEndereco String @unique @map("fk_endereco") @db.Uuid
+
+  Plano    Plano    @relation(fields: [FkPlano], references: [Id])
+  Cliente  Cliente  @relation(fields: [FkCliente], references: [Id])
+  Endereco Endereco @relation(fields: [FkEndereco], references: [Id])
+
+  Veiculos    VeiculoSocio[]
+  Dependentes Dependente[]
+  Pagamentos  PagamentoSocio[]
+
+  @@map("socios")
+}
+
+model VeiculoSocio {
+  Id              String    @id @default(uuid()) @map("id") @db.Uuid
+  Placa           String    @unique @map("placa") @db.VarChar(8)
+  Ativo           Boolean   @map("ativo") @db.Boolean
+  DataCriacao     DateTime  @default(now()) @map("data_criacao") @db.Timestamp
+  DataAtualizacao DateTime? @map("data_atualizacao") @db.Timestamp
+
+  FkSocio String @map("fk_socio") @db.Uuid
+
+  Socio Socio @relation(fields: [FkSocio], references: [Id], onDelete: NoAction)
+
+  @@map("veiculos_socios")
+}
+
+model Dependente {
+  Id              String    @id @default(uuid()) @map("id") @db.Uuid
+  DataCriacao     DateTime  @default(now()) @map("data_criacao") @db.Timestamp
+  DataAtualizacao DateTime? @map("data_atualizacao") @db.Timestamp
+
+  FkCliente String @unique @map("fk_cliente") @db.Uuid
+  FkSocio   String @map("fk_socio") @db.Uuid
+
+  Cliente Cliente @relation(fields: [FkCliente], references: [Id], onDelete: NoAction)
+  Socio   Socio   @relation(fields: [FkSocio], references: [Id], onDelete: NoAction)
+
+  @@map("dependentes")
+}
+
+model PagamentoSocio {
+  Id                      String    @id @default(uuid()) @map("id") @db.Uuid
+  FormaPagamento          String    @map("forma_pagamento") @db.VarChar(30)
+  DataEfetivacaoPagamento DateTime  @map("data_efetivacao_pagamento") @db.Timestamp
+  DataCriacao             DateTime  @default(now()) @map("data_criacao") @db.Timestamp
+  DataAtualizacao         DateTime? @map("data_atualizacao") @db.Timestamp
+
+  FkSocio String @map("fk_socio") @db.Uuid
+  FkPlano String @map("fk_plano") @db.Uuid
+
+  Socio Socio @relation(fields: [FkSocio], references: [Id], onDelete: NoAction)
+  Plano Plano @relation(fields: [FkPlano], references: [Id], onDelete: NoAction)
+
+  @@map("pagamentos_socios")
+}
+
+model Papel {
+  Id              String    @id @default(uuid()) @map("id") @db.Uuid
+  Nome            String    @unique @map("nome") @db.VarChar(30)
+  Ativo           Boolean   @map("ativo") @db.Boolean
+  DataCriacao     DateTime  @default(now()) @map("data_criacao") @db.Timestamp
+  DataAtualizacao DateTime? @map("data_atualizacao") @db.Timestamp
+
+  Colaboradores Colaborador[]
+
+  @@map("papeis")
+}
+
+model Colaborador {
+  Id              String    @id @default(uuid()) @map("id") @db.Uuid
+  DataCriacao     DateTime  @default(now()) @map("data_criacao") @db.Timestamp
+  DataAtualizacao DateTime? @map("data_atualizacao") @db.Timestamp
+
+  FkCliente String @map("fk_cliente") @db.Uuid
+  FkPapel   String @map("fk_papel") @db.Uuid
+
+  Cliente Cliente @relation(fields: [FkCliente], references: [Id], onDelete: NoAction)
+  Papel   Papel   @relation(fields: [FkPapel], references: [Id], onDelete: NoAction)
+
+  @@unique(fields: [FkCliente, FkPapel])
+  @@map("colaboradores")
+}
