@@ -26,7 +26,7 @@
 # Testes Automatizados do Projeto #
 Os testes automatizados do projeto incluem testes de integração e unitários, para sua execução execute 
 ```bash
-  npm run test
+  npm run test:dev
 ```
 
 # Recursos aplicados no Projeto #
