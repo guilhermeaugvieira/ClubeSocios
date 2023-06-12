@@ -1,4 +1,4 @@
-import { Plano, Prisma, PrismaClient } from "@prisma/client";
+import { Plano, Prisma, PrismaClient, Socio } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
 import { IRepositorioPlano } from "../Interfaces/IRepositorioPlano";
 import { v4 as uuid } from "uuid";
@@ -13,6 +13,17 @@ class RepositorioPlano implements IRepositorioPlano {
   ){
     this._databaseManager = databaseManager;
   }
+
+  obterPlanoComSocios = (idPlano: string): Promise<(Plano & { Socios: Socio[]; } | null) | null> => {
+    return this._databaseManager.plano.findFirst({
+      where: {
+        Id: idPlano
+      },
+      include: {
+        Socios: true,
+      }
+    });
+  };
 
   obterPlanoPorId = (idPlano: string) : Promise<Plano | null> => {
     return this._databaseManager.plano.findFirst({
@@ -43,6 +54,35 @@ class RepositorioPlano implements IRepositorioPlano {
         DataAtualizacao: null,
         DataCriacao: new Date(),
         Id: idNovoPlano,
+      }
+    });
+  }
+
+  atualizarDadosPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    nome: string, descricao: string, tipoRecorrencia: string, valorMensalidade: number, modalidade: string, idPlano: string): Promise<Plano> => {
+    return transactionContext.plano.update({
+      data: {
+        Nome: nome.toUpperCase(),
+        Descricao: descricao,
+        TipoRecorrencia: tipoRecorrencia.toUpperCase(),
+        ValorMensalidade: valorMensalidade,
+        Modalidade: modalidade.toUpperCase(),
+        DataAtualizacao: new Date(),
+      },
+      where: {
+        Id: idPlano,
+      }
+    });
+  }
+
+  atualizarStatusAtivoDoPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    status: boolean, idPlano: string): Promise<Plano> => {
+    return transactionContext.plano.update({
+      data: {
+        Ativo: status,
+      },
+      where: {
+        Id: idPlano,
       }
     });
   }

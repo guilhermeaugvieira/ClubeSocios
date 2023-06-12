@@ -54,4 +54,14 @@ class ObterPlanoResult {
   }
 }
 
-export { AdicionarPlanoResult, AtualizarPlanoResult, ObterPlanoResult }
+class AtualizarStatusPlanoResult {
+  id: string;
+  status: boolean;
+
+  constructor(id: string, status: boolean){
+    this.id = id;
+    this.status = status;
+  }
+}
+
+export { AdicionarPlanoResult, AtualizarPlanoResult, ObterPlanoResult, AtualizarStatusPlanoResult }

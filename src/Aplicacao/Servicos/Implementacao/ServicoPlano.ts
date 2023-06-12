@@ -5,7 +5,7 @@ import { Notificacao, TipoNotificacao } from "../../../Core/Notificacao";
 import { Validadores } from "../../../Core/Validadores";
 import { IRepositorioPlano } from "../../../Dados/Interfaces/IRepositorioPlano";
 import { AdicionarPlanoInput } from "../../Modelos/Inputs/PlanoInput";
-import { ObterPlanoResult } from "../../Modelos/Results/PlanoResult";
+import { AtualizarPlanoResult, AtualizarStatusPlanoResult, ObterPlanoResult } from "../../Modelos/Results/PlanoResult";
 import { IServicoPlano } from "../Interfaces/IServicoPlano";
 
 @injectable()
@@ -58,9 +58,71 @@ class ServicoPlano implements IServicoPlano {
       parseFloat(plano.ValorMensalidade.toString()), plano.Modalidade, plano.Ativo, plano.DataCriacao, plano.DataAtualizacao);
   }
 
-  // adicionarPlano = async(plano: AdicionarPlanoInput, ticketRequisicao: string): Promise<ObterPlanoResult> => {
-  //   const planoEncontrado = await this._repositorioPlano.obterPlanoPorNome(plano.nome)
-  // }
+  adicionarPlano = async(plano: AdicionarPlanoInput, ticketRequisicao: string): Promise<ObterPlanoResult | null> => {
+    const planoEncontrado = await this._repositorioPlano.obterPlanoPorNome(plano.nome);
+
+    if(!Validadores.ehValorInvalido(planoEncontrado)){
+      this._notificador.adicionarNotificacao(new Notificacao("Plano já existe", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+
+    let planoAdicionado: Plano | null = null;
+
+    await this._databaseManager.$transaction(async (tx) => {
+      planoAdicionado = await this._repositorioPlano.adicionarPlano(tx, plano.nome, plano.descricao, plano.tipoRecorrencia, plano.valorMensalidade, plano.modalidade);
+    })
+
+    return this.converterEntidadeEmDto(planoAdicionado!);
+  }
+
+  atualizarPlano = async(idPlano: string, plano: AdicionarPlanoInput, ticketRequisicao: string): Promise<AtualizarPlanoResult | null> => {
+    let planoEncontrado = await this._repositorioPlano.obterPlanoPorId(idPlano);
+
+    if(Validadores.ehValorInvalido(planoEncontrado)){
+      this._notificador.adicionarNotificacao(new Notificacao("Plano não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+
+      return null;
+    }
+
+    let planoAtualizado: Plano | null = null;
+
+    await this._databaseManager.$transaction(async (tx) => {
+      planoAtualizado = await this._repositorioPlano.atualizarDadosPlano(tx, plano.nome, plano.descricao, plano.tipoRecorrencia, plano.valorMensalidade, plano.modalidade, idPlano);
+    })
+
+    return new AtualizarPlanoResult(planoAtualizado!.Nome, planoAtualizado!.Descricao, planoAtualizado!.TipoRecorrencia, planoAtualizado!.Modalidade)
+  }
+
+  atualizarStatusPlano = async(idPlano: string, estaAtivo: boolean, ticketRequisicao: string): Promise<AtualizarStatusPlanoResult | null> => {
+    let planoEncontrado = await this._repositorioPlano.obterPlanoComSocios(idPlano);
+
+    if(Validadores.ehValorInvalido(planoEncontrado)){
+      this._notificador.adicionarNotificacao(new Notificacao("Plano não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+
+      return null;
+    }
+
+    if(planoEncontrado!.Ativo === estaAtivo){
+      this._notificador.adicionarNotificacao(new Notificacao("Plano já está com o status solicitado", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+
+    if(Validadores.ehIgual(estaAtivo, false) && planoEncontrado!.Socios.length > 0){
+      this._notificador.adicionarNotificacao(new Notificacao("Para a desativação o plano não pode estar associado a nenhum sócio", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+
+    let planoAtualizado: Plano | null = null;
+
+    await this._databaseManager.$transaction(async (tx) => {
+      planoAtualizado = await this._repositorioPlano.atualizarStatusAtivoDoPlano(tx, estaAtivo, idPlano);
+    })
+
+    return new AtualizarStatusPlanoResult(idPlano, planoAtualizado!.Ativo);
+  }
 
 }
 
