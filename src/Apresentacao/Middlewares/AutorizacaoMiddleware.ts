@@ -14,7 +14,7 @@ const AutorizacaoMiddleware = (req: Request, res: Response, next: NextFunction) 
   };
 
   try {
-    const tokenData = Token.ValidarToken(token, "Acesso Aplicação Colaborador", process.env.TOKEN_TEMPO_EXPIRACAO!);
+    const tokenData = Token.validarToken(token, "Acesso Aplicação Colaborador", process.env.TOKEN_TEMPO_EXPIRACAO!);
   }catch(exception: any){
     if(exception.message.includes("subject"))    
       return res.status(401).json({

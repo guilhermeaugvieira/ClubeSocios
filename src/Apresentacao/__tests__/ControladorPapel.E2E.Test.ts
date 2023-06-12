@@ -1,4 +1,4 @@
-import { LimparBancoDeDados } from "../../Dados/Utilidades/Funcoes";
+import { limparBancoDeDados } from "../../Dados/Utilidades/Funcoes";
 import { ObterTokenAcessoParaTestes } from "./ControladorColaborador.E2E.Test";
 import Supertest from 'supertest'
 import { Servidor } from "../Configuracoes/Servidor";
@@ -9,7 +9,11 @@ import { AdicionarPapelInput } from "../../Aplicacao/Modelos/Inputs/PapelInput";
 import { v4 as uuid } from 'uuid';
 
 afterEach(async () => {
-  await LimparBancoDeDados();
+  await limparBancoDeDados();
+});
+
+beforeAll(async () => {
+  await limparBancoDeDados();
 });
 
 describe('Módulo API Papel - Obter Papéis', () => {

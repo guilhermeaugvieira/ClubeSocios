@@ -6,23 +6,10 @@ import { v4 as uuid } from 'uuid';
 import { AdicionarColaboradorInput } from "../../Aplicacao/Modelos/Inputs/ColaboradorInput";
 import { AdicionarClienteInput } from "../../Aplicacao/Modelos/Inputs/ClienteInput";
 import { AdicionarPapelInput } from "../../Aplicacao/Modelos/Inputs/PapelInput";
-
-const LimparBancoDeDados = async () => {
-  await PrismaInstance.$transaction([
-    PrismaInstance.veiculoSocio.deleteMany(),
-    PrismaInstance.pagamentoSocio.deleteMany(),
-    PrismaInstance.dependente.deleteMany(),
-    PrismaInstance.endereco.deleteMany(),
-    PrismaInstance.colaborador.deleteMany(),
-    PrismaInstance.papel.deleteMany(),
-    PrismaInstance.cliente.deleteMany(),
-    PrismaInstance.socio.deleteMany(),
-    PrismaInstance.plano.deleteMany(),
-  ]);
-}
+import { limparBancoDeDados } from '../../Dados/Utilidades/Funcoes';
 
 afterEach(async () => {
-  await LimparBancoDeDados();
+  await limparBancoDeDados();
 
   await PrismaInstance.$disconnect();
 
@@ -30,7 +17,7 @@ afterEach(async () => {
 });
 
 beforeAll(async () => {
-  await LimparBancoDeDados();
+  await limparBancoDeDados();
 
   await PrismaInstance.$disconnect();
 

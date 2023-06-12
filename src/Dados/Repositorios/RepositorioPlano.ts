@@ -14,7 +14,7 @@ class RepositorioPlano implements IRepositorioPlano {
     this._databaseManager = databaseManager;
   }
 
-  ObterPlanoPorId = (idPlano: string) : Promise<Plano | null> => {
+  obterPlanoPorId = (idPlano: string) : Promise<Plano | null> => {
     return this._databaseManager.plano.findFirst({
       where: {
         Id: idPlano
@@ -22,7 +22,7 @@ class RepositorioPlano implements IRepositorioPlano {
     });
   };
 
-  ObterPlanoPorNome = (nomePlano: string) : Promise<Plano | null> => {
+  obterPlanoPorNome = (nomePlano: string) : Promise<Plano | null> => {
     return this._databaseManager.plano.findFirst({
       where: {
         Nome: nomePlano.toUpperCase()
@@ -30,7 +30,7 @@ class RepositorioPlano implements IRepositorioPlano {
     })
   };
 
-  AdicionarPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  adicionarPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
     nome: string, descricao: string, tipoRecorrencia: string, valorMensalidade: number, modalidade: string, idNovoPlano: string | undefined = uuid()): Promise<Plano> => {
     return transactionContext.plano.create({
       data: {
@@ -47,7 +47,7 @@ class RepositorioPlano implements IRepositorioPlano {
     });
   }
 
-  ObterTodosOsPlanos = async () : Promise<Plano[]> => {
+  obterTodosOsPlanos = async () : Promise<Plano[]> => {
     return this._databaseManager.plano.findMany();
   }
 }

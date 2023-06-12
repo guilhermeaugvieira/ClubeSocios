@@ -21,28 +21,28 @@ class ControladorPapel extends ControladorBase{
     this._servicoPapel = servicoPapel;
   }
 
-  ObterPapeis = async(req: Request, res: Response): Promise<Response> => {
-    const ticketRequisicao = this.CriarTicketRequisicao();
+  obterPapeis = async(req: Request, res: Response): Promise<Response> => {
+    const ticketRequisicao = this.criarTicketRequisicao();
 
-    const resposta = await this._servicoPapel.ObterTodosOsPapeis();
+    const resposta = await this._servicoPapel.obterTodosOsPapeis();
 
-    return this.RespostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
   }
 
-  ObterPapelPorId = async(req: Request, res: Response): Promise<Response> => {
-    const ticketRequisicao = this.CriarTicketRequisicao();
+  obterPapelPorId = async(req: Request, res: Response): Promise<Response> => {
+    const ticketRequisicao = this.criarTicketRequisicao();
 
     const idPapel = req.params.idPapel;
 
-    if(!Validadores.TextoComComprimentoEntre(idPapel, 36)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Id do papel inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
+    if(!Validadores.textoComComprimentoEntre(idPapel, 36)){
+      this._notificador.adicionarNotificacao(new Notificacao("Id do papel inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
 
-      return this.RespostaBase(res, StatusCodes.OK, null, ticketRequisicao);
+      return this.respostaBase(res, StatusCodes.OK, null, ticketRequisicao);
     }
 
-    const resposta = await this._servicoPapel.ObterPapelPorId(idPapel, ticketRequisicao);
+    const resposta = await this._servicoPapel.obterPapelPorId(idPapel, ticketRequisicao);
 
-    return this.RespostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
   }
 }
 

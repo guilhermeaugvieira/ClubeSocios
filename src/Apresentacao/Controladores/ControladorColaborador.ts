@@ -20,42 +20,42 @@ class ControladorColaborador extends ControladorBase{
     this._servicoColaborador = servicoColaborador;
   }
 
-  AdicionarColaborador = async (req: Request, res: Response) : Promise<Response> => {   
+  adicionarColaborador = async (req: Request, res: Response) : Promise<Response> => {   
     
-    const ticketRequisicao = this.CriarTicketRequisicao();
+    const ticketRequisicao = this.criarTicketRequisicao();
 
     const input = AdicionarColaboradorInput.construirDoRequest(req.body);
 
     const errosValidacao = input!.validarModelo([], ticketRequisicao);
 
     if(errosValidacao.length > 0){
-      errosValidacao.forEach(notificacao => this._notificador.AdicionarNotificacao(notificacao));
+      errosValidacao.forEach(notificacao => this._notificador.adicionarNotificacao(notificacao));
       
-      return this.RespostaBase(res, StatusCodes.CREATED, null, ticketRequisicao);
+      return this.respostaBase(res, StatusCodes.CREATED, null, ticketRequisicao);
     }
 
-    const resposta = await this._servicoColaborador.AdicionarColaborador(input!, ticketRequisicao);
+    const resposta = await this._servicoColaborador.adicionarColaborador(input!, ticketRequisicao);
 
-    return this.RespostaBase(res, StatusCodes.CREATED, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.CREATED, resposta, ticketRequisicao);
   };
 
-  LoginColaborador = async (req: Request, res: Response) : Promise<Response> => {
+  loginColaborador = async (req: Request, res: Response) : Promise<Response> => {
     
-    const ticketRequisicao = this.CriarTicketRequisicao();
+    const ticketRequisicao = this.criarTicketRequisicao();
 
     const input = LoginColaboradorInput.construirDoRequest(req.body);
 
     const errosValidacao = input!.validarModelo([], ticketRequisicao);
 
     if(errosValidacao.length > 0){
-      errosValidacao.forEach(notificacao => this._notificador.AdicionarNotificacao(notificacao));
+      errosValidacao.forEach(notificacao => this._notificador.adicionarNotificacao(notificacao));
       
-      return this.RespostaBase(res, StatusCodes.CREATED, null, ticketRequisicao);
+      return this.respostaBase(res, StatusCodes.CREATED, null, ticketRequisicao);
     }
 
-    const resposta = await this._servicoColaborador.LoginColaborador(input!, ticketRequisicao);
+    const resposta = await this._servicoColaborador.loginColaborador(input!, ticketRequisicao);
 
-    return this.RespostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
   }
 
 }

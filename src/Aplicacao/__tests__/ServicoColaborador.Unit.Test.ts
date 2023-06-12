@@ -47,11 +47,11 @@ describe('Modulo ServicoColaborador', () => {
 
     PrismaMock.cliente.findFirst.mockResolvedValueOnce(null);
 
-    const addResult = await servicoColaborador.AdicionarColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.adicionarColaborador(inputColaborador, ticketRequisicao);
 
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test('Ao adicionar um novo usuário, especificando um id de cliente inativo, o método AdicionarColaborador deve retornar null', async() => {   
@@ -83,14 +83,14 @@ describe('Modulo ServicoColaborador', () => {
       Id: uuid(),
       Login: 'abc2456',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('P@ssw0rd'),
+      Senha: Hash.criptografarTexto('P@ssw0rd'),
     });
 
-    const addResult = await servicoColaborador.AdicionarColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.adicionarColaborador(inputColaborador, ticketRequisicao);
 
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test('Ao adicionar um novo usuário, especificando um cliente com o documento já fornecido, o método AdicionarColaborador deve retornar null', async() => {   
@@ -123,14 +123,14 @@ describe('Modulo ServicoColaborador', () => {
       Id: uuid(),
       Login: 'abc234de',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('abc23A*b35')
+      Senha: Hash.criptografarTexto('abc23A*b35')
     });
 
-    const addResult = await servicoColaborador.AdicionarColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.adicionarColaborador(inputColaborador, ticketRequisicao);
     
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test('Ao adicionar um novo usuário, especificando um cliente com o email já cadastrado, o método AdicionarColaborador deve retornar null', async() => {   
@@ -165,14 +165,14 @@ describe('Modulo ServicoColaborador', () => {
       Id: uuid(),
       Login: 'abc234de',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('abc23A*b35'),
+      Senha: Hash.criptografarTexto('abc23A*b35'),
     });
 
-    const addResult = await servicoColaborador.AdicionarColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.adicionarColaborador(inputColaborador, ticketRequisicao);
     
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test('Ao adicionar um novo usuário, especificando um cliente com o login já cadastrado, o método AdicionarColaborador deve retornar null', async() => {   
@@ -209,14 +209,14 @@ describe('Modulo ServicoColaborador', () => {
       Id: uuid(),
       Login: 'abc234de',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('P@ssw0rd'),
+      Senha: Hash.criptografarTexto('P@ssw0rd'),
     });
 
-    const addResult = await servicoColaborador.AdicionarColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.adicionarColaborador(inputColaborador, ticketRequisicao);
     
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test('Ao adicionar um novo usuário, especificando um id de papel inexistente, o método AdicionarColaborador deve retornar null', async() => {   
@@ -242,11 +242,11 @@ describe('Modulo ServicoColaborador', () => {
 
     PrismaMock.papel.findFirst.mockResolvedValueOnce(null);
 
-    const addResult = await servicoColaborador.AdicionarColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.adicionarColaborador(inputColaborador, ticketRequisicao);
 
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test('Ao adicionar um novo usuário, especificando um id de papel inativo, o método AdicionarColaborador deve retornar null', async() => {   
@@ -278,11 +278,11 @@ describe('Modulo ServicoColaborador', () => {
       Nome: "ADMINISTRADOR"
     });
 
-    const addResult = await servicoColaborador.AdicionarColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.adicionarColaborador(inputColaborador, ticketRequisicao);
 
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test('Ao adicionar um novo usuário, especificando um nome de papel inativo, o método AdicionarColaborador deve retornar null', async() => {   
@@ -314,11 +314,11 @@ describe('Modulo ServicoColaborador', () => {
       }
     );
 
-    const addResult = await servicoColaborador.AdicionarColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.adicionarColaborador(inputColaborador, ticketRequisicao);
     
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });  
   
   test('Ao adicionar um novo usuário, especificando um papel e um cliente já associados, o método AdicionarColaborador deve retornar null', async() => {   
@@ -370,11 +370,11 @@ describe('Modulo ServicoColaborador', () => {
       Id: uuid(),
     });
 
-    const addResult = await servicoColaborador.AdicionarColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.adicionarColaborador(inputColaborador, ticketRequisicao);
     
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test('Ao realizar o login, especificando um usuário inexistente, o método LoginColaborador deve retornar null', async() => {   
@@ -395,11 +395,11 @@ describe('Modulo ServicoColaborador', () => {
 
     PrismaMock.cliente.findFirst.mockResolvedValueOnce(null);
 
-    const addResult = await servicoColaborador.LoginColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.loginColaborador(inputColaborador, ticketRequisicao);
     
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test('Ao realizar o login, especificando um usuário bloqueado, o método LoginColaborador deve retornar null', async() => {   
@@ -427,14 +427,14 @@ describe('Modulo ServicoColaborador', () => {
       Id: uuid(),
       Login: 'TesteUser',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('ABc2654*'),
+      Senha: Hash.criptografarTexto('ABc2654*'),
     });
 
-    const addResult = await servicoColaborador.LoginColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.loginColaborador(inputColaborador, ticketRequisicao);
     
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test('Ao realizar o login, especificando um usuário sem privilégios, o método LoginColaborador deve retornar null', async() => {   
@@ -462,16 +462,16 @@ describe('Modulo ServicoColaborador', () => {
       Id: uuid(),
       Login: 'TesteUser',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('ABc2654*'),
+      Senha: Hash.criptografarTexto('ABc2654*'),
     });
 
     PrismaMock.colaborador.findMany.mockResolvedValueOnce([]);
 
-    const addResult = await servicoColaborador.LoginColaborador(inputColaborador, ticketRequisicao);
+    const addResult = await servicoColaborador.loginColaborador(inputColaborador, ticketRequisicao);
     
     expect(addResult).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
 })

@@ -41,112 +41,112 @@ class ServicoSocio implements IServicoSocio {
     this._repositorioEndereco = repositorioEndereco;
   }
   
-  AdicionarSocio = async (input: AdicionarSocioInput, ticketRequisicao: string): Promise<AdicionarSocioResult | null> => {
+  adicionarSocio = async (input: AdicionarSocioInput, ticketRequisicao: string): Promise<AdicionarSocioResult | null> => {
 
     let plano: Plano | null = null;
     let socio: Socio | null = null;
     let cliente: Cliente | null = null;
     let endereco: Endereco | null = null;
 
-    if(Validadores.TextoComComprimentoEntre(input.idCliente, 36)){
-      cliente = await this._repositorioCliente.ObterClientePorId(input.idCliente!);
+    if(Validadores.textoComComprimentoEntre(input.idCliente, 36)){
+      cliente = await this._repositorioCliente.obterClientePorId(input.idCliente!);
 
-      if(Validadores.EhValorInvalido(cliente)){
-        this._notificador.AdicionarNotificacao(new Notificacao("Id do cliente fornecido não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+      if(Validadores.ehValorInvalido(cliente)){
+        this._notificador.adicionarNotificacao(new Notificacao("Id do cliente fornecido não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
         
         return null;
       }
 
-      if(Validadores.EhIgual(cliente!.Ativo, false)){
-        this._notificador.AdicionarNotificacao(new Notificacao("Cliente encontrado está inativo, para associação o cliente deve estar ativo", 
+      if(Validadores.ehIgual(cliente!.Ativo, false)){
+        this._notificador.adicionarNotificacao(new Notificacao("Cliente encontrado está inativo, para associação o cliente deve estar ativo", 
           TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
         
         return null;
       }
 
-      socio = await this._repositorioSocio.ObterSocioPorIdDoCliente(cliente!.Id);
+      socio = await this._repositorioSocio.obterSocioPorIdDoCliente(cliente!.Id);
       
-      if(!Validadores.EhValorInvalido(socio)){
-        this._notificador.AdicionarNotificacao(new Notificacao("Já existe socio associado ao cliente", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+      if(!Validadores.ehValorInvalido(socio)){
+        this._notificador.adicionarNotificacao(new Notificacao("Já existe socio associado ao cliente", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
         return null;
       }
     }
 
-    if(Validadores.EhValorInvalido(cliente) && !Validadores.EhValorInvalido(input.cliente)){
-      cliente = await this._repositorioCliente.ObterClientePorDocumento(input.cliente!.documento);
+    if(Validadores.ehValorInvalido(cliente) && !Validadores.ehValorInvalido(input.cliente)){
+      cliente = await this._repositorioCliente.obterClientePorDocumento(input.cliente!.documento);
 
-      if(!Validadores.EhValorInvalido(cliente)){
-        this._notificador.AdicionarNotificacao(new Notificacao("Já existe cliente com o documento fornecido", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+      if(!Validadores.ehValorInvalido(cliente)){
+        this._notificador.adicionarNotificacao(new Notificacao("Já existe cliente com o documento fornecido", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
         return null;
       }
 
-      cliente = await this._repositorioCliente.ObterClientePorEmail(input.cliente!.email);
+      cliente = await this._repositorioCliente.obterClientePorEmail(input.cliente!.email);
 
-      if(!Validadores.EhValorInvalido(cliente)){
-        this._notificador.AdicionarNotificacao(new Notificacao("Já existe cliente com o email cadastrado", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+      if(!Validadores.ehValorInvalido(cliente)){
+        this._notificador.adicionarNotificacao(new Notificacao("Já existe cliente com o email cadastrado", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
         return null;
       }
 
-      cliente = await this._repositorioCliente.ObterClientePorLogin(input.cliente!.login);
+      cliente = await this._repositorioCliente.obterClientePorLogin(input.cliente!.login);
 
-      if(!Validadores.EhValorInvalido(cliente)){
-        this._notificador.AdicionarNotificacao(new Notificacao("Já existe cliente com o login cadastrado", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+      if(!Validadores.ehValorInvalido(cliente)){
+        this._notificador.adicionarNotificacao(new Notificacao("Já existe cliente com o login cadastrado", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
         return null;
       }
     }
 
-    if(Validadores.TextoComComprimentoEntre(input.idPlano, 36)){
-      plano = await this._repositorioPlano.ObterPlanoPorId(input.idPlano!);
+    if(Validadores.textoComComprimentoEntre(input.idPlano, 36)){
+      plano = await this._repositorioPlano.obterPlanoPorId(input.idPlano!);
 
-      if(Validadores.EhValorInvalido(plano)){
-        this._notificador.AdicionarNotificacao(new Notificacao("Id do plano fornecido não foi encontrado", 
+      if(Validadores.ehValorInvalido(plano)){
+        this._notificador.adicionarNotificacao(new Notificacao("Id do plano fornecido não foi encontrado", 
           TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
         
         return null;
       }
 
-      if(Validadores.EhIgual(plano!.Ativo, false)){
-        this._notificador.AdicionarNotificacao(new Notificacao("O sócio deve estar associado a um plano ativo", 
+      if(Validadores.ehIgual(plano!.Ativo, false)){
+        this._notificador.adicionarNotificacao(new Notificacao("O sócio deve estar associado a um plano ativo", 
           TipoNotificacao.RegraDeNegocio, this, ticketRequisicao))
         
         return null;
       }
     }
 
-    if(Validadores.EhValorInvalido(plano) && !Validadores.EhValorInvalido(input.plano)){
-      plano = await this._repositorioPlano.ObterPlanoPorNome(input.plano!.nome);
+    if(Validadores.ehValorInvalido(plano) && !Validadores.ehValorInvalido(input.plano)){
+      plano = await this._repositorioPlano.obterPlanoPorNome(input.plano!.nome);
 
-      if(!Validadores.EhValorInvalido(plano) && Validadores.EhIgual(plano!.Ativo, false)){
-        this._notificador.AdicionarNotificacao(new Notificacao("Já existe plano com o nome informado e está inativo, o sócio deve estar associado a um plano ativo", 
+      if(!Validadores.ehValorInvalido(plano) && Validadores.ehIgual(plano!.Ativo, false)){
+        this._notificador.adicionarNotificacao(new Notificacao("Já existe plano com o nome informado e está inativo, o sócio deve estar associado a um plano ativo", 
           TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
 
         return null;
       }
     }
 
-    socio = await this._repositorioSocio.ObterSocioPorContato(input.contato);
+    socio = await this._repositorioSocio.obterSocioPorContato(input.contato);
 
-    if(!Validadores.EhValorInvalido(socio)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Já existe sócio com o contato fornecido", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+    if(!Validadores.ehValorInvalido(socio)){
+      this._notificador.adicionarNotificacao(new Notificacao("Já existe sócio com o contato fornecido", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
 
       return null;
     }
 
     await this._databaseManager.$transaction(async (tx) => {
-      if(Validadores.EhValorInvalido(cliente) && !Validadores.EhValorInvalido(input.cliente))
-        cliente = await this._repositorioCliente.AdicionarCliente(tx,
+      if(Validadores.ehValorInvalido(cliente) && !Validadores.ehValorInvalido(input.cliente))
+        cliente = await this._repositorioCliente.adicionarCliente(tx,
         input.cliente!.documento, input.cliente!.nome, input.cliente!.email,
-        input.cliente!.login, Hash.CriptografarTexto(input.cliente!.senha)
+        input.cliente!.login, Hash.criptografarTexto(input.cliente!.senha)
       );
 
-      if(Validadores.EhValorInvalido(plano) && !Validadores.EhValorInvalido(input.plano))
-        plano = await this._repositorioPlano.AdicionarPlano(tx, input.plano!.nome, input.plano!.descricao, 
+      if(Validadores.ehValorInvalido(plano) && !Validadores.ehValorInvalido(input.plano))
+        plano = await this._repositorioPlano.adicionarPlano(tx, input.plano!.nome, input.plano!.descricao, 
           input.plano!.tipoRecorrencia, input.plano!.valorMensalidade, input.plano!.modalidade);
 
-      endereco = await this._repositorioEndereco.AdicionarEndereco(tx, input.endereco!.pais, input.endereco!.cidade,
+      endereco = await this._repositorioEndereco.adicionarEndereco(tx, input.endereco!.pais, input.endereco!.cidade,
         input.endereco!.cep, input.endereco!.bairro, input.endereco!.rua, input.endereco!.numero);
 
-      socio = await this._repositorioSocio.AdicionarSocio(tx, input.diaVencimentoPagamento, input.contato, 
+      socio = await this._repositorioSocio.adicionarSocio(tx, input.diaVencimentoPagamento, input.contato, 
         plano!.Id, cliente!.Id, endereco!.Id, input.apelido);      
     });
 
@@ -157,59 +157,59 @@ class ServicoSocio implements IServicoSocio {
     );
   }
 
-  AtualizarSocio = async (input: AtualizarSocioInput, ticketRequisicao: string, idSocio: string): Promise<AtualizarSocioResult | null> => {
+  atualizarSocio = async (input: AtualizarSocioInput, ticketRequisicao: string, idSocio: string): Promise<AtualizarSocioResult | null> => {
     let cliente : Cliente | null = null;
     
-    const socio = await this._repositorioSocio.ObterSocioComEnderecoECliente(idSocio);
+    const socio = await this._repositorioSocio.obterSocioComEnderecoECliente(idSocio);
 
-    if(Validadores.EhValorInvalido(socio)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Sócio não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+    if(Validadores.ehValorInvalido(socio)){
+      this._notificador.adicionarNotificacao(new Notificacao("Sócio não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
 
       return null;
     }
 
-    const socioEncontrado = await this._repositorioSocio.ObterSocioPorContato(input.contato);
+    const socioEncontrado = await this._repositorioSocio.obterSocioPorContato(input.contato);
 
-    if(!Validadores.EhValorInvalido(socioEncontrado) && !Validadores.EhIgual(socioEncontrado!.Id, idSocio)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Já existe sócio com o contato registrado", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+    if(!Validadores.ehValorInvalido(socioEncontrado) && !Validadores.ehIgual(socioEncontrado!.Id, idSocio)){
+      this._notificador.adicionarNotificacao(new Notificacao("Já existe sócio com o contato registrado", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
 
       return null;
     }
     
-    const planoEncontrado = await this._repositorioPlano.ObterPlanoPorNome(input.nomePlano);
+    const planoEncontrado = await this._repositorioPlano.obterPlanoPorNome(input.nomePlano);
 
-    if(Validadores.EhValorInvalido(planoEncontrado)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Plano não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
-
-      return null;
-    }
-
-    if(!Validadores.EhValorInvalido(planoEncontrado) && !Validadores.EhIgual(planoEncontrado!.Ativo, true)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Plano especificado está inativo", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+    if(Validadores.ehValorInvalido(planoEncontrado)){
+      this._notificador.adicionarNotificacao(new Notificacao("Plano não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
 
       return null;
     }
 
-    cliente = await this._repositorioCliente.ObterClientePorDocumento(input.cliente.documento);
-
-    if(!Validadores.EhValorInvalido(cliente) && !Validadores.EhIgual(socio!.Cliente.Id, cliente!.Id)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Documento especificado já é usado por outro cliente", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+    if(!Validadores.ehValorInvalido(planoEncontrado) && !Validadores.ehIgual(planoEncontrado!.Ativo, true)){
+      this._notificador.adicionarNotificacao(new Notificacao("Plano especificado está inativo", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
 
       return null;
     }
 
-    cliente = await this._repositorioCliente.ObterClientePorEmail(input.cliente.email);
+    cliente = await this._repositorioCliente.obterClientePorDocumento(input.cliente.documento);
 
-    if(!Validadores.EhValorInvalido(cliente) && !Validadores.EhIgual(socio!.Cliente.Id, cliente!.Id)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Email especificado já é usado por outro cliente", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+    if(!Validadores.ehValorInvalido(cliente) && !Validadores.ehIgual(socio!.Cliente.Id, cliente!.Id)){
+      this._notificador.adicionarNotificacao(new Notificacao("Documento especificado já é usado por outro cliente", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
 
       return null;
     }
 
-    cliente = await this._repositorioCliente.ObterClientePorLogin(input.cliente.login);
+    cliente = await this._repositorioCliente.obterClientePorEmail(input.cliente.email);
 
-    if(!Validadores.EhValorInvalido(cliente) && !Validadores.EhIgual(socio!.Cliente.Id, cliente!.Id)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Login especificado já é usado por outro cliente", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+    if(!Validadores.ehValorInvalido(cliente) && !Validadores.ehIgual(socio!.Cliente.Id, cliente!.Id)){
+      this._notificador.adicionarNotificacao(new Notificacao("Email especificado já é usado por outro cliente", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+
+    cliente = await this._repositorioCliente.obterClientePorLogin(input.cliente.login);
+
+    if(!Validadores.ehValorInvalido(cliente) && !Validadores.ehIgual(socio!.Cliente.Id, cliente!.Id)){
+      this._notificador.adicionarNotificacao(new Notificacao("Login especificado já é usado por outro cliente", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
 
       return null;
     }
@@ -217,10 +217,10 @@ class ServicoSocio implements IServicoSocio {
     let socioResultante: AtualizarSocioResult | null = null
     
     await this._databaseManager.$transaction(async (tx) => {
-      const clienteAtualizado = await this._repositorioCliente.AtualizarDadosCliente(tx, input.cliente.documento, input.cliente.nome, input.cliente.email, input.cliente.login, socio!.Cliente.Id);
-      const enderecoAtualizado = await this._repositorioEndereco.AtualizarDadosEndereco(tx, input.endereco.pais, input.endereco.cidade, input.endereco.cep, 
+      const clienteAtualizado = await this._repositorioCliente.atualizarDadosCliente(tx, input.cliente.documento, input.cliente.nome, input.cliente.email, input.cliente.login, socio!.Cliente.Id);
+      const enderecoAtualizado = await this._repositorioEndereco.atualizarDadosEndereco(tx, input.endereco.pais, input.endereco.cidade, input.endereco.cep, 
         input.endereco.bairro, input.endereco.rua, input.endereco.numero, socio!.Endereco.Id);
-      const socioAtualizado = await this._repositorioSocio.AtualizarDadosSocio(tx, input.diaVencimentoPagamento, input.contato, planoEncontrado!.Id, idSocio, input.apelido);
+      const socioAtualizado = await this._repositorioSocio.atualizarDadosSocio(tx, input.diaVencimentoPagamento, input.contato, planoEncontrado!.Id, idSocio, input.apelido);
 
       socioResultante = new AtualizarSocioResult(socioAtualizado.Apelido, socioAtualizado.DiaVencimentoPagamento, 
         new AtualizarClienteResult(clienteAtualizado.Nome, clienteAtualizado.Login),
@@ -233,17 +233,17 @@ class ServicoSocio implements IServicoSocio {
     return socioResultante;
   }
 
-  AlterarStatusAtivo = async (ticketRequisicao: string, idSocio: string, estaAtivo: boolean): Promise<SocioStatusResult | null> => {
-    const socioEncontrado = await this._repositorioSocio.ObterSocioComEnderecoECliente(idSocio);
+  alterarStatusAtivo = async (ticketRequisicao: string, idSocio: string, estaAtivo: boolean): Promise<SocioStatusResult | null> => {
+    const socioEncontrado = await this._repositorioSocio.obterSocioComEnderecoECliente(idSocio);
 
-    if(Validadores.EhValorInvalido(socioEncontrado)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Sócio não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+    if(Validadores.ehValorInvalido(socioEncontrado)){
+      this._notificador.adicionarNotificacao(new Notificacao("Sócio não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
 
       return null;
     }
     
-    if(Validadores.EhIgual(socioEncontrado!.Cliente.Ativo, estaAtivo)){
-      this._notificador.AdicionarNotificacao(new Notificacao(`Sócio já está ${this.ObterStatus(estaAtivo)}`, TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+    if(Validadores.ehIgual(socioEncontrado!.Cliente.Ativo, estaAtivo)){
+      this._notificador.adicionarNotificacao(new Notificacao(`Sócio já está ${this.obterStatus(estaAtivo)}`, TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
 
       return null;
     }
@@ -251,7 +251,7 @@ class ServicoSocio implements IServicoSocio {
     let resposta: SocioStatusResult | null = null;
     
     await this._databaseManager.$transaction(async (tx) => {
-      const clienteAtualizado = await this._repositorioCliente.AlterarStatusAtivo(tx, estaAtivo, socioEncontrado!.Cliente.Id);
+      const clienteAtualizado = await this._repositorioCliente.alterarStatusAtivo(tx, estaAtivo, socioEncontrado!.Cliente.Id);
     
       resposta = new SocioStatusResult(idSocio, clienteAtualizado.Ativo);
     });
@@ -259,17 +259,17 @@ class ServicoSocio implements IServicoSocio {
     return resposta;
   };
 
-  ObterTodosOsSocios = async () :Promise<ObterSocioResult[] | null> => {
-    const socios = await this._repositorioSocio.ObterTodosOsSociosComPlanoEnderecoECliente();
+  obterTodosOsSocios = async () :Promise<ObterSocioResult[] | null> => {
+    const socios = await this._repositorioSocio.obterTodosOsSociosComPlanoEnderecoECliente();
 
-    if(Validadores.EhIgual(socios.length, 0)){
+    if(Validadores.ehIgual(socios.length, 0)){
       return null;
     }
 
     const listaSocios = new Array<ObterSocioResult>();
 
     socios.forEach(socio => {
-      const novoSocio = this.ConverterEntidadeEmDto(socio);
+      const novoSocio = this.converterEntidadeEmDto(socio);
 
       listaSocios.push(novoSocio);
     });
@@ -277,21 +277,21 @@ class ServicoSocio implements IServicoSocio {
     return listaSocios;
   }
 
-  ObterSocioPorId = async (idSocio: string, ticketRequisicao: string) : Promise<ObterSocioResult | null> => {
-    const socio = await this._repositorioSocio.ObterSocioComPlanoEnderecoEClientePeloId(idSocio);
+  obterSocioPorId = async (idSocio: string, ticketRequisicao: string) : Promise<ObterSocioResult | null> => {
+    const socio = await this._repositorioSocio.obterSocioComPlanoEnderecoEClientePeloId(idSocio);
 
-    if(Validadores.EhValorInvalido(socio)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Sócio não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+    if(Validadores.ehValorInvalido(socio)){
+      this._notificador.adicionarNotificacao(new Notificacao("Sócio não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
 
       return null;
     }
 
-    return this.ConverterEntidadeEmDto(socio!);
+    return this.converterEntidadeEmDto(socio!);
   }
 
-  private ObterStatus = (status: boolean) => status ? 'habilitado' : 'desabilitado';
+  private obterStatus = (status: boolean) => status ? 'habilitado' : 'desabilitado';
 
-  private ConverterEntidadeEmDto = (socio: Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; }) : ObterSocioResult => {
+  private converterEntidadeEmDto = (socio: Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; }) : ObterSocioResult => {
     return new ObterSocioResult(socio.Id, socio.DiaVencimentoPagamento,
       new ObterClienteResult(socio.Cliente.Id, socio.Cliente.Nome, socio.Cliente.Documento, socio.Cliente.Login, socio.Cliente.Email, socio.Cliente.Ativo, 
         socio.Cliente.DataCriacao, socio.Cliente.DataAtualizacao),

@@ -26,7 +26,7 @@ RotasPapeis.get('/papeis',
   */
 
   AutorizacaoMiddleware,
-  controladorPapel.ObterPapeis);
+  controladorPapel.obterPapeis);
 
 RotasPapeis.get('/papeis/:idPapel', 
 
@@ -57,6 +57,6 @@ RotasPapeis.get('/papeis/:idPapel',
   */
 
   AutorizacaoMiddleware,
-  controladorPapel.ObterPapelPorId);
+  controladorPapel.obterPapelPorId);
 
 export { RotasPapeis };

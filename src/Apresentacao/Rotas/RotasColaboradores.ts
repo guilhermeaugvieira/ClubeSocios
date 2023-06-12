@@ -42,7 +42,7 @@ RotasColaboradores.post('/colaboradores',
     }
   */
 
-  controladorColaborador.AdicionarColaborador);
+  controladorColaborador.adicionarColaborador);
 
 RotasColaboradores.post('/colaboradores/login',
   /*
@@ -75,7 +75,7 @@ RotasColaboradores.post('/colaboradores/login',
     }
   */
 
-  controladorColaborador.LoginColaborador
+  controladorColaborador.loginColaborador
 );
 
 export { RotasColaboradores };

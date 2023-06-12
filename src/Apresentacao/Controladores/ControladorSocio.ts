@@ -22,34 +22,34 @@ class ControladorSocio extends ControladorBase {
     this._servicoSocio = servicoSocio;
   }
 
-  AdicionarSocio = async(req: Request, res: Response): Promise<Response> => {
-    const ticketRequisicao = this.CriarTicketRequisicao();
+  adicionarSocio = async(req: Request, res: Response): Promise<Response> => {
+    const ticketRequisicao = this.criarTicketRequisicao();
 
     const input = AdicionarSocioInput.construirDoRequest(req.body);
 
     const errosValidacao = input!.validarModelo([], ticketRequisicao);
 
     if(errosValidacao.length > 0){
-      errosValidacao.forEach(notificacao => this._notificador.AdicionarNotificacao(notificacao));
+      errosValidacao.forEach(notificacao => this._notificador.adicionarNotificacao(notificacao));
       
-      return this.RespostaBase(res, StatusCodes.CREATED, null, ticketRequisicao);
+      return this.respostaBase(res, StatusCodes.CREATED, null, ticketRequisicao);
     }
 
-    const resposta = await this._servicoSocio.AdicionarSocio(input!, ticketRequisicao);
+    const resposta = await this._servicoSocio.adicionarSocio(input!, ticketRequisicao);
 
-    return this.RespostaBase(res, StatusCodes.CREATED, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.CREATED, resposta, ticketRequisicao);
 
   }
 
-  AtualizarSocio = async(req: Request, res: Response): Promise<Response> => {
-    const ticketRequisicao = this.CriarTicketRequisicao();
+  atualizarSocio = async(req: Request, res: Response): Promise<Response> => {
+    const ticketRequisicao = this.criarTicketRequisicao();
 
     const idSocio = req.params.idSocio;
 
-    if(!Validadores.TextoComComprimentoEntre(idSocio, 36)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Id do socio inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
+    if(!Validadores.textoComComprimentoEntre(idSocio, 36)){
+      this._notificador.adicionarNotificacao(new Notificacao("Id do socio inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
 
-      return this.RespostaBase(res, StatusCodes.OK, null, ticketRequisicao);
+      return this.respostaBase(res, StatusCodes.OK, null, ticketRequisicao);
     }
 
     const input = AtualizarSocioInput.construirDoRequest(req.body);
@@ -57,55 +57,55 @@ class ControladorSocio extends ControladorBase {
     const errosValidacao = input!.validarModelo([], ticketRequisicao);
 
     if(errosValidacao.length > 0){
-      errosValidacao.forEach(notificacao => this._notificador.AdicionarNotificacao(notificacao));
+      errosValidacao.forEach(notificacao => this._notificador.adicionarNotificacao(notificacao));
       
-      return this.RespostaBase(res, StatusCodes.OK, null, ticketRequisicao);
+      return this.respostaBase(res, StatusCodes.OK, null, ticketRequisicao);
     }
 
-    const resposta = await this._servicoSocio.AtualizarSocio(input!, ticketRequisicao, idSocio);
+    const resposta = await this._servicoSocio.atualizarSocio(input!, ticketRequisicao, idSocio);
 
-    return this.RespostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
   }
 
-  AtualizarStatusSocio = async(req: Request, res: Response): Promise<Response> => {
-    const ticketRequisicao = this.CriarTicketRequisicao();
+  atualizarStatusSocio = async(req: Request, res: Response): Promise<Response> => {
+    const ticketRequisicao = this.criarTicketRequisicao();
 
     const idSocio = req.params.idSocio;
     const status = req.body.status as boolean;
 
-    if(!Validadores.TextoComComprimentoEntre(idSocio, 36)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Id do socio inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
+    if(!Validadores.textoComComprimentoEntre(idSocio, 36)){
+      this._notificador.adicionarNotificacao(new Notificacao("Id do socio inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
 
-      return this.RespostaBase(res, StatusCodes.OK, null, ticketRequisicao);
+      return this.respostaBase(res, StatusCodes.OK, null, ticketRequisicao);
     }
 
-    const resposta = await this._servicoSocio.AlterarStatusAtivo(ticketRequisicao, idSocio, status);
+    const resposta = await this._servicoSocio.alterarStatusAtivo(ticketRequisicao, idSocio, status);
 
-    return this.RespostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
   }
 
-  ObterSocios = async(req: Request, res: Response): Promise<Response> => {
-    const ticketRequisicao = this.CriarTicketRequisicao();
+  obterSocios = async(req: Request, res: Response): Promise<Response> => {
+    const ticketRequisicao = this.criarTicketRequisicao();
 
-    const resposta = await this._servicoSocio.ObterTodosOsSocios();
+    const resposta = await this._servicoSocio.obterTodosOsSocios();
 
-    return this.RespostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
   }
 
-  ObterSocioPorId = async(req: Request, res: Response): Promise<Response> => {
-    const ticketRequisicao = this.CriarTicketRequisicao();
+  obterSocioPorId = async(req: Request, res: Response): Promise<Response> => {
+    const ticketRequisicao = this.criarTicketRequisicao();
 
     const idSocio = req.params.idSocio;
 
-    if(!Validadores.TextoComComprimentoEntre(idSocio, 36)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Id do socio inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
+    if(!Validadores.textoComComprimentoEntre(idSocio, 36)){
+      this._notificador.adicionarNotificacao(new Notificacao("Id do socio inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
 
-      return this.RespostaBase(res, StatusCodes.OK, null, ticketRequisicao);
+      return this.respostaBase(res, StatusCodes.OK, null, ticketRequisicao);
     }
 
-    const resposta = await this._servicoSocio.ObterSocioPorId(idSocio, ticketRequisicao);
+    const resposta = await this._servicoSocio.obterSocioPorId(idSocio, ticketRequisicao);
 
-    return this.RespostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
   }
 }
 

@@ -14,7 +14,7 @@ class RepositorioColaborador implements IRepositorioColaborador {
     this._databaseManager = databaseManager;
   }
 
-  ObterColaboradorPorClienteEPapel = (idCliente: string, idPapel: string) : Promise < Colaborador | null > => {
+  obterColaboradorPorClienteEPapel = (idCliente: string, idPapel: string) : Promise < Colaborador | null > => {
     return this._databaseManager.colaborador.findFirst({
       where: {
         AND: {
@@ -25,7 +25,7 @@ class RepositorioColaborador implements IRepositorioColaborador {
     });
   }
 
-  AdicionarColaborador = async(
+  adicionarColaborador = async(
     transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
     idCliente: string, idPapel: string, idNovoColaborador: string | undefined = uuid()) : Promise<Colaborador> => {
     return transactionContext.colaborador.create({

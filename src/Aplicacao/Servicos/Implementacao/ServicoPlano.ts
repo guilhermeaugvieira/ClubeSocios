@@ -4,6 +4,7 @@ import { INotificador } from "../../../Core/INotificador";
 import { Notificacao, TipoNotificacao } from "../../../Core/Notificacao";
 import { Validadores } from "../../../Core/Validadores";
 import { IRepositorioPlano } from "../../../Dados/Interfaces/IRepositorioPlano";
+import { AdicionarPlanoInput } from "../../Modelos/Inputs/PlanoInput";
 import { ObterPlanoResult } from "../../Modelos/Results/PlanoResult";
 import { IServicoPlano } from "../Interfaces/IServicoPlano";
 
@@ -24,38 +25,42 @@ class ServicoPlano implements IServicoPlano {
     this._repositorioPlano = repositorioPapel;
   }
 
-  ObterTodosOsPlanos = async () :Promise<ObterPlanoResult[] | null> => {
-    const planosEncontrados = await this._repositorioPlano.ObterTodosOsPlanos();
+  obterTodosOsPlanos = async () :Promise<ObterPlanoResult[] | null> => {
+    const planosEncontrados = await this._repositorioPlano.obterTodosOsPlanos();
 
-    if(Validadores.EhIgual(planosEncontrados.length, 0)){
+    if(Validadores.ehIgual(planosEncontrados.length, 0)){
       return null;
     }
 
     const listaPapeis = new Array<ObterPlanoResult>();
     
     planosEncontrados.forEach(plano => {
-      listaPapeis.push(this.ConverterEntidadeEmDto(plano));
+      listaPapeis.push(this.converterEntidadeEmDto(plano));
     });
 
     return listaPapeis;
   }
 
-  ObterPlanoPorId = async(idPlano: string, ticketRequisicao: string) :Promise<ObterPlanoResult | null> => {
-    const papelEncontrado = await this._repositorioPlano.ObterPlanoPorId(idPlano);
+  obterPlanoPorId = async(idPlano: string, ticketRequisicao: string) :Promise<ObterPlanoResult | null> => {
+    const planoEncontrado = await this._repositorioPlano.obterPlanoPorId(idPlano);
 
-    if(Validadores.EhValorInvalido(papelEncontrado)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Plano não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+    if(Validadores.ehValorInvalido(planoEncontrado)){
+      this._notificador.adicionarNotificacao(new Notificacao("Plano não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
 
       return null;
     }
 
-    return this.ConverterEntidadeEmDto(papelEncontrado!);
+    return this.converterEntidadeEmDto(planoEncontrado!);
   }
 
-  private ConverterEntidadeEmDto = (plano: Plano): ObterPlanoResult => {
+  private converterEntidadeEmDto = (plano: Plano): ObterPlanoResult => {
     return new ObterPlanoResult(plano.Id, plano.Nome, plano.Descricao, plano.TipoRecorrencia, 
       parseFloat(plano.ValorMensalidade.toString()), plano.Modalidade, plano.Ativo, plano.DataCriacao, plano.DataAtualizacao);
   }
+
+  // adicionarPlano = async(plano: AdicionarPlanoInput, ticketRequisicao: string): Promise<ObterPlanoResult> => {
+  //   const planoEncontrado = await this._repositorioPlano.obterPlanoPorNome(plano.nome)
+  // }
 
 }
 

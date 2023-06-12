@@ -1,6 +1,6 @@
 class Validadores{
 
-  static EhValorInvalidoOuEspacoEmBranco = (valor: string | null| undefined) => {
+  static ehValorInvalidoOuEspacoEmBranco = (valor: string | null| undefined) => {
     if(valor === null || valor === undefined)
       return true;
 
@@ -13,14 +13,14 @@ class Validadores{
     return false;
   }
 
-  static EhValorInvalido = <TData>(valor: TData | null | undefined) => {
+  static ehValorInvalido = <TData>(valor: TData | null | undefined) => {
     if(valor === null || valor === undefined)
       return true;
 
     return false;
   }
 
-  static EhNumeroMaiorQue = (numero: number | null | undefined, numeroComparado: number | null | undefined) => {
+  static ehNumeroMaiorQue = (numero: number | null | undefined, numeroComparado: number | null | undefined) => {
     if(numero === null || numero === undefined)
       return false;
 
@@ -39,7 +39,7 @@ class Validadores{
     return false;
   }
 
-  static EhNumeroMaiorOuIgualA = (numero: number | null | undefined, numeroComparado: number | null | undefined) => {
+  static ehNumeroMaiorOuIgualA = (numero: number | null | undefined, numeroComparado: number | null | undefined) => {
     if(numero === null || numero === undefined)
       return false;
 
@@ -58,7 +58,7 @@ class Validadores{
     return false;
   }
 
-  static EhNumeroMenorQue = (numero: number | null | undefined, numeroComparado: number | null | undefined) => {
+  static ehNumeroMenorQue = (numero: number | null | undefined, numeroComparado: number | null | undefined) => {
     if(numero === null || numero === undefined)
       return false;
 
@@ -77,7 +77,7 @@ class Validadores{
     return false;
   }
 
-  static EhNumeroMenorOuIgualA = (numero: number | null | undefined, numeroComparado: number | null | undefined) => {
+  static ehNumeroMenorOuIgualA = (numero: number | null | undefined, numeroComparado: number | null | undefined) => {
     if(numero === null || numero === undefined)
       return false;
 
@@ -96,14 +96,14 @@ class Validadores{
     return false;
   }
 
-  static EhIgual = <TValor>(valor1: TValor, valor2: TValor) => {
+  static ehIgual = <TValor>(valor1: TValor, valor2: TValor) => {
     if (valor1 === valor2)
       return true;
 
     return false;
   }
 
-  static TextoComComprimentoEntre = (texto: string | null | undefined, comprimentoMinimoEsperado: number, comprimentoMaximoEsperado?: number) => {
+  static textoComComprimentoEntre = (texto: string | null | undefined, comprimentoMinimoEsperado: number, comprimentoMaximoEsperado?: number) => {
     if(texto === null || texto === undefined)
       return false;
 
@@ -118,7 +118,7 @@ class Validadores{
     return false;
   }
 
-  static TextoComUmDosCaracteres = (texto: string | null | undefined, caracteres: string[]) => {
+  static textoComUmDosCaracteres = (texto: string | null | undefined, caracteres: string[]) => {
     if(texto === null || texto === undefined)
       return false;
 
@@ -131,7 +131,7 @@ class Validadores{
     return caracteres.some(caracter => texto.includes(caracter));
   }
 
-  static EhVariavelDoTipo = (variavel: any, tipoEsperado: string) => {
+  static ehVariavelDoTipo = (variavel: any, tipoEsperado: string) => {
     if(variavel === null || variavel === undefined)
       return false;
 

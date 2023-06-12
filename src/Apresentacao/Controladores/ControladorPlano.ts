@@ -21,28 +21,28 @@ class ControladorPlano extends ControladorBase{
     this._servicoPlano = servicoPlano;
   }
 
-  ObterPlanos = async(req: Request, res: Response): Promise<Response> => {
-    const ticketRequisicao = this.CriarTicketRequisicao();
+  obterPlanos = async(req: Request, res: Response): Promise<Response> => {
+    const ticketRequisicao = this.criarTicketRequisicao();
 
-    const resposta = await this._servicoPlano.ObterTodosOsPlanos();
+    const resposta = await this._servicoPlano.obterTodosOsPlanos();
 
-    return this.RespostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
   }
 
-  ObterPlanoPorId = async(req: Request, res: Response): Promise<Response> => {
-    const ticketRequisicao = this.CriarTicketRequisicao();
+  obterPlanoPorId = async(req: Request, res: Response): Promise<Response> => {
+    const ticketRequisicao = this.criarTicketRequisicao();
 
     const idPlano = req.params.idPlano;
 
-    if(!Validadores.TextoComComprimentoEntre(idPlano, 36)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Id do plano inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
+    if(!Validadores.textoComComprimentoEntre(idPlano, 36)){
+      this._notificador.adicionarNotificacao(new Notificacao("Id do plano inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
 
-      return this.RespostaBase(res, StatusCodes.OK, null, ticketRequisicao);
+      return this.respostaBase(res, StatusCodes.OK, null, ticketRequisicao);
     }
 
-    const resposta = await this._servicoPlano.ObterPlanoPorId(idPlano, ticketRequisicao);
+    const resposta = await this._servicoPlano.obterPlanoPorId(idPlano, ticketRequisicao);
 
-    return this.RespostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
+    return this.respostaBase(res, StatusCodes.OK, resposta, ticketRequisicao);
   }
 }
 

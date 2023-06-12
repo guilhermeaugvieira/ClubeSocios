@@ -14,7 +14,7 @@ class RepositorioPapel implements IRepositorioPapel {
     this._databaseManager = databaseManager;
   }
 
-  ObterPapelPorId = (idPapel: string) : Promise<Papel | null> => {
+  obterPapelPorId = (idPapel: string) : Promise<Papel | null> => {
     return this._databaseManager.papel.findFirst({
       where: {
         Id: idPapel,
@@ -22,7 +22,7 @@ class RepositorioPapel implements IRepositorioPapel {
     });
   }
 
-  ObterPapelPorNome = (nomePapel: string) : Promise<Papel | null> => {
+  obterPapelPorNome = (nomePapel: string) : Promise<Papel | null> => {
     return this._databaseManager.papel.findFirst({
       where: {
         Nome: nomePapel.toUpperCase()
@@ -30,7 +30,7 @@ class RepositorioPapel implements IRepositorioPapel {
     });
   }
 
-  AdicionarPapel = (
+  adicionarPapel = (
     transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
     nomePapel: string, idNovoPapel: string | undefined = uuid()) : Promise<Papel> => {
     return transactionContext.papel.create({
@@ -44,7 +44,7 @@ class RepositorioPapel implements IRepositorioPapel {
     });
   }
 
-  ObterTodosOsPapeis = async () :Promise<Papel[]> => {
+  obterTodosOsPapeis = async () :Promise<Papel[]> => {
     return this._databaseManager.papel.findMany();
   }
 }

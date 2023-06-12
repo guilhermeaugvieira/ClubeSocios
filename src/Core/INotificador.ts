@@ -1,10 +1,10 @@
 import { Notificacao } from "./Notificacao";
 
 interface INotificador{
-  AdicionarNotificacao(erro: Notificacao) : void;
-  ObterNotificacoes(ticketRequisicao: string) : Notificacao[];
-  TemNotificacao(ticketRequisicao: string) : Boolean;
-  LimparNotificacoesRequisicao (ticketRequisicao: string) :void;
+  adicionarNotificacao(erro: Notificacao) : void;
+  obterNotificacoes(ticketRequisicao: string) : Notificacao[];
+  temNotificacao(ticketRequisicao: string) : Boolean;
+  limparNotificacoesRequisicao (ticketRequisicao: string) :void;
 }
 
 export { INotificador }

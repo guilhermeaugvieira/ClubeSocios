@@ -12,8 +12,8 @@ abstract class ControladorBase{
     this._notificador = notificador;
   }
 
-  protected RespostaBase = <TData>(res: Response, httpSuccessStatusCode: StatusCodes, content: TData | null, ticketRequisicao: string) : Response  => {    
-    if(!this._notificador.TemNotificacao(ticketRequisicao)){ 
+  protected respostaBase = <TData>(res: Response, httpSuccessStatusCode: StatusCodes, content: TData | null, ticketRequisicao: string) : Response  => {    
+    if(!this._notificador.temNotificacao(ticketRequisicao)){ 
       if(!content)
         return res.status(StatusCodes.NO_CONTENT).json(content);
       
@@ -23,10 +23,10 @@ abstract class ControladorBase{
       });
     }
 
-    const tiposErros = this._notificador.ObterNotificacoes(ticketRequisicao).map(erro => erro.TipoErro);
-    const mensagensErro = this._notificador.ObterNotificacoes(ticketRequisicao).map(erro => erro.Mensagem);
+    const tiposErros = this._notificador.obterNotificacoes(ticketRequisicao).map(erro => erro.TipoErro);
+    const mensagensErro = this._notificador.obterNotificacoes(ticketRequisicao).map(erro => erro.Mensagem);
 
-    this._notificador.LimparNotificacoesRequisicao(ticketRequisicao);
+    this._notificador.limparNotificacoesRequisicao(ticketRequisicao);
 
     const respostaErro = new RespostaErro(mensagensErro);
 
@@ -39,7 +39,7 @@ abstract class ControladorBase{
     return res.status(StatusCodes.CONFLICT).json(respostaErro);
   }
 
-  protected CriarTicketRequisicao = () => uuid();
+  protected criarTicketRequisicao = () => uuid();
 
 }
 

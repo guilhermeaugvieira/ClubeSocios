@@ -14,7 +14,7 @@ class RepositorioCliente implements IRepositorioCliente {
     this._databaseManager = databaseManager;
   }
 
-  ObterClientePorId = (idCliente: string) : Promise<Cliente | null> => {
+  obterClientePorId = (idCliente: string) : Promise<Cliente | null> => {
     return this._databaseManager.cliente.findFirst({
       where: {
         Id: idCliente
@@ -22,7 +22,7 @@ class RepositorioCliente implements IRepositorioCliente {
     })
   }
 
-  ObterClientePorDocumento = (documentoCliente: string) : Promise<Cliente | null> => {
+  obterClientePorDocumento = (documentoCliente: string) : Promise<Cliente | null> => {
     return this._databaseManager.cliente.findFirst({
       where: {
         Documento: documentoCliente.toUpperCase()
@@ -30,7 +30,7 @@ class RepositorioCliente implements IRepositorioCliente {
     })
   }
 
-  ObterClientePorLogin = (loginCliente: string): Promise <Cliente | null> => {
+  obterClientePorLogin = (loginCliente: string): Promise <Cliente | null> => {
     return this._databaseManager.cliente.findFirst({
       where: {
         Login: loginCliente.toUpperCase()
@@ -38,7 +38,7 @@ class RepositorioCliente implements IRepositorioCliente {
     })
   };
 
-  ObterClientePorEmail = (emailCliente: string): Promise <Cliente | null> => {
+  obterClientePorEmail = (emailCliente: string): Promise <Cliente | null> => {
     return this._databaseManager.cliente.findFirst({
       where: {
         Email: emailCliente.toLowerCase()
@@ -46,7 +46,7 @@ class RepositorioCliente implements IRepositorioCliente {
     })
   }
 
-  AdicionarCliente = async (
+  adicionarCliente = async (
     transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
     documento: string, nome: string, email: string, 
     login: string, senha: string, idNovoCliente: string | undefined = uuid()) : Promise<Cliente> => 
@@ -66,7 +66,7 @@ class RepositorioCliente implements IRepositorioCliente {
     });
   }
 
-  AtualizarDadosCliente = async (
+  atualizarDadosCliente = async (
     transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
     documento: string, nome: string, email: string, login: string, idCliente: string) : Promise<Cliente> => 
   {
@@ -85,7 +85,7 @@ class RepositorioCliente implements IRepositorioCliente {
     });
   }
 
-  AlterarStatusAtivo = async (
+  alterarStatusAtivo = async (
     transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
     estaAtivo: boolean, idCliente: string) : Promise<Cliente> => 
   {

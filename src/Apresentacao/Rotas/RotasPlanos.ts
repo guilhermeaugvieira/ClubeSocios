@@ -30,7 +30,7 @@ RotasPlanos.get('/planos',
   */
 
   AutorizacaoMiddleware,
-  controladorPlano.ObterPlanos);
+  controladorPlano.obterPlanos);
 
 RotasPlanos.get('/planos/:idPlano', 
 
@@ -61,6 +61,6 @@ RotasPlanos.get('/planos/:idPlano',
   */
 
   AutorizacaoMiddleware,
-  controladorPlano.ObterPlanoPorId);
+  controladorPlano.obterPlanoPorId);
 
 export { RotasPlanos };

@@ -10,7 +10,7 @@ class AdicionarPapelInput {
   }
 
   static construirDoRequest = (papel: any) : AdicionarPapelInput | null => {
-    if(Validadores.EhValorInvalido(papel))
+    if(Validadores.ehValorInvalido(papel))
       return null;
 
     const { nome } = papel;
@@ -20,15 +20,15 @@ class AdicionarPapelInput {
 
   validarModelo = (notificacoes: Notificacao[], ticketRequisicao: string) : Notificacao[] => {
     
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.nome))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.nome))
       notificacoes.push(new Notificacao("Nome do papel precisa ser preenchido", TipoNotificacao.DadoIncorreto, 
         this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.nome, 4, 30))
+    if(!Validadores.textoComComprimentoEntre(this.nome, 4, 30))
       notificacoes.push(new Notificacao("Nome do papel precisa conter entre 4 e 30 caracteres", TipoNotificacao.DadoIncorreto, 
         this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.nome, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.nome, 'string'))
       notificacoes.push(new Notificacao("Nome do papel precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
     
     return notificacoes;

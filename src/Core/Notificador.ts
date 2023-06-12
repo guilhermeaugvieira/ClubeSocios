@@ -9,22 +9,22 @@ class Notificador implements INotificador{
     this._MensagensErro = new Array<Notificacao>();
   }
 
-  AdicionarNotificacao = (erro: Notificacao) : void => {
+  adicionarNotificacao = (erro: Notificacao) : void => {
     if(erro.Mensagem.trim().length === 0)
       return;
     
     this._MensagensErro.push(erro);
   }
 
-  ObterNotificacoes = (ticketRequisicao: string) : Notificacao[] =>  {
+  obterNotificacoes = (ticketRequisicao: string) : Notificacao[] =>  {
     return this._MensagensErro.filter(mensagem => mensagem.TicketRequisicao === ticketRequisicao);
   }
 
-  TemNotificacao = (ticketRequisicao: string) : Boolean => {
+  temNotificacao = (ticketRequisicao: string) : Boolean => {
     return this._MensagensErro.some(mensagem => mensagem.TicketRequisicao === ticketRequisicao);
   }
 
-  LimparNotificacoesRequisicao = (ticketRequisicao: string) :void => {
+  limparNotificacoesRequisicao = (ticketRequisicao: string) :void => {
     this._MensagensErro = this._MensagensErro.filter(mensagem => mensagem.TicketRequisicao !== ticketRequisicao);
   }
 }
