@@ -18,11 +18,11 @@ class ServicoPlano implements IServicoPlano {
   constructor(
     @inject("Notificador") notificador: INotificador,
     @inject("Database") databaseManager: PrismaClient,
-    @inject("RepositorioPlano") repositorioPapel: IRepositorioPlano,
+    @inject("RepositorioPlano") repositorioPlano: IRepositorioPlano,
   ){
     this._notificador = notificador;
     this._databaseManager = databaseManager;
-    this._repositorioPlano = repositorioPapel;
+    this._repositorioPlano = repositorioPlano;
   }
 
   obterTodosOsPlanos = async () :Promise<ObterPlanoResult[] | null> => {
