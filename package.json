@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "npm run gen-doc:dev && dotenv -e .env.development -- ts-node-dev --inspect --transpile-only src/Apresentacao/index.ts",
-    "start:docker": "npm run gen-doc:dev && dotenv -e .env.docker -- ts-node-dev --inspect --transpile-only src/Apresentacao/index.ts",
+    "start:docker": "npm run gen-doc:docker && dotenv -e .env.docker -- ts-node-dev --inspect --transpile-only src/Apresentacao/index.ts",
     "gen-doc:dev": "dotenv -e .env.development -- node src/Apresentacao/Swagger/Gerador.js",
     "gen-doc:docker": "dotenv -e .env.docker -- node src/Apresentacao/Swagger/Gerador.js",
     "prisma-migrate-dev:dev": "dotenv -e .env.development -- prisma migrate dev",
