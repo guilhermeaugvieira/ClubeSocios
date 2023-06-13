@@ -18,7 +18,7 @@ class AdicionarColaboradorInput {
   }
 
   static construirDoRequest = (colaborador: any) => {   
-    if(Validadores.EhValorInvalido(colaborador))
+    if(Validadores.ehValorInvalido(colaborador))
       return null;
     
     const { idCliente, idPapel, cliente, papel} = colaborador;
@@ -30,34 +30,34 @@ class AdicionarColaboradorInput {
   }
 
   validarModelo = (notificacoes: Notificacao[], ticketRequisicao: string) : Notificacao[] => {
-    if(Validadores.EhValorInvalido(this.cliente) && !Validadores.EhVariavelDoTipo(this.idCliente, 'string'))
+    if(Validadores.ehValorInvalido(this.cliente) && !Validadores.ehVariavelDoTipo(this.idCliente, 'string'))
       notificacoes.push(new Notificacao("Id do cliente precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
   
-    if(Validadores.EhValorInvalido(this.cliente) && !Validadores.EhValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.TextoComComprimentoEntre(this.idCliente, 36))
+    if(Validadores.ehValorInvalido(this.cliente) && !Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.textoComComprimentoEntre(this.idCliente, 36))
       notificacoes.push(new Notificacao("Id do cliente precisa ter 36 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalido(this.papel) && !Validadores.EhVariavelDoTipo(this.idPapel, 'string'))
+    if(Validadores.ehValorInvalido(this.papel) && !Validadores.ehVariavelDoTipo(this.idPapel, 'string'))
       notificacoes.push(new Notificacao("Id do Papel precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
     
-    if(Validadores.EhValorInvalido(this.papel) && !Validadores.EhValorInvalidoOuEspacoEmBranco(this.idPapel) && !Validadores.TextoComComprimentoEntre(this.idPapel, 36))
+    if(Validadores.ehValorInvalido(this.papel) && !Validadores.ehValorInvalidoOuEspacoEmBranco(this.idPapel) && !Validadores.textoComComprimentoEntre(this.idPapel, 36))
       notificacoes.push(new Notificacao("Id do Papel precisa ter 36 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
     
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.idCliente) && Validadores.EhValorInvalido(this.cliente))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && Validadores.ehValorInvalido(this.cliente))
       notificacoes.push(new Notificacao("Se o id do cliente não é fornecido deve ser preenchido os dados do cliente", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.EhValorInvalido(this.cliente))
+    if(!Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.ehValorInvalido(this.cliente))
       notificacoes.push(new Notificacao("Somente um dos dados referente ao cliente deve ser preenchido", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.idPapel) && Validadores.EhValorInvalido(this.papel))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.idPapel) && Validadores.ehValorInvalido(this.papel))
       notificacoes.push(new Notificacao("Se o id do papel não é fornecido deve ser preenchido os dados do papel", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhValorInvalidoOuEspacoEmBranco(this.idPapel) && !Validadores.EhValorInvalido(this.papel))
+    if(!Validadores.ehValorInvalidoOuEspacoEmBranco(this.idPapel) && !Validadores.ehValorInvalido(this.papel))
       notificacoes.push(new Notificacao("Somente um dos dados referente ao papel deve ser preenchido", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.EhValorInvalido(this.cliente))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.ehValorInvalido(this.cliente))
       this.cliente!.validarModelo(notificacoes, ticketRequisicao);
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.idPapel) && !Validadores.EhValorInvalido(this.papel))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.idPapel) && !Validadores.ehValorInvalido(this.papel))
       this.papel!.validarModelo(notificacoes, ticketRequisicao);
 
     return notificacoes;
@@ -74,7 +74,7 @@ class LoginColaboradorInput {
   }
 
   static construirDoRequest = (loginData: any): LoginColaboradorInput | null => {
-    if(Validadores.EhValorInvalido(loginData))
+    if(Validadores.ehValorInvalido(loginData))
       return null;
 
     const { login, senha } = loginData;
@@ -83,16 +83,16 @@ class LoginColaboradorInput {
   }
 
   validarModelo = (notificacoes: Notificacao[], ticketRequisicao: string) : Notificacao[] => {
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.login))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.login))
       notificacoes.push(new Notificacao("Login precisa ser preenchido", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.login, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.login, 'string'))
       notificacoes.push(new Notificacao("Login precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.senha))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.senha))
       notificacoes.push(new Notificacao("Senha precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.senha, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.senha, 'string'))
       notificacoes.push(new Notificacao("Senha precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     return notificacoes;

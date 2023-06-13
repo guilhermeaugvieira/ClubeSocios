@@ -1,6 +1,6 @@
 import PrismaInstance from "../../PrismaInstance";
 
-const LimparBancoDeDados = async () => {
+const limparBancoDeDados = async () => {
   await PrismaInstance.$transaction([
     PrismaInstance.veiculoSocio.deleteMany(),
     PrismaInstance.pagamentoSocio.deleteMany(),
@@ -14,4 +14,4 @@ const LimparBancoDeDados = async () => {
   ]);
 }
 
-export { LimparBancoDeDados };
+export { limparBancoDeDados };

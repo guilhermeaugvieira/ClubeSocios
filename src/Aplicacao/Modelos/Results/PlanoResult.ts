@@ -4,29 +4,35 @@ class AdicionarPlanoResult{
   descricao: string;
   tipoRecorrencia: string;
   modalidade: string;
+  valorMensalidade: number;
   id: string;
 
-  constructor(nome: string, descricao: string, tipoRecorrencia: string, modalidade: string, id: string){
+  constructor(nome: string, descricao: string, tipoRecorrencia: string, modalidade: string, valorMensalidade: number, id: string){
     this.nome = nome;
     this.descricao = descricao;
     this.tipoRecorrencia = tipoRecorrencia;
     this.modalidade = modalidade;
+    this.valorMensalidade = valorMensalidade;
     this.id = id;
   }
 }
 
 class AtualizarPlanoResult {
   
+  id: string;
   nome: string;
   descricao: string;
   tipoRecorrencia: string;
   modalidade: string;
+  valorMensalidade: number;
 
-  constructor(nome: string, descricao: string, tipoRecorrencia: string, modalidade: string){
+  constructor(nome: string, descricao: string, tipoRecorrencia: string, modalidade: string, valorMensalidade: number, id: string){
     this.nome = nome;
     this.descricao = descricao;
     this.tipoRecorrencia = tipoRecorrencia;
     this.modalidade = modalidade;
+    this.id = id;
+    this.valorMensalidade = valorMensalidade;
   }
 }
 
@@ -54,4 +60,14 @@ class ObterPlanoResult {
   }
 }
 
-export { AdicionarPlanoResult, AtualizarPlanoResult, ObterPlanoResult }
+class PlanoStatusResult {
+  id: string;
+  status: boolean;
+
+  constructor(id: string, status: boolean){
+    this.id = id;
+    this.status = status;
+  }
+}
+
+export { AdicionarPlanoResult, AtualizarPlanoResult, ObterPlanoResult, PlanoStatusResult }

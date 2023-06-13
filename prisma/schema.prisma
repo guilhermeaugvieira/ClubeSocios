@@ -52,7 +52,7 @@ model Plano {
   DataCriacao      DateTime  @default(now()) @map("data_criacao") @db.Timestamp
   DataAtualizacao  DateTime? @map("data_atualizacao") @db.Timestamp
 
-  Socio      Socio[]
+  Socios      Socio[]
   Pagamentos PagamentoSocio[]
 
   @@map("planos")

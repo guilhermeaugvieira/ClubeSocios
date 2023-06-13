@@ -20,7 +20,7 @@ class AdicionarEnderecoInput {
   }
 
   static construirDoRequest = (endereco: any) => {   
-    if(Validadores.EhValorInvalido(endereco))
+    if(Validadores.ehValorInvalido(endereco))
       return null;
     
     const { pais, cidade, cep, bairro, rua, numero } = endereco;
@@ -29,55 +29,55 @@ class AdicionarEnderecoInput {
   }
 
   validarModelo = (notificacoes: Notificacao[], ticketRequisicao: string) : Notificacao[] => {
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.pais))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.pais))
       notificacoes.push(new Notificacao("País precisa ser preenchido", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.pais, 3, 30))
+    if(!Validadores.textoComComprimentoEntre(this.pais, 3, 30))
       notificacoes.push(new Notificacao("País precisa ter entre 3 a 30 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.pais, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.pais, 'string'))
       notificacoes.push(new Notificacao("País precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.cidade))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.cidade))
       notificacoes.push(new Notificacao("Cidade precisa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.cidade, 3, 30))
+    if(!Validadores.textoComComprimentoEntre(this.cidade, 3, 30))
       notificacoes.push(new Notificacao("Cidade precisa ter entre 3 a 30 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-      if(!Validadores.EhVariavelDoTipo(this.cidade, 'string'))
+      if(!Validadores.ehVariavelDoTipo(this.cidade, 'string'))
       notificacoes.push(new Notificacao("Cidade precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.cep))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.cep))
       notificacoes.push(new Notificacao("Cep precisa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.cep, 9))
+    if(!Validadores.textoComComprimentoEntre(this.cep, 9))
       notificacoes.push(new Notificacao("Cep precisa ter entre 9 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.cep, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.cep, 'string'))
       notificacoes.push(new Notificacao("Cep precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.bairro))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.bairro))
       notificacoes.push(new Notificacao("Bairro precisa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.bairro, 5, 40))
+    if(!Validadores.textoComComprimentoEntre(this.bairro, 5, 40))
       notificacoes.push(new Notificacao("Bairro precisa ter entre 5 a 40 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.bairro, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.bairro, 'string'))
       notificacoes.push(new Notificacao("Bairro precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.rua))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.rua))
       notificacoes.push(new Notificacao("Rua precisa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.rua, 5, 40))
+    if(!Validadores.textoComComprimentoEntre(this.rua, 5, 40))
       notificacoes.push(new Notificacao("Rua precisa ter entre 5 a 40 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.rua, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.rua, 'string'))
       notificacoes.push(new Notificacao("Rua precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhValorInvalido(this.numero) && !Validadores.EhNumeroMaiorQue(this.numero, 0))
+    if(!Validadores.ehValorInvalido(this.numero) && !Validadores.ehNumeroMaiorQue(this.numero, 0))
       notificacoes.push(new Notificacao("Número precisa ser maior que 0", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhValorInvalido(this.numero) && !Validadores.EhVariavelDoTipo(this.numero, 'number'))
+    if(!Validadores.ehValorInvalido(this.numero) && !Validadores.ehVariavelDoTipo(this.numero, 'number'))
       notificacoes.push(new Notificacao("Número precisa ser um número", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     return notificacoes;
@@ -103,7 +103,7 @@ class AtualizarEnderecoInput {
   }
 
   static construirDoRequest = (endereco: any) => {   
-    if(Validadores.EhValorInvalido(endereco))
+    if(Validadores.ehValorInvalido(endereco))
       return null;
     
     const { pais, cidade, cep, bairro, rua, numero } = endereco;
@@ -112,55 +112,55 @@ class AtualizarEnderecoInput {
   }
 
   validarModelo = (notificacoes: Notificacao[], ticketRequisicao: string) : Notificacao[] => {
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.pais))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.pais))
       notificacoes.push(new Notificacao("País precisa ser preenchido", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.pais, 3, 30))
+    if(!Validadores.textoComComprimentoEntre(this.pais, 3, 30))
       notificacoes.push(new Notificacao("País precisa ter entre 3 a 30 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.pais, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.pais, 'string'))
       notificacoes.push(new Notificacao("País precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.cidade))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.cidade))
       notificacoes.push(new Notificacao("Cidade precisa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.cidade, 3, 30))
+    if(!Validadores.textoComComprimentoEntre(this.cidade, 3, 30))
       notificacoes.push(new Notificacao("Cidade precisa ter entre 3 a 30 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.cidade, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.cidade, 'string'))
       notificacoes.push(new Notificacao("Cidade precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.cep))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.cep))
       notificacoes.push(new Notificacao("Cep precisa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.cep, 9))
+    if(!Validadores.textoComComprimentoEntre(this.cep, 9))
       notificacoes.push(new Notificacao("Cep precisa ter entre 9 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.cep, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.cep, 'string'))
       notificacoes.push(new Notificacao("Cep precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.bairro))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.bairro))
       notificacoes.push(new Notificacao("Bairro precisa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.bairro, 5, 40))
+    if(!Validadores.textoComComprimentoEntre(this.bairro, 5, 40))
       notificacoes.push(new Notificacao("Bairro precisa ter entre 5 a 40 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.bairro, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.bairro, 'string'))
       notificacoes.push(new Notificacao("Bairro precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.EhValorInvalidoOuEspacoEmBranco(this.rua))
+    if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.rua))
       notificacoes.push(new Notificacao("Rua precisa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.TextoComComprimentoEntre(this.rua, 5, 40))
+    if(!Validadores.textoComComprimentoEntre(this.rua, 5, 40))
       notificacoes.push(new Notificacao("Rua precisa ter entre 5 a 40 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhVariavelDoTipo(this.rua, 'string'))
+    if(!Validadores.ehVariavelDoTipo(this.rua, 'string'))
       notificacoes.push(new Notificacao("Rua precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhValorInvalido(this.numero) && !Validadores.EhNumeroMaiorQue(this.numero, 0))
+    if(!Validadores.ehValorInvalido(this.numero) && !Validadores.ehNumeroMaiorQue(this.numero, 0))
       notificacoes.push(new Notificacao("Número precisa ser maior que 0", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.EhValorInvalido(this.numero) && !Validadores.EhVariavelDoTipo(this.numero, 'number'))
+    if(!Validadores.ehValorInvalido(this.numero) && !Validadores.ehVariavelDoTipo(this.numero, 'number'))
       notificacoes.push(new Notificacao("Número precisa ser um número", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     return notificacoes;

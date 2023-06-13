@@ -1,4 +1,4 @@
-import { Plano, Prisma, PrismaClient } from "@prisma/client";
+import { Plano, Prisma, PrismaClient, Socio } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
 import { IRepositorioPlano } from "../Interfaces/IRepositorioPlano";
 import { v4 as uuid } from "uuid";
@@ -14,7 +14,18 @@ class RepositorioPlano implements IRepositorioPlano {
     this._databaseManager = databaseManager;
   }
 
-  ObterPlanoPorId = (idPlano: string) : Promise<Plano | null> => {
+  obterPlanoComSocios = (idPlano: string): Promise<(Plano & { Socios: Socio[]; } | null) | null> => {
+    return this._databaseManager.plano.findFirst({
+      where: {
+        Id: idPlano
+      },
+      include: {
+        Socios: true,
+      }
+    });
+  };
+
+  obterPlanoPorId = (idPlano: string) : Promise<Plano | null> => {
     return this._databaseManager.plano.findFirst({
       where: {
         Id: idPlano
@@ -22,7 +33,7 @@ class RepositorioPlano implements IRepositorioPlano {
     });
   };
 
-  ObterPlanoPorNome = (nomePlano: string) : Promise<Plano | null> => {
+  obterPlanoPorNome = (nomePlano: string) : Promise<Plano | null> => {
     return this._databaseManager.plano.findFirst({
       where: {
         Nome: nomePlano.toUpperCase()
@@ -30,7 +41,7 @@ class RepositorioPlano implements IRepositorioPlano {
     })
   };
 
-  AdicionarPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  adicionarPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
     nome: string, descricao: string, tipoRecorrencia: string, valorMensalidade: number, modalidade: string, idNovoPlano: string | undefined = uuid()): Promise<Plano> => {
     return transactionContext.plano.create({
       data: {
@@ -38,7 +49,7 @@ class RepositorioPlano implements IRepositorioPlano {
         Nome: nome.toUpperCase(),
         Descricao: descricao,
         TipoRecorrencia: tipoRecorrencia.toUpperCase(),
-        ValorMensalidade: valorMensalidade,
+        ValorMensalidade: new Prisma.Decimal(valorMensalidade),
         Modalidade: modalidade.toUpperCase(),
         DataAtualizacao: null,
         DataCriacao: new Date(),
@@ -47,7 +58,37 @@ class RepositorioPlano implements IRepositorioPlano {
     });
   }
 
-  ObterTodosOsPlanos = async () : Promise<Plano[]> => {
+  atualizarDadosPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    nome: string, descricao: string, tipoRecorrencia: string, valorMensalidade: number, modalidade: string, idPlano: string): Promise<Plano> => {
+    return transactionContext.plano.update({
+      data: {
+        Nome: nome.toUpperCase(),
+        Descricao: descricao,
+        TipoRecorrencia: tipoRecorrencia.toUpperCase(),
+        ValorMensalidade: new Prisma.Decimal(valorMensalidade),
+        Modalidade: modalidade.toUpperCase(),
+        DataAtualizacao: new Date(),
+      },
+      where: {
+        Id: idPlano,
+      }
+    });
+  }
+
+  atualizarStatusAtivoDoPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    status: boolean, idPlano: string): Promise<Plano> => {
+    return transactionContext.plano.update({
+      data: {
+        Ativo: status,
+        DataAtualizacao: new Date(),
+      },
+      where: {
+        Id: idPlano,
+      }
+    });
+  }
+
+  obterTodosOsPlanos = async () : Promise<Plano[]> => {
     return this._databaseManager.plano.findMany();
   }
 }

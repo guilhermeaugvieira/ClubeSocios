@@ -1,15 +1,19 @@
-import { LimparBancoDeDados } from "../../Dados/Utilidades/Funcoes";
+import { limparBancoDeDados } from "../../Dados/Utilidades/Funcoes";
 import { ObterTokenAcessoParaTestes } from "./ControladorColaborador.E2E.Test";
 import Supertest from 'supertest'
 import { Servidor } from "../Configuracoes/Servidor";
 import { ObterPapelResult } from "../../Aplicacao/Modelos/Results/PapelResult";
 import { AdicionarColaboradorInput } from "../../Aplicacao/Modelos/Inputs/ColaboradorInput";
 import { AdicionarClienteInput } from "../../Aplicacao/Modelos/Inputs/ClienteInput";
-import { AdicionarPapelInput } from "../../Aplicacao/Modelos/Inputs/PapelInput";
+import { AdicionarPapelInput, AtualizarPapelInput } from "../../Aplicacao/Modelos/Inputs/PapelInput";
 import { v4 as uuid } from 'uuid';
 
 afterEach(async () => {
-  await LimparBancoDeDados();
+  await limparBancoDeDados();
+});
+
+beforeAll(async () => {
+  await limparBancoDeDados();
 });
 
 describe('Módulo API Papel - Obter Papéis', () => {
@@ -51,21 +55,114 @@ describe('Módulo API Papel - Obter Papel Por Id', () => {
 
     expect(papelCadastrado.status).toEqual(200); 
     expect(papelCadastrado.body.dados.nome).toEqual("SECRETARIA");   
-    
   });
+});
 
-  test('Ao obter o papel cadastrado pelo Id e o papel não existir, deve retornar as todas as informações do papel', async () => {
+describe('Módulo API Papel - AdicionarPapel',() => {
+  test('Ao adicionar papel, deve retornar as informações cadastradas', async () => {
     const tokenAcesso = await ObterTokenAcessoParaTestes("Administrador", "TesteSocio", "socio1234", "00000000001", "administrador@email.com");
-    const erroEsperado = 'Papel não foi encontrado';
 
-    const papelCadastrado = await Supertest(Servidor)
-      .get(`/api/papeis/${uuid()}`)
+    const novoPapel = new AdicionarPapelInput('Teste');
+
+    const respostaAdicao = await Supertest(Servidor)
+      .post("/api/papeis")
+      .send(novoPapel)
       .set('Authorization', tokenAcesso)
       .set('Accept', 'application/json');
 
-    const respostaObtencaoPapel = papelCadastrado.body.erros;
+    const resultadoAdicaoPapel = respostaAdicao.body.dados;
 
-    expect(papelCadastrado.status).toEqual(404);    
-    expect(respostaObtencaoPapel[0]).toEqual(erroEsperado);
+    expect(respostaAdicao.status).toEqual(201);
+    expect(resultadoAdicaoPapel.nome).toEqual('TESTE');
   });
-})
+});
+
+describe('Módulo API Papel - AtualizarPapel',() => {
+  test('Ao atualizar papel, deve retornar as informações cadastradas', async () => {
+    const tokenAcesso = await ObterTokenAcessoParaTestes("Administrador", "TesteSocio", "socio1234", "00000000001", "administrador@email.com");
+
+    const novoPapel = new AdicionarPapelInput('Teste');
+
+    const respostaAdicao = await Supertest(Servidor)
+    .post("/api/papeis")
+    .send(novoPapel)
+    .set('Authorization', tokenAcesso)
+    .set('Accept', 'application/json');
+
+    const resultadoAdicaoPapel = respostaAdicao.body.dados;
+
+    const papelAtualizado = new AtualizarPapelInput('Teste2');
+
+    const respostaAtualizacao = await Supertest(Servidor)
+      .put(`/api/papeis/${resultadoAdicaoPapel.id}`)
+      .send(papelAtualizado)
+      .set('Authorization', tokenAcesso)
+      .set('Accept', 'application/json');
+
+    const resultadoAtualizacaoPapel = respostaAtualizacao.body.dados;
+
+    expect(respostaAtualizacao.status).toEqual(200);
+    expect(resultadoAtualizacaoPapel.nome).toEqual('TESTE2');
+    expect(resultadoAtualizacaoPapel.id).toEqual(resultadoAdicaoPapel.id);
+  });
+});
+
+describe('Módulo API Papel - AtualizarStatusPapel',() => {
+  test('Ao atualizar o status do papel, deve retornar o novo status e o id', async () => {
+    const tokenAcesso = await ObterTokenAcessoParaTestes("Administrador", "TesteSocio", "socio1234", "00000000001", "administrador@email.com");
+
+    const novoPapel = new AdicionarPapelInput('Teste');
+
+    const respostaAdicao = await Supertest(Servidor)
+    .post("/api/papeis")
+    .send(novoPapel)
+    .set('Authorization', tokenAcesso)
+    .set('Accept', 'application/json');
+
+    const resultadoAdicaoPapel = respostaAdicao.body.dados;
+
+    const papelAtualizado = {
+      status: false,
+    }
+
+    const respostaAtualizacaoStatusPapel = await Supertest(Servidor)
+      .patch(`/api/papeis/${resultadoAdicaoPapel.id}`)
+      .send(papelAtualizado)
+      .set('Authorization', tokenAcesso)
+      .set('Accept', 'application/json');
+
+    const resultadoAtualizacaoStatusPapel = respostaAtualizacaoStatusPapel.body.dados;
+
+    expect(respostaAtualizacaoStatusPapel.status).toEqual(200);
+    expect(resultadoAtualizacaoStatusPapel.status).toEqual(false);
+    expect(resultadoAtualizacaoStatusPapel.id).toEqual(resultadoAdicaoPapel.id);
+  });
+
+  test('Ao atualizar o status do papel para falso e havendo colaboradores, deve retornar null', async () => {
+    const tokenAcesso = await ObterTokenAcessoParaTestes("Administrador", "TesteSocio", "socio1234", "00000000001", "administrador@email.com");
+
+    const erroEsperado = 'Para a desativação o papel não pode estar associado a nenhum colaborador';
+    
+    const papeisCadastrados = await Supertest(Servidor)
+    .get(`/api/papeis`)
+    .set('Authorization', tokenAcesso)
+    .set('Accept', 'application/json');
+
+    const respostaPapeis = papeisCadastrados.body.dados as ObterPapelResult[];    
+
+    const papelAtualizado = {
+      status: false,
+    }
+
+    const respostaAtualizacaoStatusPapel = await Supertest(Servidor)
+      .patch(`/api/papeis/${respostaPapeis[0].id}`)
+      .send(papelAtualizado)
+      .set('Authorization', tokenAcesso)
+      .set('Accept', 'application/json');
+
+    const resultadoAtualizacaoStatusPapel = respostaAtualizacaoStatusPapel.body.erros as string[];
+
+    expect(respostaAtualizacaoStatusPapel.status).toEqual(409);
+    expect(resultadoAtualizacaoStatusPapel.pop()).toEqual(erroEsperado);
+  });
+});

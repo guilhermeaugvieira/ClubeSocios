@@ -48,11 +48,11 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
 
     PrismaMock.cliente.findFirst.mockResolvedValueOnce(null);
 
-    const result = await servicoSocio.AdicionarSocio(socioRecebido, ticketRequisicao);
+    const result = await servicoSocio.adicionarSocio(socioRecebido, ticketRequisicao);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao adicionar um novo sócio, especificando um id de cliente inativo, deve retornar null", async () => {
@@ -82,14 +82,14 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
       Id: uuid(),
       Login: 'abcP4',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('P@ssw0rd'),
+      Senha: Hash.criptografarTexto('P@ssw0rd'),
     });
 
-    const result = await servicoSocio.AdicionarSocio(socioRecebido, ticketRequisicao);
+    const result = await servicoSocio.adicionarSocio(socioRecebido, ticketRequisicao);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao adicionar um novo sócio, especificando um id de cliente já utilizado por outro sócio, deve retornar null", async () => {
@@ -119,7 +119,7 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
       Id: uuid(),
       Login: 'abcP4',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('P@ssw0rd'),
+      Senha: Hash.criptografarTexto('P@ssw0rd'),
     });
 
     PrismaMock.socio.findFirst.mockResolvedValueOnce({
@@ -134,11 +134,11 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
       Id: uuid()
     })
 
-    const result = await servicoSocio.AdicionarSocio(socioRecebido, ticketRequisicao);
+    const result = await servicoSocio.adicionarSocio(socioRecebido, ticketRequisicao);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao adicionar um novo sócio, especificando um cliente com documento já existente, deve retornar null", async () => {
@@ -156,7 +156,7 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
 
     const socioRecebido = new AdicionarSocioInput(1, '00000000000', null, 
       null, null, null, null, 
-      new AdicionarClienteInput('Teste', '00000000000', 'Teste', Hash.CriptografarTexto("P@ssw0rd"), 'abc@email.com'));
+      new AdicionarClienteInput('Teste', '00000000000', 'Teste', Hash.criptografarTexto("P@ssw0rd"), 'abc@email.com'));
 
     PrismaMock.$transaction.mockImplementationOnce(callback => callback(PrismaMock));
 
@@ -169,14 +169,14 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
       Id: uuid(),
       Login: 'abcP4',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('P@ssw0rd'),
+      Senha: Hash.criptografarTexto('P@ssw0rd'),
     });
 
-    const result = await servicoSocio.AdicionarSocio(socioRecebido, ticketRequisicao);
+    const result = await servicoSocio.adicionarSocio(socioRecebido, ticketRequisicao);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao adicionar um novo sócio, especificando um cliente com email já existente, deve retornar null", async () => {
@@ -194,7 +194,7 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
 
     const socioRecebido = new AdicionarSocioInput(1, '00000000000', null, 
       null, null, null, null, 
-      new AdicionarClienteInput('Teste', '00000000000', 'Teste', Hash.CriptografarTexto("P@ssw0rd"), 'abc@email.com'));
+      new AdicionarClienteInput('Teste', '00000000000', 'Teste', Hash.criptografarTexto("P@ssw0rd"), 'abc@email.com'));
 
     PrismaMock.$transaction.mockImplementationOnce(callback => callback(PrismaMock));
 
@@ -209,14 +209,14 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
       Id: uuid(),
       Login: 'abcP4',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('P@ssw0rd'),
+      Senha: Hash.criptografarTexto('P@ssw0rd'),
     });
 
-    const result = await servicoSocio.AdicionarSocio(socioRecebido, ticketRequisicao);
+    const result = await servicoSocio.adicionarSocio(socioRecebido, ticketRequisicao);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao adicionar um novo sócio, especificando um cliente com login já existente, deve retornar null", async () => {
@@ -234,7 +234,7 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
 
     const socioRecebido = new AdicionarSocioInput(1, '00000000000', null, 
       null, null, null, null, 
-      new AdicionarClienteInput('Teste', '00000000000', 'Teste', Hash.CriptografarTexto("P@ssw0rd"), 'abc@email.com'));
+      new AdicionarClienteInput('Teste', '00000000000', 'Teste', Hash.criptografarTexto("P@ssw0rd"), 'abc@email.com'));
 
     PrismaMock.$transaction.mockImplementationOnce(callback => callback(PrismaMock));
 
@@ -251,14 +251,14 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
       Id: uuid(),
       Login: 'abcP4',
       Nome: 'Teste',
-      Senha: Hash.CriptografarTexto('P@ssw0rd'),
+      Senha: Hash.criptografarTexto('P@ssw0rd'),
     });
 
-    const result = await servicoSocio.AdicionarSocio(socioRecebido, ticketRequisicao);
+    const result = await servicoSocio.adicionarSocio(socioRecebido, ticketRequisicao);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao adicionar um novo sócio, ao procurar um plano pelo id e não encontrar, deve retornar null", async () => {
@@ -281,11 +281,11 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
 
     PrismaMock.plano.findFirst.mockResolvedValueOnce(null);
 
-    const result = await servicoSocio.AdicionarSocio(socioRecebido, ticketRequisicao);
+    const result = await servicoSocio.adicionarSocio(socioRecebido, ticketRequisicao);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao adicionar um novo sócio, ao procurar um plano pelo id e encontrar um plano inativo, deve retornar null", async () => {
@@ -318,11 +318,11 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
       ValorMensalidade: new Prisma.Decimal(1)
     });
 
-    const result = await servicoSocio.AdicionarSocio(socioRecebido, ticketRequisicao);
+    const result = await servicoSocio.adicionarSocio(socioRecebido, ticketRequisicao);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao adicionar um novo sócio, ao procurar um plano pelo nome e encontrar um plano inativo, deve retornar null", async () => {
@@ -355,11 +355,11 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
       ValorMensalidade: new Prisma.Decimal(1)
     });
 
-    const result = await servicoSocio.AdicionarSocio(socioRecebido, ticketRequisicao);
+    const result = await servicoSocio.adicionarSocio(socioRecebido, ticketRequisicao);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao adicionar um novo sócio, ao procurar um plano pelo nome e encontrar um plano inativo, deve retornar null", async () => {
@@ -391,11 +391,11 @@ describe("Módulo ServicoSocio - AdicionarSocio", () => {
       Id: uuid(),
     })
 
-    const result = await servicoSocio.AdicionarSocio(socioRecebido, ticketRequisicao);
+    const result = await servicoSocio.adicionarSocio(socioRecebido, ticketRequisicao);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 })
 
@@ -423,11 +423,11 @@ describe("Módulo ServicoSocio - AtualizarSocio", () => {
 
     PrismaMock.socio.findFirst.mockResolvedValueOnce(null);
 
-    const result = await servicoSocio.AtualizarSocio(socioRecebido, ticketRequisicao, uuid());
+    const result = await servicoSocio.atualizarSocio(socioRecebido, ticketRequisicao, uuid());
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao atualizar sócio com contato existente deve apresentar a mensagem 'Já existe sócio com o contato registrado'", async() => {
@@ -475,11 +475,11 @@ describe("Módulo ServicoSocio - AtualizarSocio", () => {
       Id: uuid(),
     });
 
-    const result = await servicoSocio.AtualizarSocio(socioRecebido, ticketRequisicao, uuid());
+    const result = await servicoSocio.atualizarSocio(socioRecebido, ticketRequisicao, uuid());
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao atualizar sócio com nome de plano inexistente deve apresentar a mensagem 'Plano não foi encontrado'", async() => {
@@ -519,11 +519,11 @@ describe("Módulo ServicoSocio - AtualizarSocio", () => {
 
     PrismaMock.plano.findFirst.mockResolvedValueOnce(null);
 
-    const result = await servicoSocio.AtualizarSocio(socioRecebido, ticketRequisicao, uuid());
+    const result = await servicoSocio.atualizarSocio(socioRecebido, ticketRequisicao, uuid());
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 
   test("Ao atualizar sócio com nome de plano inativo deve apresentar a mensagem 'Plano especificado está inativo'", async() => {
@@ -573,11 +573,11 @@ describe("Módulo ServicoSocio - AtualizarSocio", () => {
       ValorMensalidade: new Prisma.Decimal(1),
     });
 
-    const result = await servicoSocio.AtualizarSocio(socioRecebido, ticketRequisicao, uuid());
+    const result = await servicoSocio.atualizarSocio(socioRecebido, ticketRequisicao, uuid());
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 });
 
@@ -599,10 +599,10 @@ describe("Módulo ServicoSocio - AlterarStatusAtivo", () => {
 
     PrismaMock.socio.findFirst.mockResolvedValueOnce(null);
 
-    const result = await servicoSocio.AlterarStatusAtivo(ticketRequisicao, uuid(), true);
+    const result = await servicoSocio.alterarStatusAtivo(ticketRequisicao, uuid(), true);
 
     expect(result).toEqual(null);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
-    expect(notificador.ObterNotificacoes(ticketRequisicao).length).toEqual(1);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
 })

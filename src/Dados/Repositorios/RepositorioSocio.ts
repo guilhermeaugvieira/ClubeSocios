@@ -14,7 +14,7 @@ class RepositorioSocio implements IRepositorioSocio{
     this._databaseManager = databaseManager;
   }
 
-  ObterSocioComEnderecoECliente = async(idSocio: string) : Promise<(Socio & { Cliente: Cliente; Endereco: Endereco; }) | null> => {
+  obterSocioComEnderecoECliente = async(idSocio: string) : Promise<(Socio & { Cliente: Cliente; Endereco: Endereco; }) | null> => {
     return this._databaseManager.socio.findFirst({
       where: {
         Id: idSocio,
@@ -26,7 +26,7 @@ class RepositorioSocio implements IRepositorioSocio{
     });
   }
   
-  ObterSocioPorIdDoCliente = async (idCliente: string) : Promise<Socio | null> => {
+  obterSocioPorIdDoCliente = async (idCliente: string) : Promise<Socio | null> => {
     return this._databaseManager.socio.findFirst({
       where: {
         Cliente: {
@@ -36,7 +36,7 @@ class RepositorioSocio implements IRepositorioSocio{
     });
   }
 
-  ObterSocioPorContato = ( contatoSocio: string ) : Promise<Socio | null> => {
+  obterSocioPorContato = ( contatoSocio: string ) : Promise<Socio | null> => {
     return this._databaseManager.socio.findFirst({
       where: {
         Contato: contatoSocio
@@ -44,7 +44,7 @@ class RepositorioSocio implements IRepositorioSocio{
     });
   }
 
-  AdicionarSocio = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  adicionarSocio = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
     diaVencimentoPagamento: number, contato: string, idPlano: string, idCliente: string, idEndereco: string, apelido?: string | null, idNovoSocio: string | undefined = uuid()) :Promise<Socio> => {
     return transactionContext.socio.create({
       data: {
@@ -73,7 +73,7 @@ class RepositorioSocio implements IRepositorioSocio{
     });
   }
 
-  AtualizarDadosSocio = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  atualizarDadosSocio = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
     diaVencimentoPagamento: number, contato: string, idPlano: string, idSocio: string, apelido?: string | null) :Promise<Socio> => {
     return transactionContext.socio.update({
       data: {
@@ -89,7 +89,7 @@ class RepositorioSocio implements IRepositorioSocio{
     });
   };
 
-  ObterTodosOsSociosComPlanoEnderecoECliente = async () :Promise<(Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; })[]> => {
+  obterTodosOsSociosComPlanoEnderecoECliente = async () :Promise<(Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; })[]> => {
     return this._databaseManager.socio.findMany({
       include: {
         Cliente: true,
@@ -99,7 +99,7 @@ class RepositorioSocio implements IRepositorioSocio{
     });
   }
 
-  ObterSocioComPlanoEnderecoEClientePeloId = async (idSocio: string) :Promise<(Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; }) | null> => {
+  obterSocioComPlanoEnderecoEClientePeloId = async (idSocio: string) :Promise<(Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; }) | null> => {
     return this._databaseManager.socio.findFirst({
       include: {
         Cliente: true,

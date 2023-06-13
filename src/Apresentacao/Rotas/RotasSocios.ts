@@ -50,7 +50,7 @@ RotasSocios.post('/socios',
   */
 
   AutorizacaoMiddleware,
-  controladorSocio.AdicionarSocio);
+  controladorSocio.adicionarSocio);
 
 RotasSocios.put('/socios/:idSocio', 
 
@@ -95,7 +95,7 @@ RotasSocios.put('/socios/:idSocio',
   */
 
   AutorizacaoMiddleware,
-  controladorSocio.AtualizarSocio);
+  controladorSocio.atualizarSocio);
 
 RotasSocios.patch('/socios/:idSocio', 
 
@@ -140,7 +140,7 @@ RotasSocios.patch('/socios/:idSocio',
   */
 
   AutorizacaoMiddleware,
-  controladorSocio.AtualizarStatusSocio);
+  controladorSocio.atualizarStatusSocio);
 
 RotasSocios.get('/socios', 
 
@@ -165,7 +165,7 @@ RotasSocios.get('/socios',
   */
 
   AutorizacaoMiddleware,
-  controladorSocio.ObterSocios);
+  controladorSocio.obterSocios);
 
 RotasSocios.get('/socios/:idSocio', 
 
@@ -196,6 +196,6 @@ RotasSocios.get('/socios/:idSocio',
   */
 
   AutorizacaoMiddleware,
-  controladorSocio.ObterSocioPorId);
+  controladorSocio.obterSocioPorId);
 
 export { RotasSocios };

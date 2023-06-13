@@ -5,10 +5,14 @@ import { v4 as uuid } from 'uuid';
 import { AdicionarColaboradorInput } from "../../Aplicacao/Modelos/Inputs/ColaboradorInput";
 import { AdicionarClienteInput } from "../../Aplicacao/Modelos/Inputs/ClienteInput";
 import { AdicionarPapelInput } from "../../Aplicacao/Modelos/Inputs/PapelInput";
-import { LimparBancoDeDados } from '../../Dados/Utilidades/Funcoes';
+import { limparBancoDeDados } from '../../Dados/Utilidades/Funcoes';
 
 afterEach(async () => {
-  await LimparBancoDeDados();
+  await limparBancoDeDados();
+});
+
+beforeAll(async () => {
+  await limparBancoDeDados();
 });
 
 describe('Módulo API Colaboradores - AdicionarColaborador', () => {

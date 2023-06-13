@@ -2,7 +2,7 @@ import Supertest from 'supertest'
 import { Servidor } from "../Configuracoes/Servidor";
 import PrismaInstance from "../../PrismaInstance";
 import { v4 as uuid } from 'uuid';
-import { LimparBancoDeDados } from '../../Dados/Utilidades/Funcoes';
+import { limparBancoDeDados } from '../../Dados/Utilidades/Funcoes';
 import { AdicionarSocioInput, AtualizarSocioInput } from '../../Aplicacao/Modelos/Inputs/SocioInput';
 import { AdicionarEnderecoInput, AtualizarEnderecoInput } from '../../Aplicacao/Modelos/Inputs/EnderecoInput';
 import { AdicionarPlanoInput } from '../../Aplicacao/Modelos/Inputs/PlanoInput';
@@ -11,7 +11,11 @@ import { ObterTokenAcessoParaTestes } from './ControladorColaborador.E2E.Test';
 import { ObterSocioResult } from '../../Aplicacao/Modelos/Results/SocioResult';
 
 afterEach(async () => {
-  await LimparBancoDeDados();
+  await limparBancoDeDados();
+});
+
+beforeAll(async () => {
+  await limparBancoDeDados();
 });
 
 describe('Módulo API Sócios - Adicionar Sócios', () => {

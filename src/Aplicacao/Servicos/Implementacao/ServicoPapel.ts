@@ -4,7 +4,8 @@ import { INotificador } from "../../../Core/INotificador";
 import { Notificacao, TipoNotificacao } from "../../../Core/Notificacao";
 import { Validadores } from "../../../Core/Validadores";
 import { IRepositorioPapel } from "../../../Dados/Interfaces/IRepositorioPapel";
-import { ObterPapelResult } from "../../Modelos/Results/PapelResult";
+import { AdicionarPapelInput, AtualizarPapelInput } from "../../Modelos/Inputs/PapelInput";
+import { AdicionarPapelResult, AtualizarPapelResult, ObterPapelResult, PapelStatusResult } from "../../Modelos/Results/PapelResult";
 import { IServicoPapel } from "../Interfaces/IServicoPapel";
 
 @injectable()
@@ -24,31 +25,105 @@ class ServicoPapel implements IServicoPapel {
     this._repositorioPapel = repositorioPapel;
   }
 
-  ObterTodosOsPapeis = async () :Promise<ObterPapelResult[]> => {
-    const papeisEncontrados = await this._repositorioPapel.ObterTodosOsPapeis();
+  obterTodosOsPapeis = async () :Promise<ObterPapelResult[]> => {
+    const papeisEncontrados = await this._repositorioPapel.obterTodosOsPapeis();
 
     const listaPapeis = new Array<ObterPapelResult>();
     
     papeisEncontrados.forEach(papel => {
-      listaPapeis.push(this.ConverterEntidadeEmDto(papel));
+      listaPapeis.push(this.converterEntidadeEmDto(papel));
     });
 
     return listaPapeis;
   }
 
-  ObterPapelPorId = async(idPapel: string, ticketRequisicao: string) :Promise<ObterPapelResult | null> => {
-    const papelEncontrado = await this._repositorioPapel.ObterPapelPorId(idPapel);
+  obterPapelPorId = async(idPapel: string, ticketRequisicao: string) :Promise<ObterPapelResult | null> => {
+    const papelEncontrado = await this._repositorioPapel.obterPapelPorId(idPapel);
 
-    if(Validadores.EhValorInvalido(papelEncontrado)){
-      this._notificador.AdicionarNotificacao(new Notificacao("Papel não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+    if(Validadores.ehValorInvalido(papelEncontrado)){
+      this._notificador.adicionarNotificacao(new Notificacao("Papel não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
 
       return null;
     }
 
-    return this.ConverterEntidadeEmDto(papelEncontrado!);
+    return this.converterEntidadeEmDto(papelEncontrado!);
   }
 
-  private ConverterEntidadeEmDto = (papel: Papel): ObterPapelResult => {
+  adicionarPapel = async(papel: AdicionarPapelInput, ticketRequisicao: string): Promise<AdicionarPapelResult | null> => {
+    const papelEncontrado = await this._repositorioPapel.obterPapelPorNome(papel.nome);
+
+    if(!Validadores.ehValorInvalido(papelEncontrado)){
+      this._notificador.adicionarNotificacao(new Notificacao("Papel já existe", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+
+    let papelAdicionado: Papel | null = null;
+
+    await this._databaseManager.$transaction(async (tx) => {
+      papelAdicionado = await this._repositorioPapel.adicionarPapel(tx, papel.nome);
+    })
+
+    return new AdicionarPapelResult(papelAdicionado!.Nome, papelAdicionado!.Id);
+  }
+
+  atualizarPapel = async(idPapel: string, papel: AtualizarPapelInput, ticketRequisicao: string): Promise<AtualizarPapelResult | null> => {
+    let papelEncontrado = await this._repositorioPapel.obterPapelPorId(idPapel);
+
+    if(Validadores.ehValorInvalido(papelEncontrado)){
+      this._notificador.adicionarNotificacao(new Notificacao("Papel não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+
+      return null;
+    }
+
+    let papelAtualizado: Papel | null = null;
+
+    const buscaPapel = await this._repositorioPapel.obterPapelPorNome(papel.nome);
+
+    if(!Validadores.ehValorInvalido(buscaPapel) && !Validadores.ehIgual(buscaPapel!.Id, idPapel)){
+      this._notificador.adicionarNotificacao(new Notificacao("Nome já é utilizado por outro papel", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+
+    await this._databaseManager.$transaction(async (tx) => {
+      papelAtualizado = await this._repositorioPapel.atualizarDadosPapel(tx, papel.nome, idPapel);
+    })
+
+    return new AtualizarPapelResult(papelAtualizado!.Nome, papelAtualizado!.Id);
+  }
+
+  atualizarStatusPapel = async(idpapel: string, estaAtivo: boolean, ticketRequisicao: string): Promise<PapelStatusResult | null> => {
+    let papelEncontrado = await this._repositorioPapel.obterPapelComColaboradores(idpapel);
+
+    if(Validadores.ehValorInvalido(papelEncontrado)){
+      this._notificador.adicionarNotificacao(new Notificacao("Papel não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+
+      return null;
+    }
+
+    if(papelEncontrado!.Ativo === estaAtivo){
+      this._notificador.adicionarNotificacao(new Notificacao("Papel já está com o status solicitado", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+
+    if(Validadores.ehIgual(estaAtivo, false) && papelEncontrado!.Colaboradores.length > 0){
+      this._notificador.adicionarNotificacao(new Notificacao("Para a desativação o papel não pode estar associado a nenhum colaborador", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+
+    let papelAtualizado: Papel | null = null;
+
+    await this._databaseManager.$transaction(async (tx) => {
+      papelAtualizado = await this._repositorioPapel.atualizarStatusAtivoDopapel(tx, estaAtivo, idpapel);
+    })
+
+    return new PapelStatusResult(papelAtualizado!.Id, papelAtualizado!.Ativo);
+  }
+
+  private converterEntidadeEmDto = (papel: Papel): ObterPapelResult => {
     return new ObterPapelResult(papel.Id, papel.Nome, papel.Ativo, papel.DataCriacao, papel.DataAtualizacao);
   }
 

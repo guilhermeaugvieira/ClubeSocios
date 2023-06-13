@@ -63,8 +63,8 @@ const doc = {
       id: '',
       nome: '',
       ativo: false,
-      dataCriacao: new Date(),
-      dataAtualizacao: null,
+      dataCriacao: new Date().toISOString(),
+      dataAtualizacao: new Date().toISOString(),
     },
     ObterPlanoResultProcessed: {
       sucesso: true,
@@ -97,8 +97,8 @@ const doc = {
       login: '',
       email: '',
       ativo: false,
-      dataCriacao: new Date(),
-      dataAtualizacao: null,
+      dataCriacao: new Date().toISOString(),
+      dataAtualizacao: new Date().toISOString(),
     },
     ObterPlanoResult: {
       id: '',
@@ -108,8 +108,8 @@ const doc = {
       valorMensalidade: 0,
       modalidade: '',
       ativo: false,
-      dataCriacao: new Date(),
-      dataAtualizacao: null,
+      dataCriacao: new Date().toISOString(),
+      dataAtualizacao: new Date().toISOString(),
     },
     ObterEnderecoResult: {
       id: '',
@@ -119,8 +119,8 @@ const doc = {
       bairro: '',
       rua: '',
       numero: 1,
-      dataCriacao: new Date(),
-      dataAtualizacao: null,
+      dataCriacao: new Date().toISOString(),
+      dataAtualizacao: new Date().toISOString(),
     },
     ObterSocioResult: {
       id: '',
@@ -136,10 +136,16 @@ const doc = {
       endereco: {
         $ref: '#/definitions/ObterEnderecoResult',
       },
-      dataCriacao: new Date(),
-      dataAtualizacao: null,
+      dataCriacao: new Date().toISOString(),
+      dataAtualizacao: new Date().toISOString(),
     },
     SocioStatusInput: {
+      status: false,
+    },
+    PlanoStatusInput: {
+      status: false,
+    },
+    PapelStatusInput: {
       status: false,
     },
     SocioStatusResultProcessed: {
@@ -149,6 +155,26 @@ const doc = {
       },
     },
     SocioStatusResult: {
+      id: '',
+      status: false,
+    },
+    PlanoStatusResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/PlanoStatusResult'
+      },
+    },
+    PlanoStatusResult: {
+      id: '',
+      status: false,
+    },
+    PapelStatusResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/PapelStatusResult'
+      },
+    },
+    PapelStatusResult: {
       id: '',
       status: false,
     },
@@ -183,12 +209,6 @@ const doc = {
       },
       id: '',
     },
-    AdicionarSocioResultProcessed: {
-      sucesso: true,
-      dados: {
-        $ref: '#/definitions/AdicionarSocioResult'
-      },
-    },
     AtualizarClienteResult: {
       nome: '',
       login: '',
@@ -198,6 +218,9 @@ const doc = {
       descricao: '',
       tipoRecorrencia: '',
       modalidade: '',
+    },
+    AtualizarPapelResult: {
+      nome: '',
     },
     AtualizarEnderecoResult: {
       pais: '',
@@ -269,6 +292,13 @@ const doc = {
       valorMensalidade: 0,
       modalidade: '',
     },
+    AtualizarPlanoInput: {
+      nome: '',
+      descricao: '',
+      tipoRecorrencia: '',
+      valorMensalidade: 0,
+      modalidade: '',
+    },
     AdicionarSocioInput: {
       apelido: '',
       diaVencimentoPagamento: 1,
@@ -295,6 +325,9 @@ const doc = {
     AdicionarPapelInput: {
       nome: '',
     },
+    AtualizarPapelInput: {
+      nome: '',
+    },
     AdicionarColaboradorInput: {
       idCliente: '',
       cliente: {
@@ -313,8 +346,25 @@ const doc = {
       nome: '',
       login: '',
     },
+    AdicionarPapelResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/AdicionarPapelResult'
+      }
+    },
     AdicionarPapelResult: {
       nome: '',
+      id: '',
+    },
+    AtualizarPapelResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/AdicionarPapelResult'
+      }
+    },
+    AtualizarPapelResult: {
+      nome: '',
+      id: '',
     },
     AdicionarColaboradorResult: {
       cliente: {
@@ -330,11 +380,33 @@ const doc = {
       cidade: '',
       cep: '',
     },
+    AdicionarPlanoResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/AdicionarPlanoResult'
+      }
+    },
     AdicionarPlanoResult: {
       nome: '',
       descricao: '',
       tipoRecorrencia: '',
       modalidade: '',
+      valorMensalidade: 0,
+      id: '',
+    },
+    AtualizarPlanoResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/AtualizarPlanoResult'
+      }
+    },
+    AtualizarPlanoResult: {
+      nome: '',
+      descricao: '',
+      tipoRecorrencia: '',
+      modalidade: '',
+      valorMensalidade: 0,
+      id: '',
     },
     AdicionarSocioResult: {
       apelido: '',

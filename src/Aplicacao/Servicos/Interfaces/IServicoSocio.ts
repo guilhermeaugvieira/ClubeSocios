@@ -2,11 +2,11 @@ import { AdicionarSocioInput, AtualizarSocioInput } from "../../Modelos/Inputs/S
 import { AdicionarSocioResult, AtualizarSocioResult, ObterSocioResult, SocioStatusResult } from "../../Modelos/Results/SocioResult";
 
 interface IServicoSocio{
-  AdicionarSocio(input: AdicionarSocioInput, ticketRequisicao: string): Promise<AdicionarSocioResult | null>;
-  AtualizarSocio(input: AtualizarSocioInput, ticketRequisicao: string, idSocio: string): Promise<AtualizarSocioResult | null>;
-  AlterarStatusAtivo(ticketRequisicao: string, idSocio: string, estaAtivo: boolean): Promise<SocioStatusResult | null>;
-  ObterTodosOsSocios() :Promise<ObterSocioResult[] | null>;
-  ObterSocioPorId(idSocio: string, ticketRequisicao: string) : Promise<ObterSocioResult | null>;
+  adicionarSocio(input: AdicionarSocioInput, ticketRequisicao: string): Promise<AdicionarSocioResult | null>;
+  atualizarSocio(input: AtualizarSocioInput, ticketRequisicao: string, idSocio: string): Promise<AtualizarSocioResult | null>;
+  alterarStatusAtivo(ticketRequisicao: string, idSocio: string, estaAtivo: boolean): Promise<SocioStatusResult | null>;
+  obterTodosOsSocios() :Promise<ObterSocioResult[] | null>;
+  obterSocioPorId(idSocio: string, ticketRequisicao: string) : Promise<ObterSocioResult | null>;
 }
 
 export { IServicoSocio };

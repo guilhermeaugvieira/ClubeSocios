@@ -3,7 +3,7 @@ import jwt, { Jwt } from 'jsonwebtoken';
 
 class Token{
 
-  static GerarJwt = (tokenObject: Object, idClienteLogado: string, contexto: string, tempoExpiracao: string): string => {
+  static gerarJwt = (tokenObject: Object, idClienteLogado: string, contexto: string, tempoExpiracao: string): string => {
     const token = jwt.sign(tokenObject, process.env.APP_SECRET!, {
       expiresIn: tempoExpiracao,
       issuer: idClienteLogado,
@@ -15,7 +15,7 @@ class Token{
     return token;
   }
 
-  static ValidarToken = (tokenJwt: string, contexto: string, tempoExpiracao: string) : Jwt => {
+  static validarToken = (tokenJwt: string, contexto: string, tempoExpiracao: string) : Jwt => {
     const tokenData = jwt.verify(tokenJwt, process.env.APP_SECRET!, {
       audience: process.env.APP_NAME!,
       complete: true,
