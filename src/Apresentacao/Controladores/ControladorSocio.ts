@@ -46,21 +46,18 @@ class ControladorSocio extends ControladorBase {
 
     const idSocio = req.params.idSocio;
 
-    if(!Validadores.textoComComprimentoEntre(idSocio, 36)){
+    if(!Validadores.textoComComprimentoEntre(idSocio, 36))
       this._notificador.adicionarNotificacao(new Notificacao("Id do socio inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
-
-      return this.respostaBase(res, StatusCodes.OK, null, ticketRequisicao);
-    }
 
     const input = AtualizarSocioInput.construirDoRequest(req.body);
 
     const errosValidacao = input!.validarModelo([], ticketRequisicao);
 
-    if(errosValidacao.length > 0){
+    if(errosValidacao.length > 0)
       errosValidacao.forEach(notificacao => this._notificador.adicionarNotificacao(notificacao));
-      
+
+    if(this._notificador.temNotificacao(ticketRequisicao))
       return this.respostaBase(res, StatusCodes.OK, null, ticketRequisicao);
-    }
 
     const resposta = await this._servicoSocio.atualizarSocio(input!, ticketRequisicao, idSocio);
 
@@ -73,11 +70,14 @@ class ControladorSocio extends ControladorBase {
     const idSocio = req.params.idSocio;
     const status = req.body.status as boolean;
 
-    if(!Validadores.textoComComprimentoEntre(idSocio, 36)){
+    if(!Validadores.textoComComprimentoEntre(idSocio, 36))
       this._notificador.adicionarNotificacao(new Notificacao("Id do socio inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
 
+    if(!Validadores.ehVariavelDoTipo(status, 'boolean'))
+      this._notificador.adicionarNotificacao(new Notificacao("Status inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
+
+    if(this._notificador.temNotificacao(ticketRequisicao))
       return this.respostaBase(res, StatusCodes.OK, null, ticketRequisicao);
-    }
 
     const resposta = await this._servicoSocio.alterarStatusAtivo(ticketRequisicao, idSocio, status);
 

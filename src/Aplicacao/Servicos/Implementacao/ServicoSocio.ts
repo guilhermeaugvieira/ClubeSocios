@@ -152,7 +152,7 @@ class ServicoSocio implements IServicoSocio {
 
     return new AdicionarSocioResult(socio!.Apelido, socio!.DiaVencimentoPagamento, socio!.Id,
       new AdicionarClienteResult(cliente!.Nome, cliente!.Login),
-      new AdicionarPlanoResult(plano!.Nome, plano!.Descricao, plano!.TipoRecorrencia, plano!.Modalidade, plano!.Id),
+      new AdicionarPlanoResult(plano!.Nome, plano!.Descricao, plano!.TipoRecorrencia, plano!.Modalidade, plano!.ValorMensalidade.toNumber(), plano!.Id),
       new AdicionarEnderecoResult(endereco!.Pais, endereco!.Cidade, endereco!.Cep), socio!.Contato
     );
   }
@@ -224,7 +224,7 @@ class ServicoSocio implements IServicoSocio {
 
       socioResultante = new AtualizarSocioResult(socioAtualizado.Apelido, socioAtualizado.DiaVencimentoPagamento, 
         new AtualizarClienteResult(clienteAtualizado.Nome, clienteAtualizado.Login),
-        new AtualizarPlanoResult(planoEncontrado!.Nome, planoEncontrado!.Descricao, planoEncontrado!.TipoRecorrencia, planoEncontrado!.Modalidade),
+        new AtualizarPlanoResult(planoEncontrado!.Nome, planoEncontrado!.Descricao, planoEncontrado!.TipoRecorrencia, planoEncontrado!.Modalidade, planoEncontrado!.ValorMensalidade.toNumber(), planoEncontrado!.Id),
         new AtualizarEnderecoResult(enderecoAtualizado!.Pais, enderecoAtualizado!.Cidade, enderecoAtualizado!.Cep),
         socioAtualizado!.Id, socioAtualizado!.Contato
       );

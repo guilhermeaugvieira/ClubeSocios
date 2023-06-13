@@ -5,7 +5,7 @@ import { Notificacao, TipoNotificacao } from "../../../Core/Notificacao";
 import { Validadores } from "../../../Core/Validadores";
 import { IRepositorioPlano } from "../../../Dados/Interfaces/IRepositorioPlano";
 import { AdicionarPlanoInput } from "../../Modelos/Inputs/PlanoInput";
-import { AtualizarPlanoResult, AtualizarStatusPlanoResult, ObterPlanoResult } from "../../Modelos/Results/PlanoResult";
+import { AdicionarPlanoResult, AtualizarPlanoResult, ObterPlanoResult, PlanoStatusResult } from "../../Modelos/Results/PlanoResult";
 import { IServicoPlano } from "../Interfaces/IServicoPlano";
 
 @injectable()
@@ -58,7 +58,7 @@ class ServicoPlano implements IServicoPlano {
       parseFloat(plano.ValorMensalidade.toString()), plano.Modalidade, plano.Ativo, plano.DataCriacao, plano.DataAtualizacao);
   }
 
-  adicionarPlano = async(plano: AdicionarPlanoInput, ticketRequisicao: string): Promise<ObterPlanoResult | null> => {
+  adicionarPlano = async(plano: AdicionarPlanoInput, ticketRequisicao: string): Promise<AdicionarPlanoResult | null> => {
     const planoEncontrado = await this._repositorioPlano.obterPlanoPorNome(plano.nome);
 
     if(!Validadores.ehValorInvalido(planoEncontrado)){
@@ -73,7 +73,7 @@ class ServicoPlano implements IServicoPlano {
       planoAdicionado = await this._repositorioPlano.adicionarPlano(tx, plano.nome, plano.descricao, plano.tipoRecorrencia, plano.valorMensalidade, plano.modalidade);
     })
 
-    return this.converterEntidadeEmDto(planoAdicionado!);
+    return new AdicionarPlanoResult(planoAdicionado!.Nome, planoAdicionado!.Descricao, planoAdicionado!.TipoRecorrencia, planoAdicionado!.Modalidade, planoAdicionado!.ValorMensalidade.toNumber(), planoAdicionado!.Id);
   }
 
   atualizarPlano = async(idPlano: string, plano: AdicionarPlanoInput, ticketRequisicao: string): Promise<AtualizarPlanoResult | null> => {
@@ -91,10 +91,10 @@ class ServicoPlano implements IServicoPlano {
       planoAtualizado = await this._repositorioPlano.atualizarDadosPlano(tx, plano.nome, plano.descricao, plano.tipoRecorrencia, plano.valorMensalidade, plano.modalidade, idPlano);
     })
 
-    return new AtualizarPlanoResult(planoAtualizado!.Nome, planoAtualizado!.Descricao, planoAtualizado!.TipoRecorrencia, planoAtualizado!.Modalidade)
+    return new AtualizarPlanoResult(planoAtualizado!.Nome, planoAtualizado!.Descricao, planoAtualizado!.TipoRecorrencia, planoAtualizado!.Modalidade, planoAtualizado!.ValorMensalidade.toNumber(), planoAtualizado!.Id);
   }
 
-  atualizarStatusPlano = async(idPlano: string, estaAtivo: boolean, ticketRequisicao: string): Promise<AtualizarStatusPlanoResult | null> => {
+  atualizarStatusPlano = async(idPlano: string, estaAtivo: boolean, ticketRequisicao: string): Promise<PlanoStatusResult | null> => {
     let planoEncontrado = await this._repositorioPlano.obterPlanoComSocios(idPlano);
 
     if(Validadores.ehValorInvalido(planoEncontrado)){
@@ -121,7 +121,7 @@ class ServicoPlano implements IServicoPlano {
       planoAtualizado = await this._repositorioPlano.atualizarStatusAtivoDoPlano(tx, estaAtivo, idPlano);
     })
 
-    return new AtualizarStatusPlanoResult(idPlano, planoAtualizado!.Ativo);
+    return new PlanoStatusResult(idPlano, planoAtualizado!.Ativo);
   }
 
 }

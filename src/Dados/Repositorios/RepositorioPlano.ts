@@ -49,7 +49,7 @@ class RepositorioPlano implements IRepositorioPlano {
         Nome: nome.toUpperCase(),
         Descricao: descricao,
         TipoRecorrencia: tipoRecorrencia.toUpperCase(),
-        ValorMensalidade: valorMensalidade,
+        ValorMensalidade: new Prisma.Decimal(valorMensalidade),
         Modalidade: modalidade.toUpperCase(),
         DataAtualizacao: null,
         DataCriacao: new Date(),
@@ -65,7 +65,7 @@ class RepositorioPlano implements IRepositorioPlano {
         Nome: nome.toUpperCase(),
         Descricao: descricao,
         TipoRecorrencia: tipoRecorrencia.toUpperCase(),
-        ValorMensalidade: valorMensalidade,
+        ValorMensalidade: new Prisma.Decimal(valorMensalidade),
         Modalidade: modalidade.toUpperCase(),
         DataAtualizacao: new Date(),
       },
@@ -80,6 +80,7 @@ class RepositorioPlano implements IRepositorioPlano {
     return transactionContext.plano.update({
       data: {
         Ativo: status,
+        DataAtualizacao: new Date(),
       },
       where: {
         Id: idPlano,

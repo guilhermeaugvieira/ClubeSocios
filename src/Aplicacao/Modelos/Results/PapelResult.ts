@@ -25,4 +25,25 @@ class ObterPapelResult {
   }
 }
 
-export { AdicionarPapelResult, ObterPapelResult }
+class PapelStatusResult {
+  id: string;
+  status: boolean;
+
+  constructor(id: string, status: boolean){
+    this.id = id;
+    this.status = status;
+  }
+}
+
+class AtualizarPapelResult {
+  
+  nome: string;
+  id: string;
+
+  constructor(nome: string, id: string){
+    this.nome = nome;
+    this.id = id;
+  }
+}
+
+export { AdicionarPapelResult, ObterPapelResult, PapelStatusResult, AtualizarPapelResult }
