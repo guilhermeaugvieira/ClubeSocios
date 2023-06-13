@@ -176,7 +176,7 @@ RotasPlanos.get('/planos/:idPlano',
 
     #swagger.responses[409] = {
       description: 'Conflict',
-      schema: { $ref: '#/definitions/Conflict' }
+      schema: { $ref: '#/definitions/ErroResult' }
     }
   */
 

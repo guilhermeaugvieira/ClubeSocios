@@ -172,7 +172,7 @@ RotasPapeis.get('/papeis/:idPapel',
 
     #swagger.responses[409] = {
       description: 'Conflict',
-      schema: { $ref: '#/definitions/Conflict' }
+      schema: { $ref: '#/definitions/ErroResult' }
     }
   */
 

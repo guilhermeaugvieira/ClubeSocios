@@ -384,7 +384,7 @@
           "409": {
             "description": "Conflict",
             "schema": {
-              "$ref": "#/definitions/Conflict"
+              "$ref": "#/definitions/ErroResult"
             }
           }
         },
@@ -649,7 +649,7 @@
           "409": {
             "description": "Conflict",
             "schema": {
-              "$ref": "#/definitions/Conflict"
+              "$ref": "#/definitions/ErroResult"
             }
           }
         },
@@ -989,11 +989,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T04:00:51.307Z"
+          "example": "2023-06-13T04:09:45.830Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T04:00:51.308Z"
+          "example": "2023-06-13T04:09:45.831Z"
         }
       }
     },
@@ -1080,11 +1080,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T04:00:51.308Z"
+          "example": "2023-06-13T04:09:45.831Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T04:00:51.308Z"
+          "example": "2023-06-13T04:09:45.831Z"
         }
       }
     },
@@ -1121,11 +1121,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T04:00:51.308Z"
+          "example": "2023-06-13T04:09:45.831Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T04:00:51.308Z"
+          "example": "2023-06-13T04:09:45.831Z"
         }
       }
     },
@@ -1162,11 +1162,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T04:00:51.308Z"
+          "example": "2023-06-13T04:09:45.831Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T04:00:51.308Z"
+          "example": "2023-06-13T04:09:45.831Z"
         }
       }
     },
@@ -1197,11 +1197,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T04:00:51.308Z"
+          "example": "2023-06-13T04:09:45.831Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T04:00:51.308Z"
+          "example": "2023-06-13T04:09:45.831Z"
         }
       }
     },
