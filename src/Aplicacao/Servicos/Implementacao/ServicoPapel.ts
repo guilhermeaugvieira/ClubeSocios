@@ -78,6 +78,14 @@ class ServicoPapel implements IServicoPapel {
 
     let papelAtualizado: Papel | null = null;
 
+    const buscaPapel = await this._repositorioPapel.obterPapelPorNome(papel.nome);
+
+    if(!Validadores.ehValorInvalido(buscaPapel) && !Validadores.ehIgual(buscaPapel!.Id, idPapel)){
+      this._notificador.adicionarNotificacao(new Notificacao("Nome já é utilizado por outro papel", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+
     await this._databaseManager.$transaction(async (tx) => {
       papelAtualizado = await this._repositorioPapel.atualizarDadosPapel(tx, papel.nome, idPapel);
     })

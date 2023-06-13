@@ -95,6 +95,50 @@ describe("Módulo ServicoPlano - AtualizarPlano", () => {
     expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
     expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
+
+  test("Ao atualizar um plano, especificando um nome existente, deve retornar null", async () => {
+    const erroEsperado = 'Nome já é utilizado por outro plano';
+    const ticketRequisicao = uuid();
+
+    const notificador = new Notificador();
+    const repositorioPlano = new RepositorioPlano(PrismaMock);
+
+    const servicoPlano = new ServicoPlano(notificador, PrismaMock, repositorioPlano);
+
+    const planoRecebido = new AtualizarPlanoInput('Teste', 'descricao', 'Mensal', 0, 'Socio')
+
+    PrismaMock.$transaction.mockImplementationOnce(callback => callback(PrismaMock));
+
+    PrismaMock.plano.findFirst.mockResolvedValueOnce({
+      Ativo: true,
+      DataAtualizacao: null,
+      DataCriacao: new Date(),
+      Descricao: 'Teste',
+      Id: uuid(),
+      Modalidade: 'Teste',
+      Nome: 'Teste',
+      TipoRecorrencia: 'Mensal',
+      ValorMensalidade: new Prisma.Decimal(0),
+    });
+    
+    PrismaMock.plano.findFirst.mockResolvedValueOnce({
+      Ativo: true,
+      DataAtualizacao: null,
+      DataCriacao: new Date(),
+      Descricao: 'Teste',
+      Id: uuid(),
+      Modalidade: 'Teste',
+      Nome: 'Teste',
+      TipoRecorrencia: 'Mensal',
+      ValorMensalidade: new Prisma.Decimal(0),
+    });
+
+    const result = await servicoPlano.atualizarPlano(uuid(), planoRecebido, ticketRequisicao);
+
+    expect(result).toEqual(null);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
+  });
 });
 
 describe("Módulo ServicoPlano - AtualizarStatusDoPlano", () => {

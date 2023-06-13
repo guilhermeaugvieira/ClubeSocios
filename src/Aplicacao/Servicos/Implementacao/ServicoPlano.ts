@@ -87,6 +87,14 @@ class ServicoPlano implements IServicoPlano {
 
     let planoAtualizado: Plano | null = null;
 
+    const buscaPlano = await this._repositorioPlano.obterPlanoPorNome(plano.nome);
+
+    if(!Validadores.ehValorInvalido(buscaPlano) && !Validadores.ehIgual(buscaPlano!.Id, idPlano)){
+      this._notificador.adicionarNotificacao(new Notificacao("Nome já é utilizado por outro plano", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+
     await this._databaseManager.$transaction(async (tx) => {
       planoAtualizado = await this._repositorioPlano.atualizarDadosPlano(tx, plano.nome, plano.descricao, plano.tipoRecorrencia, plano.valorMensalidade, plano.modalidade, idPlano);
     })

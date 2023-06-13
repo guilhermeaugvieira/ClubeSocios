@@ -91,6 +91,42 @@ describe("Módulo ServicoPapel - AtualizarPapel", () => {
     expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
     expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
   });
+
+  test("Ao atualizar um papel, especificando um nome existente, deve retornar null", async () => {
+    const erroEsperado = 'Nome já é utilizado por outro papel';
+    const ticketRequisicao = uuid();
+
+    const notificador = new Notificador();
+    const repositorioPapel = new RepositorioPapel(PrismaMock);
+
+    const servicoPapel = new ServicoPapel(notificador, PrismaMock, repositorioPapel);
+
+    const papelRecebido = new AtualizarPapelInput('Teste')
+
+    PrismaMock.$transaction.mockImplementationOnce(callback => callback(PrismaMock));
+
+    PrismaMock.papel.findFirst.mockResolvedValueOnce({
+      Ativo: true,
+      DataAtualizacao: null,
+      DataCriacao: new Date(),
+      Id: uuid(),
+      Nome: 'TESTE'
+    });
+    
+    PrismaMock.papel.findFirst.mockResolvedValueOnce({
+      Ativo: true,
+      DataAtualizacao: null,
+      DataCriacao: new Date(),
+      Id: uuid(),
+      Nome: 'TESTE'
+    });
+
+    const result = await servicoPapel.atualizarPapel(uuid(), papelRecebido, ticketRequisicao);
+
+    expect(result).toEqual(null);
+    expect(notificador.obterNotificacoes(ticketRequisicao).pop()?.Mensagem).toEqual(erroEsperado);
+    expect(notificador.obterNotificacoes(ticketRequisicao).length).toEqual(1);
+  });
 });
 
 describe("Módulo ServicoPapel - AtualizarStatusDoPapel", () => {
