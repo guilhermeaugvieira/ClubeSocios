@@ -292,7 +292,7 @@
             "description": "Papel Atualizado",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AdicionarPapelInput"
+              "$ref": "#/definitions/AtualizarPapelInput"
             }
           }
         ],
@@ -557,7 +557,7 @@
             "description": "Plano Atualizado",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AdicionarPlanoInput"
+              "$ref": "#/definitions/AtualizarPlanoInput"
             }
           }
         ],
@@ -989,11 +989,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T04:09:45.830Z"
+          "example": "2023-06-13T15:28:27.650Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T04:09:45.831Z"
+          "example": "2023-06-13T15:28:27.651Z"
         }
       }
     },
@@ -1080,11 +1080,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T04:09:45.831Z"
+          "example": "2023-06-13T15:28:27.651Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T04:09:45.831Z"
+          "example": "2023-06-13T15:28:27.651Z"
         }
       }
     },
@@ -1121,11 +1121,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T04:09:45.831Z"
+          "example": "2023-06-13T15:28:27.651Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T04:09:45.831Z"
+          "example": "2023-06-13T15:28:27.651Z"
         }
       }
     },
@@ -1162,11 +1162,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T04:09:45.831Z"
+          "example": "2023-06-13T15:28:27.651Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T04:09:45.831Z"
+          "example": "2023-06-13T15:28:27.651Z"
         }
       }
     },
@@ -1197,11 +1197,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T04:09:45.831Z"
+          "example": "2023-06-13T15:28:27.651Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T04:09:45.831Z"
+          "example": "2023-06-13T15:28:27.651Z"
         }
       }
     },
@@ -1642,6 +1642,31 @@
         }
       }
     },
+    "AtualizarPlanoInput": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        },
+        "descricao": {
+          "type": "string",
+          "example": ""
+        },
+        "tipoRecorrencia": {
+          "type": "string",
+          "example": ""
+        },
+        "valorMensalidade": {
+          "type": "number",
+          "example": 0
+        },
+        "modalidade": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
     "AdicionarSocioInput": {
       "type": "object",
       "properties": {
@@ -1702,6 +1727,15 @@
       }
     },
     "AdicionarPapelInput": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AtualizarPapelInput": {
       "type": "object",
       "properties": {
         "nome": {

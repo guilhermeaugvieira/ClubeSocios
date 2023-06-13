@@ -6,7 +6,7 @@ import { Request, Response } from 'express';
 import { IServicoPapel } from "../../Aplicacao/Servicos/Interfaces/IServicoPapel";
 import { Validadores } from "../../Core/Validadores";
 import { Notificacao, TipoNotificacao } from "../../Core/Notificacao";
-import { AdicionarPapelInput } from "../../Aplicacao/Modelos/Inputs/PapelInput";
+import { AdicionarPapelInput, AtualizarPapelInput } from "../../Aplicacao/Modelos/Inputs/PapelInput";
 
 @scoped(Lifecycle.ResolutionScoped)
 @injectable()
@@ -72,7 +72,7 @@ class ControladorPapel extends ControladorBase{
     if(!Validadores.textoComComprimentoEntre(idPapel, 36))
       this._notificador.adicionarNotificacao(new Notificacao("Id do papel inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
     
-    const input = AdicionarPapelInput.construirDoRequest(req.body);
+    const input = AtualizarPapelInput.construirDoRequest(req.body);
 
     const errosValidacao = input!.validarModelo([], ticketRequisicao);
 

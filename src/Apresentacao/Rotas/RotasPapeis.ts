@@ -107,7 +107,7 @@ RotasPapeis.get('/papeis/:idPapel',
       'description': 'Papel Atualizado',
       'required': 'true',
       'schema': {
-        '$ref': '#/definitions/AdicionarPapelInput'
+        '$ref': '#/definitions/AtualizarPapelInput'
       }
     }
     #swagger.responses[200] = {

@@ -4,7 +4,7 @@ import { INotificador } from "../../../Core/INotificador";
 import { Notificacao, TipoNotificacao } from "../../../Core/Notificacao";
 import { Validadores } from "../../../Core/Validadores";
 import { IRepositorioPapel } from "../../../Dados/Interfaces/IRepositorioPapel";
-import { AdicionarPapelInput } from "../../Modelos/Inputs/PapelInput";
+import { AdicionarPapelInput, AtualizarPapelInput } from "../../Modelos/Inputs/PapelInput";
 import { AdicionarPapelResult, AtualizarPapelResult, ObterPapelResult, PapelStatusResult } from "../../Modelos/Results/PapelResult";
 import { IServicoPapel } from "../Interfaces/IServicoPapel";
 
@@ -67,7 +67,7 @@ class ServicoPapel implements IServicoPapel {
     return new AdicionarPapelResult(papelAdicionado!.Nome, papelAdicionado!.Id);
   }
 
-  atualizarPapel = async(idPapel: string, papel: AdicionarPapelInput, ticketRequisicao: string): Promise<AtualizarPapelResult | null> => {
+  atualizarPapel = async(idPapel: string, papel: AtualizarPapelInput, ticketRequisicao: string): Promise<AtualizarPapelResult | null> => {
     let papelEncontrado = await this._repositorioPapel.obterPapelPorId(idPapel);
 
     if(Validadores.ehValorInvalido(papelEncontrado)){

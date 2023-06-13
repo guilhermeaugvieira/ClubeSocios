@@ -292,6 +292,13 @@ const doc = {
       valorMensalidade: 0,
       modalidade: '',
     },
+    AtualizarPlanoInput: {
+      nome: '',
+      descricao: '',
+      tipoRecorrencia: '',
+      valorMensalidade: 0,
+      modalidade: '',
+    },
     AdicionarSocioInput: {
       apelido: '',
       diaVencimentoPagamento: 1,
@@ -316,6 +323,9 @@ const doc = {
       email: '',
     },
     AdicionarPapelInput: {
+      nome: '',
+    },
+    AtualizarPapelInput: {
       nome: '',
     },
     AdicionarColaboradorInput: {

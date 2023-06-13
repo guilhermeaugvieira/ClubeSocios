@@ -6,7 +6,7 @@ import { ControladorBase } from "./ControladorBase";
 import { Request, Response } from 'express';
 import { Validadores } from "../../Core/Validadores";
 import { Notificacao, TipoNotificacao } from "../../Core/Notificacao";
-import { AdicionarPlanoInput } from "../../Aplicacao/Modelos/Inputs/PlanoInput";
+import { AdicionarPlanoInput, AtualizarPlanoInput } from "../../Aplicacao/Modelos/Inputs/PlanoInput";
 
 @scoped(Lifecycle.ResolutionScoped)
 @injectable()
@@ -72,7 +72,7 @@ class ControladorPlano extends ControladorBase{
     if(!Validadores.textoComComprimentoEntre(idPlano, 36))
       this._notificador.adicionarNotificacao(new Notificacao("Id do plano inválido", TipoNotificacao.DadoIncorreto, this,  ticketRequisicao));
     
-    const input = AdicionarPlanoInput.construirDoRequest(req.body);
+    const input = AtualizarPlanoInput.construirDoRequest(req.body);
 
     const errosValidacao = input!.validarModelo([], ticketRequisicao);
 

@@ -4,7 +4,7 @@ import { INotificador } from "../../../Core/INotificador";
 import { Notificacao, TipoNotificacao } from "../../../Core/Notificacao";
 import { Validadores } from "../../../Core/Validadores";
 import { IRepositorioPlano } from "../../../Dados/Interfaces/IRepositorioPlano";
-import { AdicionarPlanoInput } from "../../Modelos/Inputs/PlanoInput";
+import { AdicionarPlanoInput, AtualizarPlanoInput } from "../../Modelos/Inputs/PlanoInput";
 import { AdicionarPlanoResult, AtualizarPlanoResult, ObterPlanoResult, PlanoStatusResult } from "../../Modelos/Results/PlanoResult";
 import { IServicoPlano } from "../Interfaces/IServicoPlano";
 
@@ -76,7 +76,7 @@ class ServicoPlano implements IServicoPlano {
     return new AdicionarPlanoResult(planoAdicionado!.Nome, planoAdicionado!.Descricao, planoAdicionado!.TipoRecorrencia, planoAdicionado!.Modalidade, planoAdicionado!.ValorMensalidade.toNumber(), planoAdicionado!.Id);
   }
 
-  atualizarPlano = async(idPlano: string, plano: AdicionarPlanoInput, ticketRequisicao: string): Promise<AtualizarPlanoResult | null> => {
+  atualizarPlano = async(idPlano: string, plano: AtualizarPlanoInput, ticketRequisicao: string): Promise<AtualizarPlanoResult | null> => {
     let planoEncontrado = await this._repositorioPlano.obterPlanoPorId(idPlano);
 
     if(Validadores.ehValorInvalido(planoEncontrado)){

@@ -111,7 +111,7 @@ RotasPlanos.get('/planos/:idPlano',
       'description': 'Plano Atualizado',
       'required': 'true',
       'schema': {
-        '$ref': '#/definitions/AdicionarPlanoInput'
+        '$ref': '#/definitions/AtualizarPlanoInput'
       }
     }
     #swagger.responses[200] = {
