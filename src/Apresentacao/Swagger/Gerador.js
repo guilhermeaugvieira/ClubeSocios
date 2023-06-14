@@ -16,7 +16,6 @@ const doc = {
     }
   },
   host: `localhost:${process.env.SERVER_PORT}`,
-  basePath: "/api",
   schemes: ['http'],
   consumes: ['application/json'],
   produces: ['application/json'],
@@ -449,6 +448,6 @@ const doc = {
 }
 
 const outputFile = './src/Apresentacao/Swagger/apiClube.json';
-const endpointsFiles = ['./src/Apresentacao/Rotas/*.ts'];
+const endpointsFiles = ['./src/Apresentacao/Configuracoes/Rotas.ts'];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc);

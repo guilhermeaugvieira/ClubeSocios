@@ -10,7 +10,7 @@
     }
   },
   "host": "localhost:3000",
-  "basePath": "/api",
+  "basePath": "/",
   "tags": [
     {
       "name": "colaboradores",
@@ -47,7 +47,7 @@
     "application/json"
   ],
   "paths": {
-    "/colaboradores": {
+    "/api/colaboradores": {
       "post": {
         "tags": [
           "colaboradores"
@@ -93,7 +93,7 @@
         }
       }
     },
-    "/colaboradores/login": {
+    "/api/colaboradores/login": {
       "post": {
         "tags": [
           "colaboradores"
@@ -133,534 +133,7 @@
         }
       }
     },
-    "/papeis": {
-      "get": {
-        "tags": [
-          "papeis"
-        ],
-        "summary": "Obtem todos os papéis",
-        "description": "Obtem todos os papéis cadastrados na aplicação",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ObterPapelResultProcessed"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "papeis"
-        ],
-        "summary": "Adiciona um novo papel",
-        "description": "Adiciona um novo papel na aplicação",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Novo Papel",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AdicionarPapelInput"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created",
-            "schema": {
-              "$ref": "#/definitions/AdicionarPapelResultProcessed"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/papeis/{idPapel}": {
-      "get": {
-        "tags": [
-          "papeis"
-        ],
-        "summary": "Obtem o papel pelo id",
-        "description": "Obtem o papel pelo id informado",
-        "parameters": [
-          {
-            "name": "idPapel",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ObterPapelPorIdResultProcessed"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "papeis"
-        ],
-        "summary": "Atualiza um papel existente",
-        "description": "Atualiza um papel existente na aplicação",
-        "parameters": [
-          {
-            "name": "idPapel",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Papel Atualizado",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AtualizarPapelInput"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/AtualizarPapelResultProcessed"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      },
-      "patch": {
-        "tags": [
-          "papeis"
-        ],
-        "summary": "Atualiza status do papel",
-        "description": "Atualiza status do papel na aplicação",
-        "parameters": [
-          {
-            "name": "idPapel",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Status Atualizado",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PapelStatusInput"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PapelStatusResultProcessed"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/planos": {
-      "get": {
-        "tags": [
-          "planos"
-        ],
-        "summary": "Obtem todos os planos",
-        "description": "Obtem todos os planos cadastrados na aplicação",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ObterPlanoResultProcessed"
-            }
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "planos"
-        ],
-        "summary": "Adiciona um novo plano",
-        "description": "Adiciona um novo plano na aplicação",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Novo Plano",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AdicionarPlanoInput"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created",
-            "schema": {
-              "$ref": "#/definitions/AdicionarPlanoResultProcessed"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/planos/{idPlano}": {
-      "get": {
-        "tags": [
-          "planos"
-        ],
-        "summary": "Obtem o plano pelo id",
-        "description": "Obtém o plano pelo id informado",
-        "parameters": [
-          {
-            "name": "idPlano",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ObterPlanoResultProcessed"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "planos"
-        ],
-        "summary": "Atualiza um plano existente",
-        "description": "Atualiza um plano existente na aplicação",
-        "parameters": [
-          {
-            "name": "idPlano",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Plano Atualizado",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AtualizarPlanoInput"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/AtualizarPlanoResultProcessed"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      },
-      "patch": {
-        "tags": [
-          "planos"
-        ],
-        "summary": "Atualiza status do plano",
-        "description": "Atualiza status do plano na aplicação",
-        "parameters": [
-          {
-            "name": "idPlano",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Status Atualizado",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PlanoStatusInput"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PlanoStatusResultProcessed"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/socios": {
+    "/api/socios": {
       "post": {
         "tags": [
           "socios"
@@ -758,7 +231,7 @@
         ]
       }
     },
-    "/socios/{idSocio}": {
+    "/api/socios/{idSocio}": {
       "put": {
         "tags": [
           "socios"
@@ -942,6 +415,533 @@
           }
         ]
       }
+    },
+    "/api/papeis": {
+      "get": {
+        "tags": [
+          "papeis"
+        ],
+        "summary": "Obtem todos os papéis",
+        "description": "Obtem todos os papéis cadastrados na aplicação",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ObterPapelResultProcessed"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "papeis"
+        ],
+        "summary": "Adiciona um novo papel",
+        "description": "Adiciona um novo papel na aplicação",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Novo Papel",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdicionarPapelInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/AdicionarPapelResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/papeis/{idPapel}": {
+      "get": {
+        "tags": [
+          "papeis"
+        ],
+        "summary": "Obtem o papel pelo id",
+        "description": "Obtem o papel pelo id informado",
+        "parameters": [
+          {
+            "name": "idPapel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ObterPapelPorIdResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "papeis"
+        ],
+        "summary": "Atualiza um papel existente",
+        "description": "Atualiza um papel existente na aplicação",
+        "parameters": [
+          {
+            "name": "idPapel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Papel Atualizado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AtualizarPapelInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AtualizarPapelResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "papeis"
+        ],
+        "summary": "Atualiza status do papel",
+        "description": "Atualiza status do papel na aplicação",
+        "parameters": [
+          {
+            "name": "idPapel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Status Atualizado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PapelStatusInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PapelStatusResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/planos": {
+      "get": {
+        "tags": [
+          "planos"
+        ],
+        "summary": "Obtem todos os planos",
+        "description": "Obtem todos os planos cadastrados na aplicação",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ObterPlanoResultProcessed"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "planos"
+        ],
+        "summary": "Adiciona um novo plano",
+        "description": "Adiciona um novo plano na aplicação",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Novo Plano",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdicionarPlanoInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/AdicionarPlanoResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/planos/{idPlano}": {
+      "get": {
+        "tags": [
+          "planos"
+        ],
+        "summary": "Obtem o plano pelo id",
+        "description": "Obtém o plano pelo id informado",
+        "parameters": [
+          {
+            "name": "idPlano",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ObterPlanoResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "planos"
+        ],
+        "summary": "Atualiza um plano existente",
+        "description": "Atualiza um plano existente na aplicação",
+        "parameters": [
+          {
+            "name": "idPlano",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Plano Atualizado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AtualizarPlanoInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AtualizarPlanoResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "planos"
+        ],
+        "summary": "Atualiza status do plano",
+        "description": "Atualiza status do plano na aplicação",
+        "parameters": [
+          {
+            "name": "idPlano",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Status Atualizado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PlanoStatusInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlanoStatusResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
     }
   },
   "definitions": {
@@ -989,11 +989,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T15:28:27.650Z"
+          "example": "2023-06-14T04:51:24.377Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T15:28:27.651Z"
+          "example": "2023-06-14T04:51:24.378Z"
         }
       }
     },
@@ -1080,11 +1080,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T15:28:27.651Z"
+          "example": "2023-06-14T04:51:24.378Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T15:28:27.651Z"
+          "example": "2023-06-14T04:51:24.378Z"
         }
       }
     },
@@ -1121,11 +1121,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T15:28:27.651Z"
+          "example": "2023-06-14T04:51:24.378Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T15:28:27.651Z"
+          "example": "2023-06-14T04:51:24.378Z"
         }
       }
     },
@@ -1162,11 +1162,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T15:28:27.651Z"
+          "example": "2023-06-14T04:51:24.378Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T15:28:27.651Z"
+          "example": "2023-06-14T04:51:24.378Z"
         }
       }
     },
@@ -1197,11 +1197,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-13T15:28:27.651Z"
+          "example": "2023-06-14T04:51:24.378Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-13T15:28:27.651Z"
+          "example": "2023-06-14T04:51:24.378Z"
         }
       }
     },

@@ -4,6 +4,7 @@ import './InjecaoDependencia';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { Rotas } from './Rotas';
+import { AdicionarInterfaceSwaggerAsRotas } from './Swagger';
 
 const Servidor = express();
 
@@ -15,7 +16,7 @@ Servidor.options('*', (req, res, next) => {
   res.sendStatus(200);
 });
 
-Servidor.use(Rotas);
+Servidor.use(AdicionarInterfaceSwaggerAsRotas(Rotas));
 
 Servidor.get("/", (requisicao: Request, resposta: Response) => {
   return resposta.status(200).json("Servidor funcionando");

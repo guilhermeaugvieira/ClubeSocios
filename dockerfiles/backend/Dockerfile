@@ -3,7 +3,7 @@ FROM debian AS development
 ENV NODE_VERSION 19.8.1
 ENV NVM_DIR /home/application/.nvm
 
-RUN useradd -m -p secret application && \
+RUN useradd -m application && \
     apt-get update && \
     apt-get install -y curl git && \
     apt-get clean && \

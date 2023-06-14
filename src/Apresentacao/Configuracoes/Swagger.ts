@@ -7,4 +7,10 @@ const RotaSwagger = Router();
 RotaSwagger.use("/", serve);
 RotaSwagger.get("/", setup(apiClube));
 
-export { RotaSwagger }
+const AdicionarInterfaceSwaggerAsRotas = (rotas: Router): Router => {
+  rotas.use('/swagger', RotaSwagger);
+
+  return rotas;
+}
+
+export { AdicionarInterfaceSwaggerAsRotas }
