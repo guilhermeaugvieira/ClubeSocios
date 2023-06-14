@@ -7,7 +7,7 @@ const RotasSocios = Router();
 
 const controladorSocio = container.resolve(ControladorSocio);
 
-RotasSocios.post('/socios', 
+RotasSocios.post('/', 
 
   /*
     #swagger.tags = ['socios']
@@ -52,7 +52,7 @@ RotasSocios.post('/socios',
   AutorizacaoMiddleware,
   controladorSocio.adicionarSocio);
 
-RotasSocios.put('/socios/:idSocio', 
+RotasSocios.put('/:idSocio', 
 
   /*
     #swagger.tags = ['socios']
@@ -97,7 +97,7 @@ RotasSocios.put('/socios/:idSocio',
   AutorizacaoMiddleware,
   controladorSocio.atualizarSocio);
 
-RotasSocios.patch('/socios/:idSocio', 
+RotasSocios.patch('/:idSocio', 
 
   /*
     #swagger.tags = ['socios']
@@ -142,7 +142,7 @@ RotasSocios.patch('/socios/:idSocio',
   AutorizacaoMiddleware,
   controladorSocio.atualizarStatusSocio);
 
-RotasSocios.get('/socios', 
+RotasSocios.get('/', 
 
   /*
     #swagger.tags = ['socios']
@@ -167,7 +167,7 @@ RotasSocios.get('/socios',
   AutorizacaoMiddleware,
   controladorSocio.obterSocios);
 
-RotasSocios.get('/socios/:idSocio', 
+RotasSocios.get('/:idSocio', 
 
   /*
     #swagger.tags = ['socios']

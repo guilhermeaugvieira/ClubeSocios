@@ -47,7 +47,7 @@
     "application/json"
   ],
   "paths": {
-    "/api/colaboradores": {
+    "/api/colaboradores/": {
       "post": {
         "tags": [
           "colaboradores"
@@ -133,7 +133,7 @@
         }
       }
     },
-    "/api/socios": {
+    "/api/socios/": {
       "post": {
         "tags": [
           "socios"
@@ -416,7 +416,7 @@
         ]
       }
     },
-    "/api/papeis": {
+    "/api/papeis/": {
       "get": {
         "tags": [
           "papeis"
@@ -678,7 +678,7 @@
         ]
       }
     },
-    "/api/planos": {
+    "/api/planos/": {
       "get": {
         "tags": [
           "planos"
@@ -989,11 +989,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-14T04:51:24.377Z"
+          "example": "2023-06-14T05:14:30.680Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-14T04:51:24.378Z"
+          "example": "2023-06-14T05:14:30.680Z"
         }
       }
     },
@@ -1080,11 +1080,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-14T04:51:24.378Z"
+          "example": "2023-06-14T05:14:30.680Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-14T04:51:24.378Z"
+          "example": "2023-06-14T05:14:30.680Z"
         }
       }
     },
@@ -1121,11 +1121,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-14T04:51:24.378Z"
+          "example": "2023-06-14T05:14:30.680Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-14T04:51:24.378Z"
+          "example": "2023-06-14T05:14:30.680Z"
         }
       }
     },
@@ -1162,11 +1162,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-14T04:51:24.378Z"
+          "example": "2023-06-14T05:14:30.680Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-14T04:51:24.378Z"
+          "example": "2023-06-14T05:14:30.680Z"
         }
       }
     },
@@ -1197,11 +1197,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-14T04:51:24.378Z"
+          "example": "2023-06-14T05:14:30.680Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-14T04:51:24.378Z"
+          "example": "2023-06-14T05:14:30.680Z"
         }
       }
     },

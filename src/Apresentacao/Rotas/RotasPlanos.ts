@@ -7,7 +7,7 @@ const RotasPlanos = Router();
 
 const controladorPlano = container.resolve(ControladorPlano);
 
-RotasPlanos.get('/planos', 
+RotasPlanos.get('/', 
 
   /*
     #swagger.tags = ['planos']
@@ -32,7 +32,7 @@ RotasPlanos.get('/planos',
   AutorizacaoMiddleware,
   controladorPlano.obterPlanos);
 
-RotasPlanos.get('/planos/:idPlano', 
+RotasPlanos.get('/:idPlano', 
 
   /*
     #swagger.tags = ['planos']
@@ -63,7 +63,7 @@ RotasPlanos.get('/planos/:idPlano',
   AutorizacaoMiddleware,
   controladorPlano.obterPlanoPorId);
 
-  RotasPlanos.post('/planos', 
+  RotasPlanos.post('/', 
 
   /*
     #swagger.tags = ['planos']
@@ -98,7 +98,7 @@ RotasPlanos.get('/planos/:idPlano',
   AutorizacaoMiddleware,
   controladorPlano.adicionarPlano);
 
-  RotasPlanos.put('/planos/:idPlano', 
+  RotasPlanos.put('/:idPlano', 
 
   /*
     #swagger.tags = ['planos']
@@ -138,7 +138,7 @@ RotasPlanos.get('/planos/:idPlano',
   AutorizacaoMiddleware,
   controladorPlano.atualizarPlano);
 
-  RotasPlanos.patch('/planos/:idPlano', 
+  RotasPlanos.patch('/:idPlano', 
 
   /*
     #swagger.tags = ['planos']

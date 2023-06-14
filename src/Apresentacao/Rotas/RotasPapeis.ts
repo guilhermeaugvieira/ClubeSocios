@@ -7,7 +7,7 @@ const RotasPapeis = Router();
 
 const controladorPapel = container.resolve(ControladorPapel);
 
-RotasPapeis.get('/papeis', 
+RotasPapeis.get('/', 
 
   /*
     #swagger.tags = ['papeis']
@@ -28,7 +28,7 @@ RotasPapeis.get('/papeis',
   AutorizacaoMiddleware,
   controladorPapel.obterPapeis);
 
-RotasPapeis.get('/papeis/:idPapel', 
+RotasPapeis.get('/:idPapel', 
 
   /*
     #swagger.tags = ['papeis']
@@ -59,7 +59,7 @@ RotasPapeis.get('/papeis/:idPapel',
   AutorizacaoMiddleware,
   controladorPapel.obterPapelPorId);
 
-  RotasPapeis.post('/papeis', 
+  RotasPapeis.post('/', 
 
   /*
     #swagger.tags = ['papeis']
@@ -94,7 +94,7 @@ RotasPapeis.get('/papeis/:idPapel',
   AutorizacaoMiddleware,
   controladorPapel.adicionarPapel);
 
-  RotasPapeis.put('/papeis/:idPapel', 
+  RotasPapeis.put('/:idPapel', 
 
   /*
     #swagger.tags = ['papeis']
@@ -134,7 +134,7 @@ RotasPapeis.get('/papeis/:idPapel',
   AutorizacaoMiddleware,
   controladorPapel.atualizarPapel);
 
-  RotasPapeis.patch('/papeis/:idPapel', 
+  RotasPapeis.patch('/:idPapel', 
 
   /*
     #swagger.tags = ['papeis']

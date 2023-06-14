@@ -6,7 +6,7 @@ const RotasColaboradores = Router();
 
 const controladorColaborador = container.resolve(ControladorColaborador);
 
-RotasColaboradores.post('/colaboradores', 
+RotasColaboradores.post('/', 
 
   /*
     #swagger.tags = ['colaboradores']
@@ -44,7 +44,7 @@ RotasColaboradores.post('/colaboradores',
 
   controladorColaborador.adicionarColaborador);
 
-RotasColaboradores.post('/colaboradores/login',
+RotasColaboradores.post('/login',
   /*
     #swagger.tags = ['colaboradores']
     #swagger.summary = 'Login do colaborador'

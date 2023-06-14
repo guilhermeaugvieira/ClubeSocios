@@ -6,9 +6,9 @@ import { RotasSocios } from '../Rotas/RotasSocios';
 
 const Rotas = Router();
 
-Rotas.use('/api', RotasColaboradores);
-Rotas.use('/api', RotasSocios);
-Rotas.use('/api', RotasPapeis);
-Rotas.use('/api', RotasPlanos);
+Rotas.use('/api/colaboradores', RotasColaboradores);
+Rotas.use('/api/socios', RotasSocios);
+Rotas.use('/api/papeis', RotasPapeis);
+Rotas.use('/api/planos', RotasPlanos);
 
 export { Rotas };
