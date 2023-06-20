@@ -21,7 +21,7 @@
 ```
 5. Acessar a API através da porta exibida no console, essa configuração fica no .env.development (por padrão a 3000).
 6. A rota de teste para saber se está tudo certo é [Link de Teste](http://localhost:3000)
-7. As rotas utilizam o prefixo api, desta forma todas as rotas do projeto, com exceção a rota de teste são acessadas através do [Link da API](http://localhost:3000/api/)
+7. As rotas utilizam o prefixo api, desta forma todas as rotas do projeto, com exceção a rota de teste são acessadas através do [Link da API Local](http://localhost:3000/api/) ou [Link da API do Deploy](https://api-clubesocios.cyclic.app)
 
 # Testes Automatizados do Projeto #
 Os testes automatizados do projeto incluem testes de integração e unitários, para sua execução execute 

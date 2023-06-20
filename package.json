@@ -16,7 +16,8 @@
     "prisma-studio:docker": "dotenv -e .env.docker -- prisma studio",
     "test:dev": "dotenv -e .env.test -- prisma migrate deploy && dotenv -e .env.test -- jest -i",
     "test:docker": "dotenv -e .env.test.docker -- prisma migrate deploy && dotenv -e .env.test.docker -- jest -i",
-    "build": "tsc"
+    "build": "rm -rf ./dist && tsc",
+    "start": "node ./dist/Apresentacao/index.js"
   },
   "keywords": [],
   "author": "",
