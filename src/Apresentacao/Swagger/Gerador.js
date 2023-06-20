@@ -15,8 +15,8 @@ const doc = {
       email: "guilherme.dino@unifei.edu.br"
     }
   },
-  host: `localhost:${process.env.SERVER_PORT}`,
-  schemes: ['http'],
+  host: `${process.env.ENDERECO_API_SWAGGER}`,
+  schemes: ['http', 'https'],
   consumes: ['application/json'],
   produces: ['application/json'],
   tags: [

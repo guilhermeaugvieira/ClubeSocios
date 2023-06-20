@@ -16,7 +16,8 @@
     "prisma-studio:docker": "dotenv -e .env.docker -- prisma studio",
     "test:dev": "dotenv -e .env.test -- prisma migrate deploy && dotenv -e .env.test -- jest -i",
     "test:docker": "dotenv -e .env.test.docker -- prisma migrate deploy && dotenv -e .env.test.docker -- jest -i",
-    "build": "rm -rf ./dist && tsc",
+    "gen-doc": "node src/Apresentacao/Swagger/Gerador.js",
+    "build": "rm -rf ./dist && npx prisma generate --schema ./prisma/schema.prisma && npm run gen-doc && tsc",
     "start": "node ./dist/Apresentacao/index.js"
   },
   "keywords": [],
