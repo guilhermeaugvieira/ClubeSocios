@@ -84,7 +84,7 @@ model Socio {
 
 model VeiculoSocio {
   Id              String    @id @default(uuid()) @map("id") @db.Uuid
-  Placa           String    @unique @map("placa") @db.VarChar(8)
+  Placa           String    @unique @map("placa") @db.VarChar(7)
   Ativo           Boolean   @map("ativo") @db.Boolean
   DataCriacao     DateTime  @default(now()) @map("data_criacao") @db.Timestamp
   DataAtualizacao DateTime? @map("data_atualizacao") @db.Timestamp

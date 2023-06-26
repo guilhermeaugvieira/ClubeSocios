@@ -4,6 +4,9 @@ dotenv.config();
 
 const swaggerAutogen = require("swagger-autogen");
 
+const swaggerHost = process.env.ENDERECO_API_SWAGGER.toString().includes('localhost') ?
+  ['http'] : ['https'];
+
 const doc = {
   swagger: '2.0',
   info: {
@@ -16,7 +19,7 @@ const doc = {
     }
   },
   host: `${process.env.ENDERECO_API_SWAGGER}`,
-  schemes: ['http', 'https'],
+  schemes: swaggerHost,
   consumes: ['application/json'],
   produces: ['application/json'],
   tags: [

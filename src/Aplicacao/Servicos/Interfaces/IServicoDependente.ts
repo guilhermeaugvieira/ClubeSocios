@@ -1,0 +1,5 @@
+interface IServicoDependente{
+
+}
+
+export { IServicoDependente }
