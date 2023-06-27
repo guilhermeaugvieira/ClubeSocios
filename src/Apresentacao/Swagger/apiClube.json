@@ -27,6 +27,14 @@
     {
       "name": "planos",
       "description": "Gerencia os planos da aplicação"
+    },
+    {
+      "name": "dependentes",
+      "description": "Gerencia os dependentes da aplicação"
+    },
+    {
+      "name": "veiculos",
+      "description": "Gerencia os veículos da aplicação"
     }
   ],
   "schemes": [
@@ -404,6 +412,674 @@
           },
           "404": {
             "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/socios/{idSocio}/veiculos/": {
+      "post": {
+        "tags": [
+          "veiculos"
+        ],
+        "summary": "Adiciona um novo veículo ao sócio",
+        "description": "Adiciona um novo veículo ao sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Novo Veiculo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdicionarVeiculoSocioInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/AdicionarVeiculoSocioResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "veiculos"
+        ],
+        "summary": "Obtém os veículos associados ao sócio",
+        "description": "Obtém os veículos associados ao sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ObterVeiculoSocioResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/socios/{idSocio}/veiculos/{idVeiculo}": {
+      "put": {
+        "tags": [
+          "veiculos"
+        ],
+        "summary": "Atualiza um veículo relacionado ao sócio",
+        "description": "Atualiza um veículo relacionado ao sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idVeiculo",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Veiculo atualizado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AtualizarVeiculoSocioInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/AtualizarVeiculoSocioResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "veiculos"
+        ],
+        "summary": "Atualiza o status do veículo do sócio",
+        "description": "Atualiza o status do veículo do sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idVeiculo",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Status Veiculo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VeiculoSocioStatusInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/VeiculoSocioStatusResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "veiculos"
+        ],
+        "summary": "Obtém um veículo específico associado ao sócio",
+        "description": "Obtém um veículo específico associado ao sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idVeiculo",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ObterVeiculoSocioPorIdResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/socios/{idSocio}/dependentes/": {
+      "post": {
+        "tags": [
+          "dependentes"
+        ],
+        "summary": "Adiciona um novo dependente ao sócio",
+        "description": "Adiciona um novo dependente ao sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Novo Dependente",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdicionarDependenteInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/AdicionarDependenteResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "dependentes"
+        ],
+        "summary": "Obtém todos os dependentes associados ao sócio",
+        "description": "Obtém todos os dependentes associados ao sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ObterDependenteResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/socios/{idSocio}/dependentes/{idDependente}": {
+      "put": {
+        "tags": [
+          "dependentes"
+        ],
+        "summary": "Atualiza um dependente do sócio",
+        "description": "Atualiza um dependente do sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idDependente",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dependente Atualizado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AtualizarDependenteInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/AtualizarDependenteResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "dependentes"
+        ],
+        "summary": "Atualiza o status do dependente associado ao sócio",
+        "description": "Atualiza o status do dependente associado ao sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idDependente",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Status Dependente",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DependenteStatusInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/DependenteStatusResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "dependentes"
+        ],
+        "summary": "Obtém um dependente específico associado ao sócio",
+        "description": "Obtém um dependente específico associado ao na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idDependente",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ObterDependentePorIdResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
             "schema": {
               "$ref": "#/definitions/ErroResult"
             }
@@ -945,6 +1621,286 @@
     }
   },
   "definitions": {
+    "ObterDependenteResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObterDependenteResult"
+          }
+        }
+      }
+    },
+    "ObterDependentePorIdResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/ObterDependenteResult"
+        }
+      }
+    },
+    "AdicionarDependenteResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/AdicionarDependenteResult"
+        }
+      }
+    },
+    "AtualizarDependenteResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/AtualizarDependenteResult"
+        }
+      }
+    },
+    "ObterVeiculoSocioResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObterVeiculoSocioResult"
+          }
+        }
+      }
+    },
+    "ObterVeiculoSocioPorIdResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/ObterVeiculoSocioResult"
+        }
+      }
+    },
+    "ObterVeiculoSocioResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "placa": {
+          "type": "string",
+          "example": ""
+        },
+        "ativo": {
+          "type": "boolean",
+          "example": false
+        },
+        "idSocio": {
+          "type": "string",
+          "example": ""
+        },
+        "dataCriacao": {
+          "type": "string",
+          "example": "2023-06-27T17:38:59.982Z"
+        },
+        "dataAtualizacao": {
+          "type": "string",
+          "example": "2023-06-27T17:38:59.983Z"
+        }
+      }
+    },
+    "AdicionarVeiculoSocioResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "placa": {
+          "type": "string",
+          "example": ""
+        },
+        "idSocio": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AtualizarVeiculoSocioResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "placa": {
+          "type": "string",
+          "example": ""
+        },
+        "idSocio": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AdicionarDependenteResult": {
+      "type": "object",
+      "properties": {
+        "cliente": {
+          "$ref": "#/definitions/AdicionarClienteResult"
+        },
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "idSocio": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AtualizarDependenteResult": {
+      "type": "object",
+      "properties": {
+        "cliente": {
+          "$ref": "#/definitions/AtualizarClienteResult"
+        },
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "idSocio": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "ObterDependenteResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "idSocio": {
+          "type": "string",
+          "example": ""
+        },
+        "cliente": {
+          "$ref": "#/definitions/ObterClienteResult"
+        },
+        "dataCriacao": {
+          "type": "string",
+          "example": "2023-06-27T17:38:59.983Z"
+        },
+        "dataAtualizacao": {
+          "type": "string",
+          "example": "2023-06-27T17:38:59.983Z"
+        }
+      }
+    },
+    "AdicionarVeiculoSocioInput": {
+      "type": "object",
+      "properties": {
+        "placa": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AtualizarVeiculoSocioInput": {
+      "type": "object",
+      "properties": {
+        "placa": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AdicionarDependenteInput": {
+      "type": "object",
+      "properties": {
+        "cliente": {
+          "$ref": "#/definitions/AdicionarClienteInput"
+        },
+        "idCliente": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AtualizarDependenteInput": {
+      "type": "object",
+      "properties": {
+        "cliente": {
+          "$ref": "#/definitions/AtualizarClienteInput"
+        }
+      }
+    },
+    "ObterTodosVeiculosSocioResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "placa": {
+          "type": "string",
+          "example": ""
+        },
+        "ativo": {
+          "type": "boolean",
+          "example": true
+        },
+        "dataCriacao": {
+          "type": "string",
+          "example": "2023-06-27T17:38:59.983Z"
+        },
+        "dataAtualizacao": {
+          "type": "string",
+          "example": "2023-06-27T17:38:59.983Z"
+        }
+      }
+    },
+    "ObterTodosDependentesResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "cliente": {
+          "$ref": "#/definitions/ObterClienteResult"
+        },
+        "dataCriacao": {
+          "type": "string",
+          "example": "2023-06-27T17:38:59.983Z"
+        },
+        "dataAtualizacao": {
+          "type": "string",
+          "example": "2023-06-27T17:38:59.983Z"
+        }
+      }
+    },
     "ObterPapelPorIdResultProcessed": {
       "type": "object",
       "properties": {
@@ -954,6 +1910,30 @@
         },
         "dados": {
           "$ref": "#/definitions/ObterPapelResult"
+        }
+      }
+    },
+    "AdicionarVeiculoSocioResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/AdicionarVeiculoSocioResult"
+        }
+      }
+    },
+    "AtualizarVeiculoSocioResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/AtualizarVeiculoSocioResult"
         }
       }
     },
@@ -989,11 +1969,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-26T15:31:05.342Z"
+          "example": "2023-06-27T17:38:59.983Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-26T15:31:05.343Z"
+          "example": "2023-06-27T17:38:59.983Z"
         }
       }
     },
@@ -1080,11 +2060,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-26T15:31:05.343Z"
+          "example": "2023-06-27T17:38:59.983Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-26T15:31:05.343Z"
+          "example": "2023-06-27T17:38:59.983Z"
         }
       }
     },
@@ -1121,11 +2101,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-26T15:31:05.343Z"
+          "example": "2023-06-27T17:38:59.983Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-26T15:31:05.343Z"
+          "example": "2023-06-27T17:38:59.983Z"
         }
       }
     },
@@ -1162,11 +2142,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-26T15:31:05.343Z"
+          "example": "2023-06-27T17:38:59.983Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-26T15:31:05.343Z"
+          "example": "2023-06-27T17:38:59.983Z"
         }
       }
     },
@@ -1195,13 +2175,25 @@
         "endereco": {
           "$ref": "#/definitions/ObterEnderecoResult"
         },
+        "dependentes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObterTodosDependentesResult"
+          }
+        },
+        "veiculos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObterTodosVeiculosSocioResult"
+          }
+        },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-26T15:31:05.343Z"
+          "example": "2023-06-27T17:38:59.983Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-26T15:31:05.343Z"
+          "example": "2023-06-27T17:38:59.983Z"
         }
       }
     },
@@ -1257,6 +2249,49 @@
         }
       }
     },
+    "VeiculoSocioStatusInput": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "DependenteStatusInput": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "VeiculoSocioStatusResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "status": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "VeiculoSocioStatusResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/VeiculoSocioStatusResult"
+        }
+      }
+    },
     "PlanoStatusResultProcessed": {
       "type": "object",
       "properties": {
@@ -1279,6 +2314,31 @@
         "status": {
           "type": "boolean",
           "example": false
+        }
+      }
+    },
+    "DependenteStatusResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "status": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "DependenteStatusResultProcessed": {
+      "type": "object",
+      "properties": {
+        "sucesso": {
+          "type": "boolean",
+          "example": true
+        },
+        "dados": {
+          "$ref": "#/definitions/DependenteStatusResult"
         }
       }
     },

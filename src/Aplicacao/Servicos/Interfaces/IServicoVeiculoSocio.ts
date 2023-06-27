@@ -6,6 +6,7 @@ interface IServicoVeiculoSocio {
   atualizarVeiculo(input: AtualizarVeiculoSocioInput, ticketRequisicao: string, idSocio: string, idVeiculo: string) : Promise<AtualizarVeiculoSocioResult | null>;
   alterarStatusAtivo(ticketRequisicao: string, idVeiculo: string, estaAtivo: boolean, idSocio: string): Promise<VeiculoSocioStatusResult | null>;
   obterVeiculoPorId(ticketRequisicao: string, idVeiculo: string, idSocio: string) : Promise<ObterVeiculoSocioResult | null>;
+  obterVeiculosDoSocio(ticketRequisicao: string, idSocio: string) : Promise<ObterVeiculoSocioResult[] | null>;
 }
 
 export { IServicoVeiculoSocio };

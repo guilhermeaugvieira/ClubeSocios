@@ -6,11 +6,7 @@ import { Validadores } from "../../../Core/Validadores";
 import { IRepositorioSocio } from "../../../Dados/Interfaces/IRepositorioSocio";
 import { IRepositorioVeiculoSocio } from "../../../Dados/Interfaces/IRepositorioVeiculoSocio";
 import { AdicionarVeiculoSocioInput, AtualizarVeiculoSocioInput } from "../../Modelos/Inputs/VeiculoSocioInput";
-import { ObterClienteResult } from "../../Modelos/Results/ClienteResult";
-import { ObterTodosDependentesResult } from "../../Modelos/Results/DependenteResult";
-import { ObterEnderecoResult } from "../../Modelos/Results/EnderecoResult";
-import { ObterPlanoResult } from "../../Modelos/Results/PlanoResult";
-import { AdicionarVeiculoSocioResult, AtualizarVeiculoSocioResult, ObterTodosVeiculosSocioResult, ObterVeiculoSocioResult, VeiculoSocioStatusResult } from "../../Modelos/Results/VeiculoSocioResult";
+import { AdicionarVeiculoSocioResult, AtualizarVeiculoSocioResult, ObterVeiculoSocioResult, VeiculoSocioStatusResult } from "../../Modelos/Results/VeiculoSocioResult";
 import { IServicoVeiculoSocio } from "../Interfaces/IServicoVeiculoSocio";
 
 @injectable()

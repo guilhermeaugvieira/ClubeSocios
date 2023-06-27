@@ -38,6 +38,14 @@ const doc = {
     {
       name: "planos",
       description: "Gerencia os planos da aplicação",
+    },
+    {
+      name: "dependentes",
+      description: "Gerencia os dependentes da aplicação",
+    },
+    {
+      name: "veiculos",
+      description: "Gerencia os veículos da aplicação",
     }
   ],
   securityDefinitions: {
@@ -49,10 +57,132 @@ const doc = {
     }
   },
   definitions: {
+    ObterDependenteResultProcessed: {
+      sucesso: true,
+      dados: [{
+        $ref: '#/definitions/ObterDependenteResult'
+      }],
+    },
+    ObterDependentePorIdResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/ObterDependenteResult'
+      },
+    },
+    AdicionarDependenteResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/AdicionarDependenteResult'
+      },
+    },
+    AtualizarDependenteResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/AtualizarDependenteResult'
+      },
+    },
+    ObterVeiculoSocioResultProcessed: {
+      sucesso: true,
+      dados: [{
+        $ref: '#/definitions/ObterVeiculoSocioResult'
+      }],
+    },
+    ObterVeiculoSocioPorIdResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/ObterVeiculoSocioResult'
+      },
+    },
+    ObterVeiculoSocioResult: {
+      id: '',
+      placa: '',
+      ativo: false,
+      idSocio: '',
+      dataCriacao: new Date().toISOString(),
+      dataAtualizacao: new Date().toISOString(),
+    },
+    AdicionarVeiculoSocioResult: {
+      id: '',
+      placa: '',
+      idSocio: '',
+    },
+    AtualizarVeiculoSocioResult: {
+      id: '',
+      placa: '',
+      idSocio: '',
+    },
+    AdicionarDependenteResult: {
+      cliente: {
+        $ref: '#/definitions/AdicionarClienteResult',
+      },
+      id: '',
+      idSocio: '',
+    },
+    AtualizarDependenteResult: {
+      cliente: {
+        $ref: '#/definitions/AtualizarClienteResult',
+      },
+      id: '',
+      idSocio: '',
+    },
+    ObterDependenteResult: {
+      id: '',
+      idSocio: '',
+      cliente: {
+        $ref: '#/definitions/ObterClienteResult',
+      },
+      dataCriacao: new Date().toISOString(),
+      dataAtualizacao: new Date().toISOString(),
+    },
+
+    AdicionarVeiculoSocioInput: {
+      placa: '',
+    },
+    AtualizarVeiculoSocioInput: {
+      placa: '',
+    },
+    AdicionarDependenteInput: {
+      cliente: {
+        $ref: '#/definitions/AdicionarClienteInput',
+      },
+      idCliente: '',
+    },
+    AtualizarDependenteInput: {
+      cliente: {
+        $ref: '#/definitions/AtualizarClienteInput',
+      },
+    },
+    ObterTodosVeiculosSocioResult: {
+      id: '',
+      placa: '',
+      ativo: true,
+      dataCriacao: new Date().toISOString(),
+      dataAtualizacao: new Date().toISOString(),
+    },
+    ObterTodosDependentesResult: {
+      id: '',
+      cliente: {
+        $ref: '#/definitions/ObterClienteResult',
+      },
+      dataCriacao: new Date().toISOString(),
+      dataAtualizacao: new Date().toISOString(),
+    },
     ObterPapelPorIdResultProcessed: {
       sucesso: true,
       dados: {
         $ref: '#/definitions/ObterPapelResult'
+      }
+    },
+    AdicionarVeiculoSocioResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/AdicionarVeiculoSocioResult'
+      }
+    },
+    AtualizarVeiculoSocioResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/AtualizarVeiculoSocioResult'
       }
     },
     ObterPapelResultProcessed: {
@@ -138,6 +268,12 @@ const doc = {
       endereco: {
         $ref: '#/definitions/ObterEnderecoResult',
       },
+      dependentes: [{
+        $ref: '#/definitions/ObterTodosDependentesResult',
+      }],
+      veiculos: [{
+        $ref: '#/definitions/ObterTodosVeiculosSocioResult',
+      }],
       dataCriacao: new Date().toISOString(),
       dataAtualizacao: new Date().toISOString(),
     },
@@ -160,6 +296,22 @@ const doc = {
       id: '',
       status: false,
     },
+    VeiculoSocioStatusInput: {
+      status: false,
+    },
+    DependenteStatusInput: {
+      status: false,
+    },
+    VeiculoSocioStatusResult: {
+      id: '',
+      status: false,
+    },
+    VeiculoSocioStatusResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/VeiculoSocioStatusResult'
+      },
+    },
     PlanoStatusResultProcessed: {
       sucesso: true,
       dados: {
@@ -169,6 +321,16 @@ const doc = {
     PlanoStatusResult: {
       id: '',
       status: false,
+    },
+    DependenteStatusResult: {
+      id: '',
+      status: false,
+    },
+    DependenteStatusResultProcessed: {
+      sucesso: true,
+      dados: {
+        $ref: '#/definitions/DependenteStatusResult'
+      },
     },
     PapelStatusResultProcessed: {
       sucesso: true,
