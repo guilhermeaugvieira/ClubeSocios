@@ -31,7 +31,7 @@ class RepositorioPapel implements IRepositorioPapel {
   }
 
   adicionarPapel = (
-    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     nomePapel: string, idNovoPapel: string | undefined = uuid()) : Promise<Papel> => {
     return transactionContext.papel.create({
       data: {
@@ -45,7 +45,7 @@ class RepositorioPapel implements IRepositorioPapel {
   }
 
   atualizarDadosPapel = (
-    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     nomePapel: string, idPapel: string) : Promise<Papel> => {
     return transactionContext.papel.update({
       data: {
@@ -70,7 +70,7 @@ class RepositorioPapel implements IRepositorioPapel {
   }
 
   atualizarStatusAtivoDopapel = (
-    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     estaAtivo: boolean, idPapel: string) : Promise<Papel> => {
       return transactionContext.papel.update({
         data: {

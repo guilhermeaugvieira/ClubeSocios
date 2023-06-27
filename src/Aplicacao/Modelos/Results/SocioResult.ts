@@ -1,6 +1,8 @@
 import { AdicionarClienteResult, AtualizarClienteResult, ObterClienteResult } from "./ClienteResult";
+import { ObterTodosDependentesResult } from "./DependenteResult";
 import { AdicionarEnderecoResult, AtualizarEnderecoResult, ObterEnderecoResult } from "./EnderecoResult";
 import { AdicionarPlanoResult, AtualizarPlanoResult, ObterPlanoResult } from "./PlanoResult";
+import { ObterTodosVeiculosSocioResult} from "./VeiculoSocioResult";
 
 class AdicionarSocioResult {
   
@@ -64,10 +66,13 @@ class ObterSocioResult {
   cliente: ObterClienteResult;
   plano: ObterPlanoResult;
   endereco: ObterEnderecoResult;
+  dependentes: ObterTodosDependentesResult[];
+  veiculos: ObterTodosVeiculosSocioResult[];
   dataCriacao: Date;
   dataAtualizacao: Date | null;
 
-  constructor(id: string, diaVencimentoPagamento: number, cliente: ObterClienteResult, plano: ObterPlanoResult, endereco: ObterEnderecoResult, dataCriacao: Date, apelido: string | null, dataAtualizacao: Date | null, contato: string){
+  constructor(id: string, diaVencimentoPagamento: number, cliente: ObterClienteResult, plano: ObterPlanoResult, endereco: ObterEnderecoResult, 
+    dataCriacao: Date, apelido: string | null, dataAtualizacao: Date | null, contato: string, dependentes: ObterTodosDependentesResult[], veiculos: ObterTodosVeiculosSocioResult[]){
     this.id = id;
     this.apelido = apelido;
     this.diaVencimentoPagamento = diaVencimentoPagamento;
@@ -77,6 +82,8 @@ class ObterSocioResult {
     this.dataCriacao = dataCriacao;
     this.dataAtualizacao = dataAtualizacao;
     this.contato = contato;
+    this.dependentes = dependentes;
+    this.veiculos = veiculos;
   }
 }
 

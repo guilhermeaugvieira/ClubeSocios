@@ -75,6 +75,9 @@ class AdicionarSocioInput {
     if(Validadores.ehValorInvalido(this.cliente) && !Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.textoComComprimentoEntre(this.idCliente, 36))
       notificacoes.push(new Notificacao("Id do cliente precisa ter 36 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
+    if(Validadores.ehValorInvalido(this.cliente) && !Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.ehVariavelDoTipo(this.idCliente, 'string'))
+      notificacoes.push(new Notificacao("Id do cliente precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
+
     if(Validadores.ehValorInvalido(this.cliente) && Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente))
       notificacoes.push(new Notificacao("Se os dados do cliente não são preenchidos o id do cliente precisa ser fornecido", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
       
@@ -136,10 +139,10 @@ class AtualizarSocioInput {
     
     const { apelido, diaVencimentoPagamento, contato, nomePlano, cliente, endereco } = socio;
 
-    const novoCliente = AtualizarClienteInput.construirDoRequest(cliente);
-    const novoEndereco = AtualizarEnderecoInput.construirDoRequest(endereco);
+    const clienteAtualizado = AtualizarClienteInput.construirDoRequest(cliente);
+    const enderecoAtualizado = AtualizarEnderecoInput.construirDoRequest(endereco);
 
-    return new AtualizarSocioInput(diaVencimentoPagamento, contato, nomePlano, novoEndereco!, novoCliente!, apelido);
+    return new AtualizarSocioInput(diaVencimentoPagamento, contato, nomePlano, enderecoAtualizado!, clienteAtualizado!, apelido);
   }
 
   validarModelo = (notificacoes: Notificacao[], ticketRequisicao: string) : Notificacao[] => {

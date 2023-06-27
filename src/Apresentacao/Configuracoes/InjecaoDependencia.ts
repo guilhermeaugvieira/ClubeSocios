@@ -23,6 +23,14 @@ import { IServicoPapel } from '../../Aplicacao/Servicos/Interfaces/IServicoPapel
 import { ServicoPapel } from '../../Aplicacao/Servicos/Implementacao/ServicoPapel';
 import { IServicoPlano } from '../../Aplicacao/Servicos/Interfaces/IServicoPlano';
 import { ServicoPlano } from '../../Aplicacao/Servicos/Implementacao/ServicoPlano';
+import { IRepositorioDependente } from '../../Dados/Interfaces/IRepositorioDependente';
+import { RepositorioDependente } from '../../Dados/Repositorios/RepositorioDependente';
+import { IServicoDependente } from '../../Aplicacao/Servicos/Interfaces/IServicoDependente';
+import { ServicoDependente } from '../../Aplicacao/Servicos/Implementacao/ServicoDependente';
+import { IRepositorioVeiculoSocio } from '../../Dados/Interfaces/IRepositorioVeiculoSocio';
+import { RepositorioVeiculoSocio } from '../../Dados/Repositorios/RepositorioVeiculoSocio';
+import { IServicoVeiculoSocio } from '../../Aplicacao/Servicos/Interfaces/IServicoVeiculoSocio';
+import { ServicoVeiculoSocio } from '../../Aplicacao/Servicos/Implementacao/ServicoVeiculoSocio';
 
 container.registerInstance<PrismaClient>("Database", 
   PrismaInstance);
@@ -59,6 +67,16 @@ container.register<IRepositorioSocio>("RepositorioSocio",
   { lifecycle: Lifecycle.ResolutionScoped }
 );
 
+container.register<IRepositorioDependente>("RepositorioDependente",
+  { useClass: RepositorioDependente },
+  { lifecycle: Lifecycle.ResolutionScoped }
+);
+
+container.register<IRepositorioVeiculoSocio>("RepositorioVeiculoSocio",
+  { useClass: RepositorioVeiculoSocio },
+  { lifecycle: Lifecycle.ResolutionScoped }
+);
+
 container.register<IServicoColaborador>("ServicoColaborador", 
   { useClass: ServicoColaborador },
   { lifecycle: Lifecycle.ResolutionScoped});
@@ -73,4 +91,12 @@ container.register<IServicoPlano>("ServicoPlano",
 
 container.register<IServicoSocio>("ServicoSocio", 
   { useClass: ServicoSocio },
+  { lifecycle: Lifecycle.ResolutionScoped});
+
+container.register<IServicoDependente>("ServicoDependente", 
+  { useClass: ServicoDependente },
+  { lifecycle: Lifecycle.ResolutionScoped});
+
+container.register<IServicoVeiculoSocio>("ServicoVeiculoSocio", 
+  { useClass: ServicoVeiculoSocio },
   { lifecycle: Lifecycle.ResolutionScoped});

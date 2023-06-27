@@ -1,4 +1,4 @@
-import { Cliente, Endereco, Plano, Prisma, PrismaClient, Socio } from "@prisma/client";
+import { Cliente, Dependente, Endereco, Plano, Prisma, PrismaClient, Socio, VeiculoSocio } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
 import { IRepositorioSocio } from "../Interfaces/IRepositorioSocio";
 import { v4 as uuid } from "uuid";
@@ -14,14 +14,22 @@ class RepositorioSocio implements IRepositorioSocio{
     this._databaseManager = databaseManager;
   }
 
-  obterSocioComEnderecoECliente = async(idSocio: string) : Promise<(Socio & { Cliente: Cliente; Endereco: Endereco; }) | null> => {
+  obterSocioComEnderecoEClientePorId = async(idSocio: string) : Promise <(Socio & { Endereco: Endereco, Cliente: Cliente }) | null> => {
+    return this._databaseManager.socio.findFirst({
+      include: {
+        Endereco: true,
+        Cliente: true,
+      },
+      where: {
+        Id: idSocio,
+      }
+    })
+  }
+
+  obterSocioPorId = async(idSocio: string) : Promise<Socio | null> => {
     return this._databaseManager.socio.findFirst({
       where: {
         Id: idSocio,
-      },
-      include: {
-        Cliente: true,
-        Endereco: true,
       }
     });
   }
@@ -44,7 +52,8 @@ class RepositorioSocio implements IRepositorioSocio{
     });
   }
 
-  adicionarSocio = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  adicionarSocio = (
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     diaVencimentoPagamento: number, contato: string, idPlano: string, idCliente: string, idEndereco: string, apelido?: string | null, idNovoSocio: string | undefined = uuid()) :Promise<Socio> => {
     return transactionContext.socio.create({
       data: {
@@ -73,7 +82,8 @@ class RepositorioSocio implements IRepositorioSocio{
     });
   }
 
-  atualizarDadosSocio = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  atualizarDadosSocio = (
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     diaVencimentoPagamento: number, contato: string, idPlano: string, idSocio: string, apelido?: string | null) :Promise<Socio> => {
     return transactionContext.socio.update({
       data: {
@@ -89,22 +99,34 @@ class RepositorioSocio implements IRepositorioSocio{
     });
   };
 
-  obterTodosOsSociosComPlanoEnderecoECliente = async () :Promise<(Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; })[]> => {
+  obterTodosOsSociosComPlanoEnderecoClienteVeiculosEDependentesComCliente = async () :Promise<(Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; Veiculos: VeiculoSocio[]; Dependentes: (Dependente & { Cliente: Cliente})[]})[]> => {
     return this._databaseManager.socio.findMany({
       include: {
         Cliente: true,
         Endereco: true,
         Plano: true,
+        Dependentes: {
+          include: {
+            Cliente: true,
+          }
+        },
+        Veiculos: true,
       }
     });
   }
 
-  obterSocioComPlanoEnderecoEClientePeloId = async (idSocio: string) :Promise<(Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; }) | null> => {
+  obterSocioComPlanoEnderecoClienteVeiculosEDependentesComClientePeloId = async (idSocio: string) :Promise<(Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; Veiculos: VeiculoSocio[]; Dependentes: (Dependente & { Cliente: Cliente})[]}) | null> => {
     return this._databaseManager.socio.findFirst({
       include: {
         Cliente: true,
         Endereco: true,
         Plano: true,
+        Dependentes: {
+          include: {
+            Cliente: true,
+          }
+        },
+        Veiculos: true,
       },
       where: {
         Id: idSocio

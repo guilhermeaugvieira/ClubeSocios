@@ -26,7 +26,7 @@ class RepositorioColaborador implements IRepositorioColaborador {
   }
 
   adicionarColaborador = async(
-    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     idCliente: string, idPapel: string, idNovoColaborador: string | undefined = uuid()) : Promise<Colaborador> => {
     return transactionContext.colaborador.create({
       data: {
