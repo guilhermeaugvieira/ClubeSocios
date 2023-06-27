@@ -14,46 +14,29 @@ class RepositorioVeiculoSocio implements IRepositorioVeiculoSocio{
     this._databaseManager = databaseManager;
   }
 
-  obterVeiculoSocioPelaPlaca = async(placa: string) : Promise<(VeiculoSocio & { Socio: (Socio & { Cliente: Cliente; Endereco: Endereco; Plano: Plano; Dependentes: (Dependente & { Cliente: Cliente })[]}) }) | null> => {
+  obterVeiculoSocioPelaPlaca = async(placa: string) : Promise<VeiculoSocio | null> => {
     return this._databaseManager.veiculoSocio.findFirst({
-      include: {
-        Socio: {
-          include: {
-            Cliente: true,
-            Endereco: true,
-            Plano: true,
-            Dependentes: {
-              include: {
-                Cliente: true,
-              }
-            }
-          }
-        }
-      },
       where: {
         Placa: placa.toUpperCase()
       }
     });
   }
 
-  obterVeiculoSocioPorId = async(idVeiculo: string) : Promise<(VeiculoSocio & { Socio: (Socio & { Cliente: Cliente; Endereco: Endereco; Plano: Plano; Dependentes: (Dependente & { Cliente: Cliente })[]}) }) | null> => {
+  obterVeiculoSocioPorId = async(idVeiculo: string) : Promise<VeiculoSocio | null> => {
     return this._databaseManager.veiculoSocio.findFirst({
-      include: {
-        Socio: {
-          include: {
-            Cliente: true,
-            Endereco: true,
-            Plano: true,
-            Dependentes: {
-              include: {
-                Cliente: true,
-              }
-            }
-          }
-        }
-      },
       where: {
         Id: idVeiculo,
+      }
+    });
+  }
+
+
+  obterVeiculosPeloIdSocio = async(idSocio: string) : Promise<VeiculoSocio[]> => {
+    return this._databaseManager.veiculoSocio.findMany({
+      where: {
+        Socio: {
+          Id: idSocio
+        }
       }
     });
   }

@@ -14,14 +14,22 @@ class RepositorioSocio implements IRepositorioSocio{
     this._databaseManager = databaseManager;
   }
 
-  obterSocioComEnderecoECliente = async(idSocio: string) : Promise<(Socio & { Cliente: Cliente; Endereco: Endereco; }) | null> => {
+  obterSocioComEnderecoEClientePorId = async(idSocio: string) : Promise <(Socio & { Endereco: Endereco, Cliente: Cliente }) | null> => {
+    return this._databaseManager.socio.findFirst({
+      include: {
+        Endereco: true,
+        Cliente: true,
+      },
+      where: {
+        Id: idSocio,
+      }
+    })
+  }
+
+  obterSocioPorId = async(idSocio: string) : Promise<Socio | null> => {
     return this._databaseManager.socio.findFirst({
       where: {
         Id: idSocio,
-      },
-      include: {
-        Cliente: true,
-        Endereco: true,
       }
     });
   }

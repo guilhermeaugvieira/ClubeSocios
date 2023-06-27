@@ -162,7 +162,7 @@ class ServicoSocio implements IServicoSocio {
   atualizarSocio = async (input: AtualizarSocioInput, ticketRequisicao: string, idSocio: string): Promise<AtualizarSocioResult | null> => {
     let cliente : Cliente | null = null;
     
-    const socio = await this._repositorioSocio.obterSocioComEnderecoECliente(idSocio);
+    const socio = await this._repositorioSocio.obterSocioComEnderecoEClientePorId(idSocio);
 
     if(Validadores.ehValorInvalido(socio)){
       this._notificador.adicionarNotificacao(new Notificacao("Sócio não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
@@ -236,7 +236,7 @@ class ServicoSocio implements IServicoSocio {
   }
 
   alterarStatusAtivo = async (ticketRequisicao: string, idSocio: string, estaAtivo: boolean): Promise<SocioStatusResult | null> => {
-    const socioEncontrado = await this._repositorioSocio.obterSocioComEnderecoECliente(idSocio);
+    const socioEncontrado = await this._repositorioSocio.obterSocioComEnderecoEClientePorId(idSocio);
 
     if(Validadores.ehValorInvalido(socioEncontrado)){
       this._notificador.adicionarNotificacao(new Notificacao("Sócio não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));

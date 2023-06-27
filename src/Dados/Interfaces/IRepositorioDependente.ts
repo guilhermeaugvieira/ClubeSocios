@@ -9,7 +9,8 @@ interface IRepositorioDependente {
   atualizarDependente(
     transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >,
     idDependente?: string) : Promise<Dependente>
-  obterDependenteComClienteEDadosDoSocioPorIdDoDependente(idDependente: string): Promise<(Dependente & { Cliente: Cliente, Socio: Socio & { Cliente: Cliente, Plano: Plano, Endereco: Endereco, Veiculos: VeiculoSocio[] } }) | null>;
+  obterDependenteComClientePorIdDoDependente(idDependente: string): Promise<(Dependente & { Cliente: Cliente }) | null>;
+  obterDependentesComClientePorIdDoSocio(idSocio: string):Promise<(Dependente & { Cliente: Cliente })[]>
 }
 
 export { IRepositorioDependente };

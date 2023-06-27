@@ -1,25 +1,24 @@
 import { AdicionarClienteResult, AtualizarClienteResult, ObterClienteResult } from "./ClienteResult";
-import { ObterSocioResult, ObterSocioSemDependentesResult } from "./SocioResult";
 
 class AdicionarDependenteResult {
-  socio: ObterSocioSemDependentesResult;
   cliente: AdicionarClienteResult;
   id: string;
+  idSocio: string;
 
-  constructor(socio: ObterSocioSemDependentesResult, cliente: AdicionarClienteResult, idDependente: string){
-    this.socio = socio;
+  constructor(idSocio: string, cliente: AdicionarClienteResult, idDependente: string){
+    this.idSocio = idSocio;
     this.cliente = cliente;
     this.id = idDependente;
   }
 }
 
 class AtualizarDependenteResult {
-  socio: ObterSocioSemDependentesResult;
   cliente: AtualizarClienteResult;
   id: string;
+  idSocio: string;
 
-  constructor(socio: ObterSocioSemDependentesResult, cliente: AtualizarClienteResult, idDependente: string){
-    this.socio = socio;
+  constructor(idSocio: string, cliente: AtualizarClienteResult, idDependente: string){
+    this.idSocio = idSocio;
     this.cliente = cliente;
     this.id = idDependente;
   }
@@ -27,14 +26,14 @@ class AtualizarDependenteResult {
 
 class ObterDependenteResult {
   id: string;
-  socio: ObterSocioSemDependentesResult;
+  idSocio: string;
   cliente: ObterClienteResult;
   dataCriacao: Date;
   dataAtualizacao: Date | null;
 
-  constructor(id: string, socio: ObterSocioSemDependentesResult, cliente: ObterClienteResult, dataCriacao: Date, dataAtualizacao: Date | null){
+  constructor(id: string, idSocio: string, cliente: ObterClienteResult, dataCriacao: Date, dataAtualizacao: Date | null){
     this.id = id;
-    this.socio = socio;
+    this.idSocio = idSocio;
     this.cliente = cliente;
     this.dataCriacao = dataCriacao;
     this.dataAtualizacao = dataAtualizacao;

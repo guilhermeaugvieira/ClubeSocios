@@ -24,25 +24,31 @@ class RepositorioDependente implements IRepositorioDependente {
     });
   }
 
-  obterDependenteComClienteEDadosDoSocioPorIdDoDependente = async (idDependente: string): 
-  Promise<(Dependente & { Cliente: Cliente, Socio: Socio & { Cliente: Cliente, Plano: Plano, Endereco: Endereco, Veiculos: VeiculoSocio[] } }) | null> => {
-    return this._databaseManager.dependente.findFirst({
-      include: {
-        Cliente: true,
-        Socio: {
+  obterDependenteComClientePorIdDoDependente = async (idDependente: string): 
+    Promise<(Dependente & { Cliente: Cliente }) | null> => {
+      return this._databaseManager.dependente.findFirst({
+        include: {
+          Cliente: true,
+        },
+        where: {
+          Id: idDependente,
+        }
+      });
+    }
+
+    obterDependentesComClientePorIdDoSocio = async (idSocio: string):
+      Promise<(Dependente & { Cliente: Cliente })[]> => {
+        return this._databaseManager.dependente.findMany({
           include: {
             Cliente: true,
-            Plano: true,
-            Endereco: true,
-            Veiculos: true,
+          },
+          where: {
+            Socio: {
+              Id: idSocio
+            }
           }
-        },
-      },
-      where: {
-        Id: idDependente,
+        });
       }
-    });
-  }
 
   adicionarDependente = async (
     transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >,

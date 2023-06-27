@@ -1,26 +1,24 @@
-import { ObterSocioSemVeiculosResult } from "./SocioResult";
-
 class AdicionarVeiculoSocioResult {
   id: string;
   placa: string;
-  socio: ObterSocioSemVeiculosResult;
+  idSocio: string;
 
-  constructor(id: string, placa: string, socio: ObterSocioSemVeiculosResult){
+  constructor(id: string, placa: string, idSocio: string){
     this.id = id;
     this.placa = placa;
-    this.socio = socio;
+    this.idSocio = idSocio;
   }
 }
 
 class AtualizarVeiculoSocioResult {
   id: string;
   placa: string;
-  socio: ObterSocioSemVeiculosResult;
+  idSocio: string;
 
-  constructor(id: string, placa: string, socio: ObterSocioSemVeiculosResult){
+  constructor(id: string, placa: string, idSocio: string){
     this.id = id;
     this.placa = placa;
-    this.socio = socio;
+    this.idSocio = idSocio;
   }
 }
 
@@ -54,15 +52,15 @@ class ObterVeiculoSocioResult {
   id: string;
   placa: string;
   ativo: boolean;
-  socio: ObterSocioSemVeiculosResult;
+  idSocio: string;
   dataCriacao: Date;
   dataAtualizacao: Date | null;
 
-  constructor(id: string, placa: string, ativo: boolean, socio: ObterSocioSemVeiculosResult, dataCriacao: Date, dataAtualizacao: Date | null){
+  constructor(id: string, placa: string, ativo: boolean, idSocio: string, dataCriacao: Date, dataAtualizacao: Date | null){
     this.id = id;
     this.placa = placa;
     this.ativo = ativo;
-    this.socio = socio;
+    this.idSocio = idSocio;
     this.dataCriacao = dataCriacao;
     this.dataAtualizacao = dataAtualizacao;
   }
