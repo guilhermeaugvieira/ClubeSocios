@@ -1,4 +1,5 @@
 import { AdicionarClienteResult, AtualizarClienteResult, ObterClienteResult } from "./ClienteResult";
+import { ObterDependenteResult, ObterTodosDependentesResult } from "./DependenteResult";
 import { AdicionarEnderecoResult, AtualizarEnderecoResult, ObterEnderecoResult } from "./EnderecoResult";
 import { AdicionarPlanoResult, AtualizarPlanoResult, ObterPlanoResult } from "./PlanoResult";
 
@@ -64,10 +65,39 @@ class ObterSocioResult {
   cliente: ObterClienteResult;
   plano: ObterPlanoResult;
   endereco: ObterEnderecoResult;
+  dependentes: ObterTodosDependentesResult[];
   dataCriacao: Date;
   dataAtualizacao: Date | null;
 
-  constructor(id: string, diaVencimentoPagamento: number, cliente: ObterClienteResult, plano: ObterPlanoResult, endereco: ObterEnderecoResult, dataCriacao: Date, apelido: string | null, dataAtualizacao: Date | null, contato: string){
+  constructor(id: string, diaVencimentoPagamento: number, cliente: ObterClienteResult, plano: ObterPlanoResult, endereco: ObterEnderecoResult, 
+    dataCriacao: Date, apelido: string | null, dataAtualizacao: Date | null, contato: string, dependentes: ObterTodosDependentesResult[]){
+    this.id = id;
+    this.apelido = apelido;
+    this.diaVencimentoPagamento = diaVencimentoPagamento;
+    this.cliente = cliente;
+    this.plano = plano;
+    this.endereco = endereco;
+    this.dataCriacao = dataCriacao;
+    this.dataAtualizacao = dataAtualizacao;
+    this.contato = contato;
+    this.dependentes = dependentes;
+  }
+}
+
+class ObterSocioSemDependentesResult {
+  
+  id: string;
+  apelido: string | null;
+  diaVencimentoPagamento: number;
+  contato: string;
+  cliente: ObterClienteResult;
+  plano: ObterPlanoResult;
+  endereco: ObterEnderecoResult;
+  dataCriacao: Date;
+  dataAtualizacao: Date | null;
+
+  constructor(id: string, diaVencimentoPagamento: number, cliente: ObterClienteResult, plano: ObterPlanoResult, endereco: ObterEnderecoResult, 
+    dataCriacao: Date, apelido: string | null, dataAtualizacao: Date | null, contato: string){
     this.id = id;
     this.apelido = apelido;
     this.diaVencimentoPagamento = diaVencimentoPagamento;
@@ -80,4 +110,4 @@ class ObterSocioResult {
   }
 }
 
-export { AdicionarSocioResult, AtualizarSocioResult, SocioStatusResult, ObterSocioResult }
+export { AdicionarSocioResult, AtualizarSocioResult, SocioStatusResult, ObterSocioResult, ObterSocioSemDependentesResult }

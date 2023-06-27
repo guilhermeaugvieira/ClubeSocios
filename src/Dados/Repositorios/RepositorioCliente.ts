@@ -47,7 +47,7 @@ class RepositorioCliente implements IRepositorioCliente {
   }
 
   adicionarCliente = async (
-    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">, 
     documento: string, nome: string, email: string, 
     login: string, senha: string, idNovoCliente: string | undefined = uuid()) : Promise<Cliente> => 
   {
@@ -67,7 +67,7 @@ class RepositorioCliente implements IRepositorioCliente {
   }
 
   atualizarDadosCliente = async (
-    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     documento: string, nome: string, email: string, login: string, idCliente: string) : Promise<Cliente> => 
   {
     return transactionContext.cliente.update({
@@ -86,7 +86,7 @@ class RepositorioCliente implements IRepositorioCliente {
   }
 
   alterarStatusAtivo = async (
-    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     estaAtivo: boolean, idCliente: string) : Promise<Cliente> => 
   {
     return transactionContext.cliente.update({

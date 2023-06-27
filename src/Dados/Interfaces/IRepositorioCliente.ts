@@ -5,13 +5,13 @@ interface IRepositorioCliente {
   obterClientePorDocumento(documentoCliente: string) : Promise<Cliente | null>;
   obterClientePorLogin(loginCliente: string): Promise <Cliente | null>;
   obterClientePorEmail(emailCliente: string): Promise <Cliente | null>;  
-  adicionarCliente(transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  adicionarCliente(transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">, 
     documento: string, nome: string, email: string, login: string, senha: string, idNovoCliente?: string) : Promise<Cliente>
   atualizarDadosCliente(
-    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     documento: string, nome: string, email: string, login: string, idCliente: string) : Promise<Cliente>;
   alterarStatusAtivo(
-    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+    transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     estaAtivo: boolean, idCliente: string) : Promise<Cliente>;
 }
 

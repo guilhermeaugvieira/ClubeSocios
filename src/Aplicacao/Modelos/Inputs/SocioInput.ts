@@ -75,7 +75,7 @@ class AdicionarSocioInput {
     if(Validadores.ehValorInvalido(this.cliente) && !Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.textoComComprimentoEntre(this.idCliente, 36))
       notificacoes.push(new Notificacao("Id do cliente precisa ter 36 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.ehValorInvalido(this.cliente) && !Validadores.ehVariavelDoTipo(this.idCliente, 'string'))
+    if(Validadores.ehValorInvalido(this.cliente) && !Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.ehVariavelDoTipo(this.idCliente, 'string'))
       notificacoes.push(new Notificacao("Id do cliente precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(Validadores.ehValorInvalido(this.cliente) && Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente))

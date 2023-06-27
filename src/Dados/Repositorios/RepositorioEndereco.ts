@@ -14,7 +14,7 @@ class RepositorioEndereco implements IRepositorioEndereco {
     this._databaseManager = databaseManager;
   }
 
-  adicionarEndereco = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  adicionarEndereco = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     pais: string, cidade: string, cep: string, bairro: string, rua: string, numero: number | null| undefined, idNovoEndereco: string | undefined = uuid()): Promise<Endereco> => {
     return transactionContext.endereco.create({
       data: {
@@ -31,7 +31,7 @@ class RepositorioEndereco implements IRepositorioEndereco {
     })
   }
 
-  atualizarDadosEndereco = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  atualizarDadosEndereco = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     pais: string, cidade: string, cep: string, bairro: string, rua: string, numero: number | null| undefined, idEndereco: string): Promise<Endereco> => {
     return transactionContext.endereco.update({
       data: {

@@ -41,7 +41,7 @@ class RepositorioPlano implements IRepositorioPlano {
     })
   };
 
-  adicionarPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  adicionarPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     nome: string, descricao: string, tipoRecorrencia: string, valorMensalidade: number, modalidade: string, idNovoPlano: string | undefined = uuid()): Promise<Plano> => {
     return transactionContext.plano.create({
       data: {
@@ -58,7 +58,7 @@ class RepositorioPlano implements IRepositorioPlano {
     });
   }
 
-  atualizarDadosPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  atualizarDadosPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     nome: string, descricao: string, tipoRecorrencia: string, valorMensalidade: number, modalidade: string, idPlano: string): Promise<Plano> => {
     return transactionContext.plano.update({
       data: {
@@ -75,7 +75,7 @@ class RepositorioPlano implements IRepositorioPlano {
     });
   }
 
-  atualizarStatusAtivoDoPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">, 
+  atualizarStatusAtivoDoPlano = (transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >, 
     status: boolean, idPlano: string): Promise<Plano> => {
     return transactionContext.plano.update({
       data: {
