@@ -11,8 +11,9 @@ import { AdicionarDependenteInput, AtualizarDependenteInput } from "../../Modelo
 import { AdicionarClienteResult, AtualizarClienteResult, ObterClienteResult } from "../../Modelos/Results/ClienteResult";
 import { AdicionarDependenteResult, AtualizarDependenteResult, DependenteStatusResult, ObterDependenteResult } from "../../Modelos/Results/DependenteResult";
 import { ObterEnderecoResult } from "../../Modelos/Results/EnderecoResult";
-import { AdicionarPlanoResult, ObterPlanoResult } from "../../Modelos/Results/PlanoResult";
-import { AdicionarSocioResult, ObterSocioResult, ObterSocioSemDependentesResult } from "../../Modelos/Results/SocioResult";
+import { ObterPlanoResult } from "../../Modelos/Results/PlanoResult";
+import { ObterSocioSemDependentesResult } from "../../Modelos/Results/SocioResult";
+import { ObterTodosVeiculosSocioResult } from "../../Modelos/Results/VeiculoSocioResult";
 import { IServicoDependente } from "../Interfaces/IServicoDependente";
 
 @injectable()
@@ -42,7 +43,7 @@ class ServicoDependente implements IServicoDependente {
     let cliente: Cliente | null = null;
     let dependente: Dependente | null = null;
 
-    const socio = await this._repositorioSocio.obterSocioComPlanoEnderecoClienteEDependentesComClientePeloId(idSocio);
+    const socio = await this._repositorioSocio.obterSocioComPlanoEnderecoClienteVeiculosEDependentesComClientePeloId(idSocio);
 
     if(Validadores.ehValorInvalido(socio)){
       this._notificador.adicionarNotificacao(new Notificacao("Id do socio fornecido não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
@@ -117,7 +118,8 @@ class ServicoDependente implements IServicoDependente {
             socio!.Plano.ValorMensalidade.toNumber(), socio!.Plano.Modalidade, socio!.Plano.Ativo, socio!.Plano.DataCriacao, socio!.Plano.DataAtualizacao),
           new ObterEnderecoResult(socio!.Endereco.Id, socio!.Endereco.Pais, socio!.Endereco.Cidade, socio!.Endereco.Cep,
             socio!.Endereco.Bairro, socio!.Endereco.Rua, socio!.Endereco.DataCriacao, socio!.Endereco.Numero, socio!.Endereco.DataAtualizacao),
-          socio!.DataCriacao, socio!.Apelido, socio!.DataAtualizacao, socio!.Contato
+          socio!.DataCriacao, socio!.Apelido, socio!.DataAtualizacao, socio!.Contato,
+          socio!.Veiculos.map(p => new ObterTodosVeiculosSocioResult(p.Id, p.Placa, p.Ativo, p.DataCriacao, p.DataAtualizacao))
         ),
         new AdicionarClienteResult(cliente!.Nome, cliente!.Login),
         dependente!.Id
@@ -127,10 +129,10 @@ class ServicoDependente implements IServicoDependente {
     return dependenteResultante;
   }
 
-  atualizarDependente = async (input: AtualizarDependenteInput, idSocio: string, idDependente: string, ticketRequisicao: string) : Promise<AdicionarDependenteResult | null> => {
+  atualizarDependente = async (input: AtualizarDependenteInput, idSocio: string, idDependente: string, ticketRequisicao: string) : Promise<AtualizarDependenteResult | null> => {
     let cliente: Cliente | null = null;
 
-    const socio = await this._repositorioSocio.obterSocioComPlanoEnderecoClienteEDependentesComClientePeloId(idSocio);
+    const socio = await this._repositorioSocio.obterSocioComPlanoEnderecoClienteVeiculosEDependentesComClientePeloId(idSocio);
 
     if(Validadores.ehValorInvalido(socio)){
       this._notificador.adicionarNotificacao(new Notificacao("Id do socio fornecido não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
@@ -147,7 +149,7 @@ class ServicoDependente implements IServicoDependente {
     }
 
     if(!Validadores.ehIgual(socio!.Id, dependente!.Socio.Id)){
-      this._notificador.adicionarNotificacao(new Notificacao("Dependente não está associado ao sócio", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
+      this._notificador.adicionarNotificacao(new Notificacao("Dependente não está associado ao sócio", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
         
       return null;
     }
@@ -193,7 +195,8 @@ class ServicoDependente implements IServicoDependente {
             socio!.Plano.ValorMensalidade.toNumber(), socio!.Plano.Modalidade, socio!.Plano.Ativo, socio!.Plano.DataCriacao, socio!.Plano.DataAtualizacao),
           new ObterEnderecoResult(socio!.Endereco.Id, socio!.Endereco.Pais, socio!.Endereco.Cidade, socio!.Endereco.Cep,
             socio!.Endereco.Bairro, socio!.Endereco.Rua, socio!.Endereco.DataCriacao, socio!.Endereco.Numero, socio!.Endereco.DataAtualizacao),
-          socio!.DataCriacao, socio!.Apelido, socio!.DataAtualizacao, socio!.Contato
+          socio!.DataCriacao, socio!.Apelido, socio!.DataAtualizacao, socio!.Contato,
+          socio!.Veiculos.map(p => new ObterTodosVeiculosSocioResult(p.Id, p.Placa, p.Ativo, p.DataCriacao, p.DataAtualizacao))
         ),
         new AtualizarClienteResult(clienteAtualizado!.Nome, clienteAtualizado!.Login),
         dependente!.Id
@@ -222,6 +225,8 @@ class ServicoDependente implements IServicoDependente {
     
     await this._databaseManager.$transaction(async (tx) => {
       const clienteAtualizado = await this._repositorioCliente.alterarStatusAtivo(tx, estaAtivo, dependenteEncontrado!.Cliente.Id);
+
+      await this._repositorioDependente.atualizarDependente(tx, idDependente);
     
       resposta = new DependenteStatusResult(idDependente, clienteAtualizado.Ativo);
     });
@@ -233,7 +238,7 @@ class ServicoDependente implements IServicoDependente {
     const dependenteEncontrado = await this._repositorioDependente.obterDependenteComClienteEDadosDoSocioPorIdDoDependente(idDependente);
 
     if(Validadores.ehValorInvalido(dependenteEncontrado)){
-      this._notificador.adicionarNotificacao(new Notificacao(`Dependente não foi encontrado`, TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+      this._notificador.adicionarNotificacao(new Notificacao(`Dependente não foi encontrado`, TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
 
       return null;
     }
@@ -248,7 +253,10 @@ class ServicoDependente implements IServicoDependente {
         dependenteEncontrado!.Socio.Plano.Modalidade, dependenteEncontrado!.Socio.Plano.Ativo, dependenteEncontrado!.Socio.Plano.DataCriacao, dependenteEncontrado!.Socio.Plano.DataAtualizacao),
         new ObterEnderecoResult(dependenteEncontrado!.Socio.Endereco.Id, dependenteEncontrado!.Socio.Endereco.Pais, dependenteEncontrado!.Socio.Endereco.Cidade, dependenteEncontrado!.Socio.Endereco.Cep,
           dependenteEncontrado!.Socio.Endereco.Bairro, dependenteEncontrado!.Socio.Endereco.Rua, dependenteEncontrado!.Socio.Endereco.DataCriacao, dependenteEncontrado!.Socio.Endereco.Numero, 
-          dependenteEncontrado!.Socio.Endereco.DataAtualizacao), dependenteEncontrado!.Socio.DataCriacao, dependenteEncontrado!.Socio.Apelido, dependenteEncontrado!.Socio.DataAtualizacao, dependenteEncontrado!.Socio.Contato),
+          dependenteEncontrado!.Socio.Endereco.DataAtualizacao), 
+        dependenteEncontrado!.Socio.DataCriacao, dependenteEncontrado!.Socio.Apelido, dependenteEncontrado!.Socio.DataAtualizacao, dependenteEncontrado!.Socio.Contato,
+        dependenteEncontrado!.Socio.Veiculos.map(p => new ObterTodosVeiculosSocioResult(p.Id, p.Placa, p.Ativo, p.DataCriacao, p.DataAtualizacao))
+        ),
         new ObterClienteResult(dependenteEncontrado!.Cliente.Id, dependenteEncontrado!.Cliente.Nome, dependenteEncontrado!.Cliente.Documento, dependenteEncontrado!.Cliente.Login, dependenteEncontrado!.Cliente.Email,
           dependenteEncontrado!.Cliente.Ativo, dependenteEncontrado!.Cliente.DataCriacao, dependenteEncontrado!.Cliente.DataAtualizacao),
           dependenteEncontrado!.DataCriacao, dependenteEncontrado!.DataAtualizacao);

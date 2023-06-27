@@ -1,4 +1,4 @@
-import { Cliente, Dependente, Endereco, Plano, Prisma, PrismaClient, Socio } from "@prisma/client";
+import { Cliente, Dependente, Endereco, Plano, Prisma, PrismaClient, Socio, VeiculoSocio } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
 import { IRepositorioDependente } from "../Interfaces/IRepositorioDependente";
 import { v4 as uuid } from 'uuid'; 
@@ -24,7 +24,8 @@ class RepositorioDependente implements IRepositorioDependente {
     });
   }
 
-  obterDependenteComClienteEDadosDoSocioPorIdDoDependente = async (idDependente: string): Promise<(Dependente & { Cliente: Cliente, Socio: Socio & { Cliente: Cliente, Plano: Plano, Endereco: Endereco } }) | null> => {
+  obterDependenteComClienteEDadosDoSocioPorIdDoDependente = async (idDependente: string): 
+  Promise<(Dependente & { Cliente: Cliente, Socio: Socio & { Cliente: Cliente, Plano: Plano, Endereco: Endereco, Veiculos: VeiculoSocio[] } }) | null> => {
     return this._databaseManager.dependente.findFirst({
       include: {
         Cliente: true,
@@ -33,6 +34,7 @@ class RepositorioDependente implements IRepositorioDependente {
             Cliente: true,
             Plano: true,
             Endereco: true,
+            Veiculos: true,
           }
         },
       },

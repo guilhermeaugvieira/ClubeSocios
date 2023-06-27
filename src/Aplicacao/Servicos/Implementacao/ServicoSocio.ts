@@ -1,4 +1,4 @@
-import { Cliente, Dependente, Endereco, Plano, PrismaClient, Socio } from "@prisma/client";
+import { Cliente, Dependente, Endereco, Plano, PrismaClient, Socio, VeiculoSocio } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
 import { INotificador } from "../../../Core/INotificador";
 import { Notificacao, TipoNotificacao } from "../../../Core/Notificacao";
@@ -10,10 +10,11 @@ import { IRepositorioSocio } from "../../../Dados/Interfaces/IRepositorioSocio";
 import { Hash } from "../../../Infra/Hash";
 import { AdicionarSocioInput, AtualizarSocioInput } from "../../Modelos/Inputs/SocioInput";
 import { AdicionarClienteResult, AtualizarClienteResult, ObterClienteResult } from "../../Modelos/Results/ClienteResult";
-import { ObterDependenteResult, ObterTodosDependentesResult } from "../../Modelos/Results/DependenteResult";
+import { ObterTodosDependentesResult } from "../../Modelos/Results/DependenteResult";
 import { AdicionarEnderecoResult, AtualizarEnderecoResult, ObterEnderecoResult } from "../../Modelos/Results/EnderecoResult";
 import { AdicionarPlanoResult, AtualizarPlanoResult, ObterPlanoResult } from "../../Modelos/Results/PlanoResult";
 import { AdicionarSocioResult, AtualizarSocioResult, ObterSocioResult, SocioStatusResult } from "../../Modelos/Results/SocioResult";
+import { ObterTodosVeiculosSocioResult } from "../../Modelos/Results/VeiculoSocioResult";
 import { IServicoSocio } from "../Interfaces/IServicoSocio";
 
 @injectable()
@@ -261,7 +262,7 @@ class ServicoSocio implements IServicoSocio {
   };
 
   obterTodosOsSocios = async () :Promise<ObterSocioResult[] | null> => {
-    const socios = await this._repositorioSocio.obterTodosOsSociosComPlanoEnderecoClienteEDependentesComCliente();
+    const socios = await this._repositorioSocio.obterTodosOsSociosComPlanoEnderecoClienteVeiculosEDependentesComCliente();
 
     if(Validadores.ehIgual(socios.length, 0)){
       return null;
@@ -279,7 +280,7 @@ class ServicoSocio implements IServicoSocio {
   }
 
   obterSocioPorId = async (idSocio: string, ticketRequisicao: string) : Promise<ObterSocioResult | null> => {
-    const socio = await this._repositorioSocio.obterSocioComPlanoEnderecoClienteEDependentesComClientePeloId(idSocio);
+    const socio = await this._repositorioSocio.obterSocioComPlanoEnderecoClienteVeiculosEDependentesComClientePeloId(idSocio);
 
     if(Validadores.ehValorInvalido(socio)){
       this._notificador.adicionarNotificacao(new Notificacao("Sócio não foi encontrado", TipoNotificacao.RecursoNaoEncontrado, this, ticketRequisicao));
@@ -292,7 +293,7 @@ class ServicoSocio implements IServicoSocio {
 
   private obterStatus = (status: boolean) => status ? 'habilitado' : 'desabilitado';
 
-  private converterEntidadeEmDto = (socio: Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; Dependentes: (Dependente & { Cliente: Cliente})[] }) : ObterSocioResult => {
+  private converterEntidadeEmDto = (socio: Socio & { Plano: Plano; Cliente: Cliente; Endereco: Endereco; Veiculos: VeiculoSocio[]; Dependentes: (Dependente & { Cliente: Cliente})[] }) : ObterSocioResult => {
     return new ObterSocioResult(socio.Id, socio.DiaVencimentoPagamento,
       new ObterClienteResult(socio.Cliente.Id, socio.Cliente.Nome, socio.Cliente.Documento, socio.Cliente.Login, socio.Cliente.Email, socio.Cliente.Ativo, 
         socio.Cliente.DataCriacao, socio.Cliente.DataAtualizacao),
@@ -302,7 +303,8 @@ class ServicoSocio implements IServicoSocio {
         socio.Endereco.DataCriacao, socio.Endereco.Numero, socio.Endereco.DataAtualizacao),
       socio.DataCriacao, socio.Apelido, socio.DataAtualizacao, socio.Contato,
       socio.Dependentes.map(p => new ObterTodosDependentesResult(p.Id, new ObterClienteResult(p.Cliente.Id, p.Cliente.Nome, p.Cliente.Documento, p.Cliente.Login, 
-        p.Cliente.Email, p.Cliente.Ativo, p.Cliente.DataCriacao, p.Cliente.DataAtualizacao), p.DataCriacao, p.DataAtualizacao))
+        p.Cliente.Email, p.Cliente.Ativo, p.Cliente.DataCriacao, p.Cliente.DataAtualizacao), p.DataCriacao, p.DataAtualizacao)),
+      socio.Veiculos.map(p => new ObterTodosVeiculosSocioResult(p.Id, p.Placa, p.Ativo, p.DataCriacao, p.DataAtualizacao))
       );
   }
 }

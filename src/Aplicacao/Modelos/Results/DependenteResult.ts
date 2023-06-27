@@ -54,7 +54,6 @@ class ObterTodosDependentesResult {
     this.dataCriacao = dataCriacao;
     this.dataAtualizacao = dataAtualizacao;
   }
-
 }
 
 class DependenteStatusResult {

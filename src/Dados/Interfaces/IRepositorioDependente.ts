@@ -1,4 +1,4 @@
-import { Cliente, Dependente, Endereco, Plano, Prisma, PrismaClient, Socio } from "@prisma/client";
+import { Cliente, Dependente, Endereco, Plano, Prisma, PrismaClient, Socio, VeiculoSocio } from "@prisma/client";
 
 interface IRepositorioDependente {
   obterDependentePorIdDoCliente(idCliente: string): Promise<Dependente | null>;
@@ -9,7 +9,7 @@ interface IRepositorioDependente {
   atualizarDependente(
     transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >,
     idDependente?: string) : Promise<Dependente>
-  obterDependenteComClienteEDadosDoSocioPorIdDoDependente(idDependente: string): Promise<(Dependente & { Cliente: Cliente, Socio: (Socio & { Cliente: Cliente, Plano: Plano, Endereco: Endereco }) }) | null>;
+  obterDependenteComClienteEDadosDoSocioPorIdDoDependente(idDependente: string): Promise<(Dependente & { Cliente: Cliente, Socio: Socio & { Cliente: Cliente, Plano: Plano, Endereco: Endereco, Veiculos: VeiculoSocio[] } }) | null>;
 }
 
 export { IRepositorioDependente };
