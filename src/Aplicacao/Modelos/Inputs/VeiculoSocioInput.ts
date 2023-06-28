@@ -25,10 +25,10 @@ class AdicionarVeiculoSocioInput {
     if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.placa))
       notificacoes.push(new Notificacao("Placa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
   
-    if(!Validadores.ehValorInvalidoOuEspacoEmBranco(this.placa) && !Validadores.textoComComprimentoEntre(this.placa, 7))
+    if(!Validadores.textoComComprimentoEntre(this.placa, 7))
       notificacoes.push(new Notificacao("Placa precisa ter 7 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(!Validadores.ehValorInvalidoOuEspacoEmBranco(this.placa) && Validadores.textoComUmDosCaracteres(this.placa, ['-', ...CONJUNTO_CARACTERES_ESPECIAIS, ...CONJUNTO_ALFABETO_MINUSCULO]))
+    if(Validadores.textoComUmDosCaracteres(this.placa, ['-', ...CONJUNTO_CARACTERES_ESPECIAIS, ...CONJUNTO_ALFABETO_MINUSCULO]))
       notificacoes.push(new Notificacao("Placa só pode conter números e letras maiúsculas", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     return notificacoes;
@@ -58,10 +58,10 @@ class AtualizarVeiculoSocioInput {
   if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.placa))
     notificacoes.push(new Notificacao("Placa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-  if(!Validadores.ehValorInvalidoOuEspacoEmBranco(this.placa) && !Validadores.textoComComprimentoEntre(this.placa, 7))
+  if(!Validadores.textoComComprimentoEntre(this.placa, 7))
     notificacoes.push(new Notificacao("Placa precisa ter 7 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-  if(!Validadores.ehValorInvalidoOuEspacoEmBranco(this.placa) && Validadores.textoComUmDosCaracteres(this.placa, ['-', ...CONJUNTO_CARACTERES_ESPECIAIS, ...CONJUNTO_ALFABETO_MINUSCULO]))
+  if(Validadores.textoComUmDosCaracteres(this.placa, ['-', ...CONJUNTO_CARACTERES_ESPECIAIS, ...CONJUNTO_ALFABETO_MINUSCULO]))
     notificacoes.push(new Notificacao("Placa só pode conter números e letras maiúsculas", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     return notificacoes;

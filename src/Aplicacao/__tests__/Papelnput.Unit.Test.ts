@@ -3,7 +3,7 @@ import { Notificacao, TipoNotificacao } from '../../Core/Notificacao';
 import { AdicionarPapelInput, AtualizarPapelInput } from '../Modelos/Inputs/PapelInput';
 
 describe('Módulo AdicionarPapelInput', () => {
-  test('Ao validar papel com nome inválido, deve ser apresentada todas as mensagens de erro referentes ao nome', () => {
+  test('Ao validar papel com nome inválido, deve ser apresentada as mensagens: Nome do papel precisa ser preenchido, Nome do papel precisa conter entre 4 e 30 caracteres, Nome do papel precisa ser um texto', () => {
     const errosEsperados = [
       "Nome do papel precisa ser preenchido",
       "Nome do papel precisa conter entre 4 e 30 caracteres",
@@ -45,7 +45,7 @@ describe('Módulo AdicionarPapelInput', () => {
 })
 
 describe('Módulo AtualizarPapelInput', () => {
-  test('Ao validar papel com nome inválido, deve ser apresentada todas as mensagens de erro referentes ao nome', () => {
+  test('Ao validar papel com nome inválido, deve ser apresentada as mensagens: Nome do papel precisa ser preenchido, Nome do papel precisa conter entre 4 e 30 caracteres, Nome do papel precisa ser um texto', () => {
     const errosEsperados = [
       "Nome do papel precisa ser preenchido",
       "Nome do papel precisa conter entre 4 e 30 caracteres",

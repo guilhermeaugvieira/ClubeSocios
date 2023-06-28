@@ -57,7 +57,7 @@ class AdicionarEnderecoInput {
       notificacoes.push(new Notificacao("Cep precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.bairro))
-      notificacoes.push(new Notificacao("Bairro precisa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
+      notificacoes.push(new Notificacao("Bairro precisa ser preenchido", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(!Validadores.textoComComprimentoEntre(this.bairro, 5, 40))
       notificacoes.push(new Notificacao("Bairro precisa ter entre 5 a 40 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
@@ -140,7 +140,7 @@ class AtualizarEnderecoInput {
       notificacoes.push(new Notificacao("Cep precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.bairro))
-      notificacoes.push(new Notificacao("Bairro precisa precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
+      notificacoes.push(new Notificacao("Bairro precisa ser preenchido", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(!Validadores.textoComComprimentoEntre(this.bairro, 5, 40))
       notificacoes.push(new Notificacao("Bairro precisa ter entre 5 a 40 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));

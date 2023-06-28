@@ -3,7 +3,7 @@ import { Notificacao, TipoNotificacao } from '../../Core/Notificacao';
 import { AdicionarSocioInput, AtualizarSocioInput } from '../Modelos/Inputs/SocioInput';
 
 describe('Módulo AdicionarSocioInput', () => {
-  test('Ao validar socio com dia de vencimento do pagamento inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao dia de vencimento do pagamento', () => {
+  test('Ao validar socio com dia de vencimento do pagamento inválido, devem ser apresentadas as mensagens: Dia de Vencimento do Pagamento do Sócio precisa ser preenchido, Dia de Vencimento do Pagamento do Sócio precisa ser maior que 0, Dia de Vencimento do Pagamento do Sócio precisa ser menor que 28, Dia de Vencimento do Pagamento do Sócio precisa ser um número', () => {
     const errosEsperados = [
       'Dia de Vencimento do Pagamento do Sócio precisa ser preenchido',
       'Dia de Vencimento do Pagamento do Sócio precisa ser maior que 0',
@@ -28,7 +28,7 @@ describe('Módulo AdicionarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[3] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar socio com contato inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao contato', () => {
+  test('Ao validar socio com contato inválido, devem ser apresentadas as mensagens: Contato do Sócio precisa ser preenchido, Contato do Sócio precisa ter entre 11 a 15 caracteres, Contato do Sócio precisa ser um texto', () => {
     const errosEsperados = [
       'Contato do Sócio precisa ser preenchido',
       'Contato do Sócio precisa ter entre 11 a 15 caracteres',
@@ -51,7 +51,7 @@ describe('Módulo AdicionarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar socio com apelido inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao apelido', () => {
+  test('Ao validar socio com apelido inválido, devem ser apresentadas as mensagens: Apelido do Sócio se preenchido precisa ter entre 3 a 30 caracteres', () => {
     const errosEsperados = [
       'Apelido do Sócio se preenchido precisa ter entre 3 a 30 caracteres',
     ];
@@ -72,7 +72,7 @@ describe('Módulo AdicionarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar socio sem id do cliente e informação do cliente vazia, deve ser apresentada a mensagem "Se os dados do cliente não são preenchidos o id do cliente precisa ser fornecido"', () => {
+  test('Ao validar socio sem id do cliente e informação do cliente vazia, devem ser apresentadas as mensagens: Id do cliente precisa ter 36 caracteres, Id do cliente precisa ser um texto, Se os dados do cliente não são preenchidos o id do cliente precisa ser fornecido', () => {
     const errosEsperados = [
       'Id do cliente precisa ter 36 caracteres',
       'Id do cliente precisa ser um texto',
@@ -109,7 +109,7 @@ describe('Módulo AdicionarSocioInput', () => {
 
   });
 
-  test('Ao validar socio com id do cliente e informação do cliente, deve ser apresentada a mensagem "Somente um dos dados referente ao cliente deve ser preenchido"', () => {
+  test('Ao validar socio com id do cliente e informação do cliente, devem ser apresentadas as mensagens: Somente um dos dados referente ao cliente deve ser preenchido', () => {
     const errosEsperados = [
       'Somente um dos dados referente ao cliente deve ser preenchido',
     ];
@@ -143,7 +143,7 @@ describe('Módulo AdicionarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar socio sem id do plano e informação do plano vazia, deve ser apresentada a mensagem "Se os dados do plano não são preenchidos o id do plano precisa ser fornecido"', () => {
+  test('Ao validar socio sem id do plano e informação do plano vazia, devem ser apresentadas as mensagens: Id do plano precisa ter 36 caracteres, Id do plano precisa ser um texto, Se os dados do plano não são preenchidos o id do plano precisa ser fornecido', () => {
     const errosEsperados = [
       'Id do plano precisa ter 36 caracteres',
       'Id do plano precisa ser um texto',
@@ -179,7 +179,7 @@ describe('Módulo AdicionarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar socio com id do plano e informação do plano, deve ser apresentada a mensagem "Somente um dos dados referente ao plano deve ser preenchido"', () => {
+  test('Ao validar socio com id do plano e informação do plano, devem ser apresentadas as mensagens: Somente um dos dados referente ao plano deve ser preenchido', () => {
     const errosEsperados = [
       'Somente um dos dados referente ao plano deve ser preenchido',
     ];
@@ -371,7 +371,7 @@ describe('Módulo AdicionarSocioInput', () => {
 });
 
 describe('Módulo AtualizarSocioInput', () => {
-  test('Ao validar socio com dia de vencimento do pagamento inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao dia de vencimento do pagamento', () => {
+  test('Ao validar socio com dia de vencimento do pagamento inválido, devem ser apresentadas as mensagens: Dia de Vencimento do Pagamento do Sócio precisa ser preenchido, Dia de Vencimento do Pagamento do Sócio precisa ser maior que 0, Dia de Vencimento do Pagamento do Sócio precisa ser menor que 28, Dia de Vencimento do Pagamento do Sócio precisa ser um número', () => {
     const errosEsperados = [
       'Dia de Vencimento do Pagamento do Sócio precisa ser preenchido',
       'Dia de Vencimento do Pagamento do Sócio precisa ser maior que 0',
@@ -396,7 +396,7 @@ describe('Módulo AtualizarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[3] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar socio com contato inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao contato', () => {
+  test('Ao validar socio com contato inválido, devem ser apresentadas as mensagens: Contato do Sócio precisa ser preenchido, Contato do Sócio precisa ter entre 11 a 15 caracteres, Contato do Sócio precisa ser um texto', () => {
     const errosEsperados = [
       'Contato do Sócio precisa ser preenchido',
       'Contato do Sócio precisa ter entre 11 a 15 caracteres',
@@ -418,7 +418,7 @@ describe('Módulo AtualizarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar socio com apelido inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao apelido', () => {
+  test('Ao validar socio com apelido inválido, devem ser apresentadas as mensagens: Apelido do Sócio se preenchido precisa ter entre 3 a 30 caracteres', () => {
     const errosEsperados = [
       'Apelido do Sócio se preenchido precisa ter entre 3 a 30 caracteres',
     ];
@@ -439,7 +439,7 @@ describe('Módulo AtualizarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar socio sem nome do plano, devem ser apresentadas as mensagens relacionadas ao nome do plano', () => {
+  test('Ao validar socio sem nome do plano, devem ser apresentadas as mensagens: Nome do plano precisa ser preenchido, Nome do plano precisa ter entre 5 a 40 caracteres, Nome do plano precisa ser um texto', () => {
     const errosEsperados = [
       'Nome do plano precisa ser preenchido',
       'Nome do plano precisa ter entre 5 a 40 caracteres',

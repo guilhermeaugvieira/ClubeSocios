@@ -52,7 +52,7 @@ class AdicionarPlanoInput {
       notificacoes.push(new Notificacao("Tipo de Recorrência do plano precisa ter entre 3 a 15 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(!Validadores.ehVariavelDoTipo(this.tipoRecorrencia, 'string'))
-      notificacoes.push(new Notificacao("Tipo Recorrencia do plano precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
+      notificacoes.push(new Notificacao("Tipo de Recorrencia do plano precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.modalidade))
       notificacoes.push(new Notificacao("Modalidade do plano precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
@@ -124,7 +124,7 @@ class AtualizarPlanoInput {
       notificacoes.push(new Notificacao("Tipo de Recorrência do plano precisa ter entre 3 a 15 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(!Validadores.ehVariavelDoTipo(this.tipoRecorrencia, 'string'))
-      notificacoes.push(new Notificacao("Tipo Recorrencia do plano precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
+      notificacoes.push(new Notificacao("Tipo de Recorrencia do plano precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(Validadores.ehValorInvalidoOuEspacoEmBranco(this.modalidade))
       notificacoes.push(new Notificacao("Modalidade do plano precisa ser preenchida", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
