@@ -76,7 +76,7 @@ class ServicoVeiculoSocio implements IServicoVeiculoSocio {
     
     const veiculoVerificado = await this._repositorioVeiculoSocio.obterVeiculoSocioPelaPlaca(input.placa);
 
-    if(!Validadores.ehValorInvalido(veiculoVerificado)){
+    if(!Validadores.ehValorInvalido(veiculoVerificado) && !Validadores.ehIgual(veiculoVerificado!.Id, veiculoEncontrado!.Id)){
       this._notificador.adicionarNotificacao(new Notificacao("Placa já foi cadastrada", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
 
       return null;
