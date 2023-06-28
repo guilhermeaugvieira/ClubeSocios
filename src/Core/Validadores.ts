@@ -125,9 +125,6 @@ class Validadores{
     if(typeof(texto) !== 'string')
       return false;
 
-    if(texto.trim().length === 0)
-      return false;
-
     return caracteres.some(caracter => texto.includes(caracter));
   }
 

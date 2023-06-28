@@ -3,10 +3,11 @@ import { Notificacao, TipoNotificacao } from '../../Core/Notificacao';
 import { AdicionarPapelInput, AtualizarPapelInput } from '../Modelos/Inputs/PapelInput';
 
 describe('Módulo AdicionarPapelInput', () => {
-  test('Ao validar papel com nome inválido, deve ser apresentada todas as mensagens de erro referentes ao nome', () => {
+  test('Ao validar papel com nome inválido, deve ser apresentada as mensagens: Nome do papel precisa ser preenchido, Nome do papel precisa conter entre 4 e 30 caracteres, Nome do papel precisa ser um texto', () => {
     const errosEsperados = [
       "Nome do papel precisa ser preenchido",
-      "Nome do papel precisa conter entre 4 e 30 caracteres"
+      "Nome do papel precisa conter entre 4 e 30 caracteres",
+      "Nome do papel precisa ser um texto"
     ]
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -23,6 +24,7 @@ describe('Módulo AdicionarPapelInput', () => {
 
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
   test('Ao validar valor nulo, o input não deve ser construido', () => {
@@ -43,10 +45,11 @@ describe('Módulo AdicionarPapelInput', () => {
 })
 
 describe('Módulo AtualizarPapelInput', () => {
-  test('Ao validar papel com nome inválido, deve ser apresentada todas as mensagens de erro referentes ao nome', () => {
+  test('Ao validar papel com nome inválido, deve ser apresentada as mensagens: Nome do papel precisa ser preenchido, Nome do papel precisa conter entre 4 e 30 caracteres, Nome do papel precisa ser um texto', () => {
     const errosEsperados = [
       "Nome do papel precisa ser preenchido",
-      "Nome do papel precisa conter entre 4 e 30 caracteres"
+      "Nome do papel precisa conter entre 4 e 30 caracteres",
+      "Nome do papel precisa ser um texto"
     ]
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -63,6 +66,7 @@ describe('Módulo AtualizarPapelInput', () => {
 
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
   test('Ao validar valor nulo, o input não deve ser construido', () => {

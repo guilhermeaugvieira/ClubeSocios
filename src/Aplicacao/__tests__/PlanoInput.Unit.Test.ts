@@ -3,10 +3,11 @@ import { Notificacao, TipoNotificacao } from '../../Core/Notificacao';
 import { AdicionarPlanoInput, AtualizarPlanoInput } from '../Modelos/Inputs/PlanoInput';
 
 describe('Módulo AdicionarPlanoInput', () => {
-  test('Ao validar plano com nome inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao nome', () => {
+  test('Ao validar plano com nome inválido, devem ser apresentadas as mensagens: Nome do plano precisa ser preenchido, Nome do plano precisa ter entre 5 a 40 caracteres, Nome do plano precisa ser um texto', () => {
     const errosEsperados = [
       'Nome do plano precisa ser preenchido',
-      'Nome do plano precisa ter entre 5 a 40 caracteres'
+      'Nome do plano precisa ter entre 5 a 40 caracteres',
+      'Nome do plano precisa ser um texto'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -22,12 +23,14 @@ describe('Módulo AdicionarPlanoInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
   
-  test('Ao validar plano com descrição inválida, devem ser apresentadas todas as mensagens de erro relacionadas a descrição', () => {
+  test('Ao validar plano com descrição inválida, devem ser apresentadas as mensagens: Descrição do plano precisa ser preenchido, Descrição do plano precisa ter entre 10 a 256 caracteres, Descrição do plano precisa ser um texto', () => {
     const errosEsperados = [
       'Descrição do plano precisa ser preenchido',
-      'Descrição do plano precisa ter entre 10 a 256 caracteres'
+      'Descrição do plano precisa ter entre 10 a 256 caracteres',
+      'Descrição do plano precisa ser um texto'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -43,12 +46,14 @@ describe('Módulo AdicionarPlanoInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar plano com tipo de recorrência inválida, devem ser apresentadas todas as mensagens de erro relacionadas ao tipo de recorrencia', () => {
+  test('Ao validar plano com tipo de recorrência inválida, devem ser apresentadas as mensagens: Tipo de Recorrência do plano precisa ser preenchida, Tipo de Recorrência do plano precisa ter entre 3 a 15 caracteres, Tipo de Recorrencia do plano precisa ser um texto', () => {
     const errosEsperados = [
       'Tipo de Recorrência do plano precisa ser preenchida',
-      'Tipo de Recorrência do plano precisa ter entre 3 a 15 caracteres'
+      'Tipo de Recorrência do plano precisa ter entre 3 a 15 caracteres',
+      'Tipo de Recorrencia do plano precisa ser um texto'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -64,12 +69,14 @@ describe('Módulo AdicionarPlanoInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar plano com modalidade inválida, devem ser apresentadas todas as mensagens de erro relacionadas a modalidade', () => {
+  test('Ao validar plano com modalidade inválida, devem ser apresentadas as mensagens: Modalidade do plano precisa ser preenchida, Modalidade do plano precisa ter entre 5 a 30 caracteres, Modalidade do plano precisa ser um texto', () => {
     const errosEsperados = [
       'Modalidade do plano precisa ser preenchida',
-      'Modalidade do plano precisa ter entre 5 a 30 caracteres'
+      'Modalidade do plano precisa ter entre 5 a 30 caracteres',
+      'Modalidade do plano precisa ser um texto'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -85,11 +92,13 @@ describe('Módulo AdicionarPlanoInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar plano com valor da mensalidade inválida, devem ser apresentadas todas as mensagens de erro relacionadas ao valor da mensalidade', () => {
+  test('Ao validar plano com valor da mensalidade inválida, devem ser apresentadas as mensagens: Valor da Mensalidade do plano precisa ser preenchida, Valor da Mensalidade do plano precisa ser um número', () => {
     const errosEsperados = [
       'Valor da Mensalidade do plano precisa ser preenchida',
+      'Valor da Mensalidade do plano precisa ser um número'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -104,6 +113,7 @@ describe('Módulo AdicionarPlanoInput', () => {
     novoPlano?.validarModelo(notificacoes, ticketRequisicao);
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
   test('Ao validar null, o input não deve ser construído', () => {
@@ -124,10 +134,11 @@ describe('Módulo AdicionarPlanoInput', () => {
 })
 
 describe('Módulo AtualizarPlanoInput', () => {
-  test('Ao validar plano com nome inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao nome', () => {
+  test('Ao validar plano com nome inválido, devem ser apresentadas as mensagens: Nome do plano precisa ser preenchido, Nome do plano precisa ter entre 5 a 40 caracteres, Nome do plano precisa ser um texto', () => {
     const errosEsperados = [
       'Nome do plano precisa ser preenchido',
-      'Nome do plano precisa ter entre 5 a 40 caracteres'
+      'Nome do plano precisa ter entre 5 a 40 caracteres',
+      'Nome do plano precisa ser um texto'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -143,12 +154,14 @@ describe('Módulo AtualizarPlanoInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
   
-  test('Ao validar plano com descrição inválida, devem ser apresentadas todas as mensagens de erro relacionadas a descrição', () => {
+  test('Ao validar plano com descrição inválida, devem ser apresentadas as mensagens: Descrição do plano precisa ser preenchido, Descrição do plano precisa ter entre 10 a 256 caracteres, Descrição do plano precisa ser um texto', () => {
     const errosEsperados = [
       'Descrição do plano precisa ser preenchido',
-      'Descrição do plano precisa ter entre 10 a 256 caracteres'
+      'Descrição do plano precisa ter entre 10 a 256 caracteres',
+      'Descrição do plano precisa ser um texto'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -164,12 +177,14 @@ describe('Módulo AtualizarPlanoInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar plano com tipo de recorrência inválida, devem ser apresentadas todas as mensagens de erro relacionadas ao tipo de recorrencia', () => {
+  test('Ao validar plano com tipo de recorrência inválida, devem ser apresentadas as mensagens: Tipo de Recorrência do plano precisa ser preenchida, Tipo de Recorrência do plano precisa ter entre 3 a 15 caracteres, Tipo de Recorrencia do plano precisa ser um texto', () => {
     const errosEsperados = [
       'Tipo de Recorrência do plano precisa ser preenchida',
-      'Tipo de Recorrência do plano precisa ter entre 3 a 15 caracteres'
+      'Tipo de Recorrência do plano precisa ter entre 3 a 15 caracteres',
+      'Tipo de Recorrencia do plano precisa ser um texto'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -185,12 +200,14 @@ describe('Módulo AtualizarPlanoInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar plano com modalidade inválida, devem ser apresentadas todas as mensagens de erro relacionadas a modalidade', () => {
+  test('Ao validar plano com modalidade inválida, devem ser apresentadas as mensagens: Modalidade do plano precisa ser preenchida, Modalidade do plano precisa ter entre 5 a 30 caracteres, Modalidade do plano precisa ser um texto', () => {
     const errosEsperados = [
       'Modalidade do plano precisa ser preenchida',
-      'Modalidade do plano precisa ter entre 5 a 30 caracteres'
+      'Modalidade do plano precisa ter entre 5 a 30 caracteres',
+      'Modalidade do plano precisa ser um texto'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -206,11 +223,13 @@ describe('Módulo AtualizarPlanoInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar plano com valor da mensalidade inválida, devem ser apresentadas todas as mensagens de erro relacionadas ao valor da mensalidade', () => {
+  test('Ao validar plano com valor da mensalidade inválida, devem ser apresentadas as mensagens: Valor da Mensalidade do plano precisa ser preenchida, Valor da Mensalidade do plano precisa ser um número', () => {
     const errosEsperados = [
       'Valor da Mensalidade do plano precisa ser preenchida',
+      'Valor da Mensalidade do plano precisa ser um número'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -225,6 +244,7 @@ describe('Módulo AtualizarPlanoInput', () => {
     novoPlano?.validarModelo(notificacoes, ticketRequisicao);
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
   test('Ao validar null, o input não deve ser construído', () => {

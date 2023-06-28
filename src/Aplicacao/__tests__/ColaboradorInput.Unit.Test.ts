@@ -3,7 +3,7 @@ import { Notificacao, TipoNotificacao } from '../../Core/Notificacao';
 import { AdicionarColaboradorInput, LoginColaboradorInput } from '../Modelos/Inputs/ColaboradorInput';
 
 describe('Módulo AdicionarColaboradorInput', () => {
-  test('Ao adicionar colaborador com id do Cliente com menos de 36 caracteres, deve ser apresentado a mensagem de erro "O id do cliente precisa ter 36 caracteres"', () => {
+  test('Ao adicionar colaborador com id do Cliente com menos de 36 caracteres, deve ser apresentado a mensagem : O id do cliente precisa ter 36 caracteres', () => {
     const erroEsperado = "Id do cliente precisa ter 36 caracteres";
     const ticketRequisicao = uuid();
 
@@ -28,7 +28,7 @@ describe('Módulo AdicionarColaboradorInput', () => {
     expect(notificacaoObtida?.TipoErro).toEqual(TipoNotificacao.DadoIncorreto);
   });
 
-  test('Ao adicionar colaborador com id do Papel com menos de 36 caracteres, deve ser apresentado a mensagem de erro "O id do Papel precisa ter 36 caracteres"', () => {
+  test('Ao adicionar colaborador com id do Papel com menos de 36 caracteres, deve ser apresentada a mensagem: O id do Papel precisa ter 36 caracteres', () => {
     const erroEsperado = "Id do Papel precisa ter 36 caracteres";
     const ticketRequisicao = uuid();
 
@@ -51,9 +51,10 @@ describe('Módulo AdicionarColaboradorInput', () => {
     expect(notificacaoObtida?.TipoErro).toEqual(TipoNotificacao.DadoIncorreto);
   });
 
-  test('Ao adicionar colaborador sem id do Cliente e as informações do cliente, deve ser apresentado a mensagem de erro "Se o id do cliente não é fornecido deve ser preenchido os dados do cliente"', () => {
+  test('Ao adicionar colaborador sem id do Cliente e as informações do cliente, devem ser apresentadas as mensagens: Se o id do cliente não é fornecido deve ser preenchido os dados do cliente, Id do cliente precisa ter 36 caracteres, Id do cliente precisa ser um texto', () => {
     const errosEsperados = [
       "Se o id do cliente não é fornecido deve ser preenchido os dados do cliente",
+      "Id do cliente precisa ter 36 caracteres",
       "Id do cliente precisa ser um texto",
     ];
     const ticketRequisicao = uuid();
@@ -70,14 +71,12 @@ describe('Módulo AdicionarColaboradorInput', () => {
 
     novoColaborador?.validarModelo(notificacoes, ticketRequisicao)
 
-    const notificacoesTotais = notificacoes.length;
-
-    expect(notificacoesTotais).toEqual(2);
     expect(notificacoes.some(not => not.Mensagem === errosEsperados[0])).toEqual(true);
     expect(notificacoes.some(not => not.Mensagem === errosEsperados[1])).toEqual(true);
+    expect(notificacoes.some(not => not.Mensagem === errosEsperados[2])).toEqual(true);
   });
 
-  test('Ao adicionar colaborador com id do Cliente e as informações do cliente, deve ser apresentado a mensagem de erro "Somente um dos dados referente ao cliente deve ser preenchido"', () => {
+  test('Ao adicionar colaborador com id do Cliente e as informações do cliente, deve ser apresentada a mensagem: Somente um dos dados referente ao cliente deve ser preenchido', () => {
     const erroEsperado = "Somente um dos dados referente ao cliente deve ser preenchido";
     const ticketRequisicao = uuid();
 
@@ -109,10 +108,11 @@ describe('Módulo AdicionarColaboradorInput', () => {
     expect(notificacaoObtida?.TipoErro).toEqual(TipoNotificacao.DadoIncorreto);
   });
 
-  test('Ao adicionar colaborador sem id do Papel e informações do papel, deve ser apresentado a mensagem de erro "Se o id do papel não é fornecido deve ser preenchido os dados do papel"', () => {
+  test('Ao adicionar colaborador sem id do Papel e informações do papel, devem ser apresentadas as mensagens: Se o id do papel não é fornecido deve ser preenchido os dados do papel, Id do Papel precisa ser um texto, Id do Papel precisa ter 36 caracteres', () => {
     const errosEsperados = [
       "Se o id do papel não é fornecido deve ser preenchido os dados do papel",
       "Id do Papel precisa ser um texto",
+      "Id do Papel precisa ter 36 caracteres",
     ];
     const ticketRequisicao = uuid();
 
@@ -126,14 +126,12 @@ describe('Módulo AdicionarColaboradorInput', () => {
 
     novoColaborador?.validarModelo(notificacoes, ticketRequisicao)
 
-    const notificacoesTotais = notificacoes.length;
-
-    expect(notificacoesTotais).toEqual(2);
     expect(notificacoes.some(not => not.Mensagem === errosEsperados[0])).toEqual(true);
     expect(notificacoes.some(not => not.Mensagem === errosEsperados[1])).toEqual(true);
+    expect(notificacoes.some(not => not.Mensagem === errosEsperados[2])).toEqual(true);
   });
 
-  test('Ao adicionar colaborador com id do Papel e informações do papel, deve ser apresentado a mensagem de erro "Somente um dos dados referente ao papel deve ser preenchido"', () => {
+  test('Ao adicionar colaborador com id do Papel e informações do papel, deve ser apresentada a mensagem: Somente um dos dados referente ao papel deve ser preenchido', () => {
     const erroEsperado = "Somente um dos dados referente ao papel deve ser preenchido";
     const ticketRequisicao = uuid();
 
@@ -243,9 +241,10 @@ describe('Módulo AdicionarColaboradorInput', () => {
 });
 
 describe('Módulo LoginColaboradorInput', () => {
-  test('Ao validar colaborador com login inválido, deve ser apresentada todas as mensagens de erro referentes ao login', () => {
+  test('Ao validar colaborador com login inválido, devem ser apresentadas as mensagens: Login precisa ser preenchido, Login precisa ser um texto', () => {
     const errosEsperados = [
       "Login precisa ser preenchido",
+      "Login precisa ser um texto",
     ]
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -261,11 +260,13 @@ describe('Módulo LoginColaboradorInput', () => {
     novoColaborador?.validarModelo(notificacoes, ticketRequisicao);
 
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar colaborador com senha inválida, deve ser apresentada todas as mensagens de erro referentes a senha', () => {
+  test('Ao validar colaborador com senha inválida, devem ser apresentadas as mensagens: Senha precisa ser preenchida, Senha precisa ser um texto', () => {
     const errosEsperados = [
       "Senha precisa ser preenchida",
+      "Senha precisa ser um texto"
     ]
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -281,6 +282,7 @@ describe('Módulo LoginColaboradorInput', () => {
     novoColaborador?.validarModelo(notificacoes, ticketRequisicao);
 
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
   test('Ao validar valor nulo, o input não deve ser construido', () => {

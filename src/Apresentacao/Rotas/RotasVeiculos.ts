@@ -7,7 +7,7 @@ const RotasVeiculos = Router();
 
 const controladorVeiculos = container.resolve(ControladorVeiculo);
 
-RotasVeiculos.post('/', 
+RotasVeiculos.post('/:idSocio/veiculos', 
 
   /*    
     #swagger.tags = ['veiculos']
@@ -54,7 +54,7 @@ RotasVeiculos.post('/',
   AutorizacaoMiddleware,
   controladorVeiculos.adicionarVeiculo);
 
-RotasVeiculos.put('/:idVeiculo', 
+RotasVeiculos.put('/:idSocio/veiculos/:idVeiculo', 
 
   /*    
     #swagger.tags = ['veiculos']
@@ -101,7 +101,7 @@ RotasVeiculos.put('/:idVeiculo',
   AutorizacaoMiddleware,
   controladorVeiculos.atualizarVeiculo);
 
-RotasVeiculos.patch('/:idVeiculo', 
+RotasVeiculos.patch('/:idSocio/veiculos/:idVeiculo', 
 
   /*    
     #swagger.tags = ['veiculos']
@@ -149,7 +149,7 @@ RotasVeiculos.patch('/:idVeiculo',
   AutorizacaoMiddleware,
   controladorVeiculos.atualizarStatusVeiculo);
 
-RotasVeiculos.get('/', 
+RotasVeiculos.get('/:idSocio/veiculos/', 
 
   /*    
     #swagger.tags = ['veiculos']
@@ -186,7 +186,7 @@ RotasVeiculos.get('/',
   AutorizacaoMiddleware,
   controladorVeiculos.obterVeiculos);
 
-RotasVeiculos.get('/:idVeiculo', 
+RotasVeiculos.get('/:idSocio/veiculos/:idVeiculo', 
 
   /*    
     #swagger.tags = ['veiculos']
