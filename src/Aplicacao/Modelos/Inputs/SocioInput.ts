@@ -72,10 +72,10 @@ class AdicionarSocioInput {
     if(!Validadores.ehValorInvalidoOuEspacoEmBranco(this.apelido) && !Validadores.textoComComprimentoEntre(this.apelido, 3, 30))
       notificacoes.push(new Notificacao("Apelido do Sócio se preenchido precisa ter entre 3 a 30 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.ehValorInvalido(this.cliente) && !Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.textoComComprimentoEntre(this.idCliente, 36))
+    if(Validadores.ehValorInvalido(this.cliente) && !Validadores.textoComComprimentoEntre(this.idCliente, 36))
       notificacoes.push(new Notificacao("Id do cliente precisa ter 36 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.ehValorInvalido(this.cliente) && !Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.ehVariavelDoTipo(this.idCliente, 'string'))
+    if(Validadores.ehValorInvalido(this.cliente) && !Validadores.ehVariavelDoTipo(this.idCliente, 'string'))
       notificacoes.push(new Notificacao("Id do cliente precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(Validadores.ehValorInvalido(this.cliente) && Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente))
@@ -84,8 +84,11 @@ class AdicionarSocioInput {
     if(!Validadores.ehValorInvalidoOuEspacoEmBranco(this.idCliente) && !Validadores.ehValorInvalido(this.cliente))
       notificacoes.push(new Notificacao("Somente um dos dados referente ao cliente deve ser preenchido", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.ehValorInvalido(this.plano) && !Validadores.ehValorInvalidoOuEspacoEmBranco(this.idPlano) && !Validadores.textoComComprimentoEntre(this.idPlano, 36))
+    if(Validadores.ehValorInvalido(this.plano) && !Validadores.textoComComprimentoEntre(this.idPlano, 36))
       notificacoes.push(new Notificacao("Id do plano precisa ter 36 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
+
+    if(Validadores.ehValorInvalido(this.plano) && !Validadores.ehVariavelDoTipo(this.idPlano, 'string'))
+      notificacoes.push(new Notificacao("Id do plano precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(Validadores.ehValorInvalido(this.plano) && Validadores.ehValorInvalidoOuEspacoEmBranco(this.idPlano))
       notificacoes.push(new Notificacao("Se os dados do plano não são preenchidos o id do plano precisa ser fornecido", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));

@@ -76,7 +76,7 @@ class ServicoVeiculoSocio implements IServicoVeiculoSocio {
     
     const veiculoVerificado = await this._repositorioVeiculoSocio.obterVeiculoSocioPelaPlaca(input.placa);
 
-    if(!Validadores.ehValorInvalido(veiculoVerificado)){
+    if(!Validadores.ehValorInvalido(veiculoVerificado) && !Validadores.ehIgual(veiculoVerificado!.Id, veiculoEncontrado!.Id)){
       this._notificador.adicionarNotificacao(new Notificacao("Placa já foi cadastrada", TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
 
       return null;
@@ -88,15 +88,15 @@ class ServicoVeiculoSocio implements IServicoVeiculoSocio {
       return null;
     }
 
-    let respostaAdicao: AdicionarVeiculoSocioResult | null = null;
+    let respostaAtualizacao: AtualizarVeiculoSocioResult | null = null;
     
     await this._databaseManager.$transaction(async (tx) => {
       const veiculoAtualizado = await this._repositorioVeiculoSocio.atualizarVeiculoSocio(tx, input.placa, idVeiculo)
 
-      respostaAdicao = new AdicionarVeiculoSocioResult(veiculoAtualizado!.Id, veiculoAtualizado!.Placa, socioEncontrado!.Id)
+      respostaAtualizacao = new AtualizarVeiculoSocioResult(veiculoAtualizado!.Id, veiculoAtualizado!.Placa, socioEncontrado!.Id)
     });
 
-    return respostaAdicao;
+    return respostaAtualizacao;
   }
 
   alterarStatusAtivo = async (ticketRequisicao: string, idVeiculo: string, estaAtivo: boolean, idSocio: string): Promise<VeiculoSocioStatusResult | null> => {

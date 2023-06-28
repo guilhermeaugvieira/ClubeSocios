@@ -10,8 +10,8 @@ const Rotas = Router();
 
 Rotas.use('/api/colaboradores', RotasColaboradores);
 Rotas.use('/api/socios', RotasSocios);
-Rotas.use('/api/socios/:idSocio/veiculos', RotasVeiculos);
-Rotas.use('/api/socios/:idSocio/dependentes', RotasDependentes);
+Rotas.use('/api/socios', RotasVeiculos);
+Rotas.use('/api/socios', RotasDependentes);
 Rotas.use('/api/papeis', RotasPapeis);
 Rotas.use('/api/planos', RotasPlanos);
 

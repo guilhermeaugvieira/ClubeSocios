@@ -35,7 +35,7 @@ class AdicionarClienteInput{
       notificacoes.push(new Notificacao("Login do cliente deve conter entre 3 a 30 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(Validadores.textoComUmDosCaracteres(this.login,[' ']))
-      notificacoes.push(new Notificacao("Login não pode conter espaço", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
+      notificacoes.push(new Notificacao("Login do cliente não pode conter espaço", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(!Validadores.ehVariavelDoTipo(this.login, 'string'))
       notificacoes.push(new Notificacao("Login do cliente precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
@@ -128,8 +128,8 @@ class AtualizarClienteInput {
     if(!Validadores.textoComComprimentoEntre(this.login, 3, 30))
       notificacoes.push(new Notificacao("Login do cliente deve conter entre 3 a 30 caracteres", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
-    if(Validadores.textoComUmDosCaracteres(this.login,[' ']))
-      notificacoes.push(new Notificacao("Login não pode conter espaço", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
+    if(Validadores.textoComUmDosCaracteres(this.login, [' ']))
+      notificacoes.push(new Notificacao("Login do cliente não pode conter espaço", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
 
     if(!Validadores.ehVariavelDoTipo(this.login, 'string'))
       notificacoes.push(new Notificacao("Login do cliente precisa ser um texto", TipoNotificacao.DadoIncorreto, this, ticketRequisicao));
