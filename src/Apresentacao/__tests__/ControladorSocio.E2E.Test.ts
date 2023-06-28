@@ -8,7 +8,10 @@ import { AdicionarEnderecoInput, AtualizarEnderecoInput } from '../../Aplicacao/
 import { AdicionarPlanoInput } from '../../Aplicacao/Modelos/Inputs/PlanoInput';
 import { AdicionarClienteInput, AtualizarClienteInput } from '../../Aplicacao/Modelos/Inputs/ClienteInput';
 import { ObterTokenAcessoParaTestes } from './ControladorColaborador.E2E.Test';
-import { ObterSocioResult } from '../../Aplicacao/Modelos/Results/SocioResult';
+import { AdicionarSocioResult, ObterSocioResult } from '../../Aplicacao/Modelos/Results/SocioResult';
+import { AdicionarDependenteInput } from '../../Aplicacao/Modelos/Inputs/DependenteInput';
+import { AdicionarDependenteResult } from '../../Aplicacao/Modelos/Results/DependenteResult';
+import { AdicionarVeiculoSocioInput } from '../../Aplicacao/Modelos/Inputs/VeiculoSocioInput';
 
 afterEach(async () => {
   await limparBancoDeDados();
@@ -390,14 +393,58 @@ describe('Módulo API Socios - Obter Sócios', () => {
       .set('Authorization', tokenAcesso)
       .set('Accept', 'application/json');
 
+    const corpoSocioAdicionado1 = socioAdicionado1.body.dados as AdicionarSocioResult;
+
+    const novoDependente1 = new AdicionarDependenteInput(
+      new AdicionarClienteInput("Dependente", "00000000003", "dependente1", "S3nh@For73", "dependente@email.com"),
+      null
+    );
+
+    const respostaAdicaoDependente1 = await Supertest(Servidor)
+      .post(`/api/socios/${corpoSocioAdicionado1.id}/dependentes`)
+      .send(novoDependente1)
+      .set('Authorization', tokenAcesso)
+      .set('Accept', 'application/json');
+
+    const novoDependente2 = new AdicionarDependenteInput(
+      new AdicionarClienteInput("Dependente2", "00000000004", "dependente2", "S3nh@For735", "dependente2@email.com"),
+      null
+    );
+
+    const respostaAdicaoDependente2 = await Supertest(Servidor)
+      .post(`/api/socios/${corpoSocioAdicionado1.id}/dependentes`)
+      .send(novoDependente2)
+      .set('Authorization', tokenAcesso)
+      .set('Accept', 'application/json');
+
+    const placa1 = "ABC1234"
+  
+    const novoVeiculo1 = new AdicionarVeiculoSocioInput(placa1);
+
+    const respostaAdicaoVeiculo1 = await Supertest(Servidor)
+      .post(`/api/socios/${corpoSocioAdicionado1.id}/veiculos`)
+      .send(novoVeiculo1)
+      .set('Authorization', tokenAcesso)
+      .set('Accept', 'application/json');
+
+    const placa2 = "ABC5678"
+    
+    const novoVeiculo2 = new AdicionarVeiculoSocioInput(placa2);
+
+    const respostaAdicaoVeiculo2 = await Supertest(Servidor)
+      .post(`/api/socios/${corpoSocioAdicionado1.id}/veiculos`)
+      .send(novoVeiculo2)
+      .set('Authorization', tokenAcesso)
+      .set('Accept', 'application/json');
+
     const sociosCadastrados = await Supertest(Servidor)
       .get(`/api/socios`)
       .set('Authorization', tokenAcesso)
       .set('Accept', 'application/json');
 
-    const respostaAtualizacao = sociosCadastrados.body.dados as ObterSocioResult[];
+    const respostaObtencao = sociosCadastrados.body.dados as ObterSocioResult[];
 
-    const contemId = respostaAtualizacao.some(item => item.id === socioAdicionado1.body.dados.id);
+    const contemId = respostaObtencao.some(item => item.id === socioAdicionado1.body.dados.id);
 
     expect(contemId).toEqual(true);
     expect(sociosCadastrados.status).toEqual(200);
