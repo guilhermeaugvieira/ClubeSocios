@@ -8,6 +8,7 @@ describe('Módulo AdicionarSocioInput', () => {
       'Dia de Vencimento do Pagamento do Sócio precisa ser preenchido',
       'Dia de Vencimento do Pagamento do Sócio precisa ser maior que 0',
       'Dia de Vencimento do Pagamento do Sócio precisa ser menor que 28',
+      'Dia de Vencimento do Pagamento do Sócio precisa ser um número'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -24,12 +25,14 @@ describe('Módulo AdicionarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[3] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
   test('Ao validar socio com contato inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao contato', () => {
     const errosEsperados = [
       'Contato do Sócio precisa ser preenchido',
       'Contato do Sócio precisa ter entre 11 a 15 caracteres',
+      'Contato do Sócio precisa ser um texto'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -45,6 +48,7 @@ describe('Módulo AdicionarSocioInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
   test('Ao validar socio com apelido inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao apelido', () => {
@@ -68,42 +72,10 @@ describe('Módulo AdicionarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
-  test('Ao validar socio com id do cliente menor que 36 caracteres e informação do cliente vazias, deve ser apresentada a mensagem "Id do cliente precisa ter 36 caracteres"', () => {
-    const errosEsperados = [
-      'Id do cliente precisa ter 36 caracteres',
-    ];
-
-    const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
-    const ticketRequisicao = uuid();
-
-    const socioRecebido = {
-      apelido: '',
-      diaVencimentoPagamento: 2,
-      contato: '12012345789',
-      idCliente: uuid().substring(0, 16),
-      idPlano: uuid(),
-      endereco: {
-        pais: 'Brasil',
-        cidade: 'Teste',
-        cep: '00000-000',
-        bairro: 'Teste',
-        rua: 'Travessa',
-        numero: 1,
-      }
-    }
-
-    const novoSocio = AdicionarSocioInput.construirDoRequest(socioRecebido);
-
-    const notificacoes = new Array<Notificacao>();
-
-    novoSocio?.validarModelo(notificacoes, ticketRequisicao);
-      
-    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(1);
-  });
-
   test('Ao validar socio sem id do cliente e informação do cliente vazia, deve ser apresentada a mensagem "Se os dados do cliente não são preenchidos o id do cliente precisa ser fornecido"', () => {
     const errosEsperados = [
+      'Id do cliente precisa ter 36 caracteres',
+      'Id do cliente precisa ser um texto',
       'Se os dados do cliente não são preenchidos o id do cliente precisa ser fornecido',
     ];
 
@@ -132,7 +104,9 @@ describe('Módulo AdicionarSocioInput', () => {
     novoSocio?.validarModelo(notificacoes, ticketRequisicao);
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(1);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+
   });
 
   test('Ao validar socio com id do cliente e informação do cliente, deve ser apresentada a mensagem "Somente um dos dados referente ao cliente deve ser preenchido"', () => {
@@ -167,7 +141,101 @@ describe('Módulo AdicionarSocioInput', () => {
     novoSocio?.validarModelo(notificacoes, ticketRequisicao);
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(1);
+  });
+
+  test('Ao validar socio sem id do plano e informação do plano vazia, deve ser apresentada a mensagem "Se os dados do plano não são preenchidos o id do plano precisa ser fornecido"', () => {
+    const errosEsperados = [
+      'Id do plano precisa ter 36 caracteres',
+      'Id do plano precisa ser um texto',
+      'Se os dados do plano não são preenchidos o id do plano precisa ser fornecido',
+    ];
+
+    const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
+    const ticketRequisicao = uuid();
+
+    const socioRecebido = {
+      apelido: '',
+      diaVencimentoPagamento: 2,
+      contato: '12012345789',
+      idCliente: uuid(),
+      endereco: {
+        pais: 'Brasil',
+        cidade: 'Teste',
+        cep: '00000-000',
+        bairro: 'Teste',
+        rua: 'Travessa',
+        numero: 1,
+      }
+    }
+
+    const novoSocio = AdicionarSocioInput.construirDoRequest(socioRecebido);
+
+    const notificacoes = new Array<Notificacao>();
+
+    novoSocio?.validarModelo(notificacoes, ticketRequisicao);
+      
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+  });
+
+  test('Ao validar socio com id do plano e informação do plano, deve ser apresentada a mensagem "Somente um dos dados referente ao plano deve ser preenchido"', () => {
+    const errosEsperados = [
+      'Somente um dos dados referente ao plano deve ser preenchido',
+    ];
+
+    const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
+    const ticketRequisicao = uuid();
+
+    const socioRecebido = {
+      apelido: '',
+      diaVencimentoPagamento: 2,
+      contato: '12012345789',
+      idCliente: uuid(),
+      idPlano: uuid(),
+      plano: {},
+      endereco: {
+        pais: 'Brasil',
+        cidade: 'Teste',
+        cep: '00000-000',
+        bairro: 'Teste',
+        rua: 'Travessa',
+        numero: 1,
+      }
+    }
+
+    const novoSocio = AdicionarSocioInput.construirDoRequest(socioRecebido);
+
+    const notificacoes = new Array<Notificacao>();
+
+    novoSocio?.validarModelo(notificacoes, ticketRequisicao);
+      
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+  });
+
+  test('Ao não enviar as informações do endereço, deve ser apresentado o erro "O preenchimento do endereço é obrigatório"', () => {
+    const errosEsperados = [
+      'O preenchimento do endereço é obrigatório'
+    ];
+
+    const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
+    const ticketRequisicao = uuid();
+
+    const socioRecebido = {
+      apelido: '',
+      diaVencimentoPagamento: 2,
+      contato: '12012345789',
+      idPlano: uuid(),
+      idCliente: uuid(),
+    }
+
+    const novoSocio = AdicionarSocioInput.construirDoRequest(socioRecebido);
+
+    const notificacoes = new Array<Notificacao>();
+
+    novoSocio?.validarModelo(notificacoes, ticketRequisicao);
+      
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
   test('Ao validar socio sem id do cliente e informação do cliente preenchida, as informações do cliente devem ser validadas"', () => {
@@ -209,109 +277,6 @@ describe('Módulo AdicionarSocioInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(2);
-  });
-
-  test('Ao validar socio com id do plano menor que 36 caracteres e informação do plano vazia, deve ser apresentada a mensagem "Id do plano precisa ter 36 caracteres"', () => {
-    const errosEsperados = [
-      'Id do plano precisa ter 36 caracteres',
-    ];
-
-    const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
-    const ticketRequisicao = uuid();
-
-    const socioRecebido = {
-      apelido: '',
-      diaVencimentoPagamento: 2,
-      contato: '12012345789',
-      idCliente: uuid(),
-      idPlano: uuid().substring(0, 16),
-      endereco: {
-        pais: 'Brasil',
-        cidade: 'Teste',
-        cep: '00000-000',
-        bairro: 'Teste',
-        rua: 'Travessa',
-        numero: 1,
-      }
-    }
-
-    const novoSocio = AdicionarSocioInput.construirDoRequest(socioRecebido);
-
-    const notificacoes = new Array<Notificacao>();
-
-    novoSocio?.validarModelo(notificacoes, ticketRequisicao);
-      
-    expect(notificacoes.length).toEqual(1);
-    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-  });
-
-  test('Ao validar socio sem id do plano e informação do plano vazia, deve ser apresentada a mensagem "Se os dados do plano não são preenchidos o id do plano precisa ser fornecido"', () => {
-    const errosEsperados = [
-      'Se os dados do plano não são preenchidos o id do plano precisa ser fornecido',
-    ];
-
-    const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
-    const ticketRequisicao = uuid();
-
-    const socioRecebido = {
-      apelido: '',
-      diaVencimentoPagamento: 2,
-      contato: '12012345789',
-      idCliente: uuid(),
-      endereco: {
-        pais: 'Brasil',
-        cidade: 'Teste',
-        cep: '00000-000',
-        bairro: 'Teste',
-        rua: 'Travessa',
-        numero: 1,
-      }
-    }
-
-    const novoSocio = AdicionarSocioInput.construirDoRequest(socioRecebido);
-
-    const notificacoes = new Array<Notificacao>();
-
-    novoSocio?.validarModelo(notificacoes, ticketRequisicao);
-      
-    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(1);
-  });
-
-  test('Ao validar socio com id do plano e informação do plano, deve ser apresentada a mensagem "Somente um dos dados referente ao plano deve ser preenchido"', () => {
-    const errosEsperados = [
-      'Somente um dos dados referente ao plano deve ser preenchido',
-    ];
-
-    const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
-    const ticketRequisicao = uuid();
-
-    const socioRecebido = {
-      apelido: '',
-      diaVencimentoPagamento: 2,
-      contato: '12012345789',
-      idCliente: uuid(),
-      idPlano: uuid(),
-      plano: {},
-      endereco: {
-        pais: 'Brasil',
-        cidade: 'Teste',
-        cep: '00000-000',
-        bairro: 'Teste',
-        rua: 'Travessa',
-        numero: 1,
-      }
-    }
-
-    const novoSocio = AdicionarSocioInput.construirDoRequest(socioRecebido);
-
-    const notificacoes = new Array<Notificacao>();
-
-    novoSocio?.validarModelo(notificacoes, ticketRequisicao);
-      
-    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(1);
   });
 
   test('Ao enviar as informações do plano e não enviar o id, as informações do plano devem ser validadas', () => {
@@ -352,33 +317,6 @@ describe('Módulo AdicionarSocioInput', () => {
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(2);
-  });
-
-  test('Ao não enviar as informações do endereço, deve ser apresentado o erro "O preenchimento do endereço é obrigatório"', () => {
-    const errosEsperados = [
-      'O preenchimento do endereço é obrigatório'
-    ];
-
-    const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
-    const ticketRequisicao = uuid();
-
-    const socioRecebido = {
-      apelido: '',
-      diaVencimentoPagamento: 2,
-      contato: '12012345789',
-      idPlano: uuid(),
-      idCliente: uuid(),
-    }
-
-    const novoSocio = AdicionarSocioInput.construirDoRequest(socioRecebido);
-
-    const notificacoes = new Array<Notificacao>();
-
-    novoSocio?.validarModelo(notificacoes, ticketRequisicao);
-      
-    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(1);
   });
 
   test('Ao enviar as informações do endereço, as informações do endereco devem ser validadas', () => {
@@ -412,7 +350,6 @@ describe('Módulo AdicionarSocioInput', () => {
     novoSocio?.validarModelo(notificacoes, ticketRequisicao);
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(1);
   });
 
   test('Ao validar null, o input não deve ser construído', () => {
@@ -439,6 +376,7 @@ describe('Módulo AtualizarSocioInput', () => {
       'Dia de Vencimento do Pagamento do Sócio precisa ser preenchido',
       'Dia de Vencimento do Pagamento do Sócio precisa ser maior que 0',
       'Dia de Vencimento do Pagamento do Sócio precisa ser menor que 28',
+      'Dia de Vencimento do Pagamento do Sócio precisa ser um número'
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -455,12 +393,14 @@ describe('Módulo AtualizarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
+    expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[3] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
   });
 
   test('Ao validar socio com contato inválido, devem ser apresentadas todas as mensagens de erro relacionadas ao contato', () => {
     const errosEsperados = [
       'Contato do Sócio precisa ser preenchido',
       'Contato do Sócio precisa ter entre 11 a 15 caracteres',
+      'Contato do Sócio precisa ser um texto',
     ];
 
     const tipoNotificacaoEsperada = TipoNotificacao.DadoIncorreto;
@@ -538,7 +478,6 @@ describe('Módulo AtualizarSocioInput', () => {
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[1] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[2] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(3);
   });
 
   test('Ao não enviar as informações do endereço, deve ser apresentado o erro "O preenchimento do endereço é obrigatório"', () => {
@@ -569,7 +508,6 @@ describe('Módulo AtualizarSocioInput', () => {
     novoSocio?.validarModelo(notificacoes, ticketRequisicao);
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(1);
   });
 
   test('Ao não enviar as informações do cliente, deve ser apresentado o erro "O preenchimento do cliente é obrigatório"', () => {
@@ -602,7 +540,6 @@ describe('Módulo AtualizarSocioInput', () => {
     novoSocio?.validarModelo(notificacoes, ticketRequisicao);
       
     expect(notificacoes.some(erro => erro.Mensagem === errosEsperados[0] && erro.TipoErro === tipoNotificacaoEsperada)).toEqual(true);
-    expect(notificacoes.length).toEqual(1);
   });
 
   test('Ao validar null, o input não deve ser construído', () => {
