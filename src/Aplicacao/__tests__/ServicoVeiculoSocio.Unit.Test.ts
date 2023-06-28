@@ -7,7 +7,6 @@ import { mockReset } from 'jest-mock-extended';
 import { RepositorioVeiculoSocio } from '../../Dados/Repositorios/RepositorioVeiculoSocio';
 import { ServicoVeiculoSocio } from '../Servicos/Implementacao/ServicoVeiculoSocio';
 import { AdicionarVeiculoSocioInput, AtualizarVeiculoSocioInput } from '../Modelos/Inputs/VeiculoSocioInput';
-import { transformDocument } from '@prisma/client/runtime';
 
 beforeEach(() => {
   mockReset(PrismaMock.veiculoSocio);

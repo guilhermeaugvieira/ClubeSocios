@@ -2,14 +2,12 @@ import { limparBancoDeDados } from "../../Dados/Utilidades/Funcoes";
 import { ObterTokenAcessoParaTestes } from "./ControladorColaborador.E2E.Test";
 import Supertest from 'supertest'
 import { Servidor } from "../Configuracoes/Servidor";
-import { v4 as uuid } from 'uuid';
 import { AdicionarSocioInput } from "../../Aplicacao/Modelos/Inputs/SocioInput";
 import { AdicionarEnderecoInput } from "../../Aplicacao/Modelos/Inputs/EnderecoInput";
 import { AdicionarPlanoInput, AtualizarPlanoInput } from "../../Aplicacao/Modelos/Inputs/PlanoInput";
 import { AdicionarClienteInput } from "../../Aplicacao/Modelos/Inputs/ClienteInput";
 import { ObterPlanoResult } from "../../Aplicacao/Modelos/Results/PlanoResult";
 import { AdicionarSocioResult } from "../../Aplicacao/Modelos/Results/SocioResult";
-import { AtualizarPapelInput } from "../../Aplicacao/Modelos/Inputs/PapelInput";
 
 afterEach(async () => {
   await limparBancoDeDados();

@@ -7,7 +7,7 @@ const RotasDependentes = Router();
 
 const controladorDependente = container.resolve(ControladorDependente);
 
-RotasDependentes.post('/', 
+RotasDependentes.post('/:idSocio/dependentes/', 
 
   /*    
     #swagger.tags = ['dependentes']
@@ -54,7 +54,7 @@ RotasDependentes.post('/',
   AutorizacaoMiddleware,
   controladorDependente.adicionarDependente);
 
-RotasDependentes.put('/:idDependente', 
+RotasDependentes.put('/:idSocio/dependentes/:idDependente', 
 
   /*    
     #swagger.tags = ['dependentes']
@@ -101,7 +101,7 @@ RotasDependentes.put('/:idDependente',
   AutorizacaoMiddleware,
   controladorDependente.atualizarDependente);
 
-RotasDependentes.patch('/:idDependente', 
+RotasDependentes.patch('/:idSocio/dependentes/:idDependente', 
 
   /*    
     #swagger.tags = ['dependentes']
@@ -148,7 +148,7 @@ RotasDependentes.patch('/:idDependente',
   AutorizacaoMiddleware,
   controladorDependente.atualizarStatusDependente);
 
-RotasDependentes.get('/', 
+RotasDependentes.get('/:idSocio/dependentes/', 
 
   /*    
     #swagger.tags = ['dependentes']
@@ -185,7 +185,7 @@ RotasDependentes.get('/',
   AutorizacaoMiddleware,
   controladorDependente.obterDependentes);
 
-RotasDependentes.get('/:idDependente', 
+RotasDependentes.get('/:idSocio/dependentes/:idDependente', 
 
   /*    
     #swagger.tags = ['dependentes']
