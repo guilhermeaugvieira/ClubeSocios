@@ -344,6 +344,47 @@ describe("Módulo ServicoVeiculoSocio - AlterarStatusAtivo", () => {
     expect(notificacao!.Mensagem).toEqual(erroEsperado);
   });
 
+  test("Ao alterar o status de ativo do veiculo, especificando o mesmo status, deve retornar null", async () => {
+    const erroEsperado = 'Veículo já está desabilitado';
+    const ticketRequisicao = uuid();
+
+    const notificador = new Notificador();
+    const repositorioSocio = new RepositorioSocio(PrismaMock);
+    const repositorioVeiculoSocio = new RepositorioVeiculoSocio(PrismaMock);
+
+    const servicoVeiculo = new ServicoVeiculoSocio(notificador, PrismaMock, repositorioSocio, repositorioVeiculoSocio);
+
+    PrismaMock.$transaction.mockImplementationOnce(callback => callback(PrismaMock));
+
+    PrismaMock.socio.findFirst.mockResolvedValueOnce({
+      Apelido: 'Alguém',
+      Contato: '35000000000',
+      DataAtualizacao: null,
+      DataCriacao: new Date(),
+      DiaVencimentoPagamento: 28,
+      Id: uuid(),
+      FkCliente: uuid(),
+      FkEndereco: uuid(),
+      FkPlano: uuid(),
+    });
+
+    PrismaMock.veiculoSocio.findFirst.mockResolvedValueOnce({
+      Ativo: false,
+      DataAtualizacao: null,
+      DataCriacao: new Date(),
+      Id: uuid(),
+      FkSocio: uuid(),
+      Placa: 'ABC',
+    });
+
+    const resultado = await servicoVeiculo.alterarStatusAtivo(ticketRequisicao, uuid(), false, uuid());
+
+    const notificacao = notificador.obterNotificacoes(ticketRequisicao).pop();
+
+    expect(resultado).toEqual(null);
+    expect(notificacao!.Mensagem).toEqual(erroEsperado);
+  });
+
   test("Ao alterar o status de ativo do veiculo, especificando um veiculo não associado ao sócio, deve retornar null", async () => {
     const erroEsperado = 'Veículo não está associado ao sócio';
     const ticketRequisicao = uuid();
