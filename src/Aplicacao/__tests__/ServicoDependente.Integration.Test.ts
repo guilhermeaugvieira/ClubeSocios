@@ -526,6 +526,47 @@ describe("Módulo ServicoDependente - AlterarStatusAtivo", () => {
     expect(resultado).toEqual(null);
     expect(notificacao!.Mensagem).toEqual(erroEsperado);
   });
+
+  test("Ao atualizar o status de ativo de um dependente, especificando um id de dependente não associado ao sócio, deve retornar null", async () => {
+    const erroEsperado = 'Dependente não está associado ao sócio';
+    const ticketRequisicao = uuid();
+
+    const notificador = new Notificador();
+    const repositorioSocio = new RepositorioSocio(PrismaMock);
+    const repositorioCliente = new RepositorioCliente(PrismaMock);
+    const repositorioDependente = new RepositorioDependente(PrismaMock);
+
+    const servicoDependente = new ServicoDependente(notificador, PrismaMock, repositorioCliente, repositorioDependente, repositorioSocio);
+
+    PrismaMock.$transaction.mockImplementationOnce(callback => callback(PrismaMock));
+
+    PrismaMock.socio.findFirst.mockResolvedValueOnce({
+      Apelido: 'Alguém',
+      Contato: '35000000000',
+      DataAtualizacao: null,
+      DataCriacao: new Date(),
+      DiaVencimentoPagamento: 28,
+      Id: uuid(),
+      FkCliente: uuid(),
+      FkEndereco: uuid(),
+      FkPlano: uuid(),
+    });
+
+    PrismaMock.dependente.findFirst.mockResolvedValueOnce({
+      DataAtualizacao: null,
+      DataCriacao: new Date(),
+      FkCliente: uuid(),
+      FkSocio: uuid(),
+      Id: uuid(),
+    });
+
+    const resultado = await servicoDependente.alterarStatusAtivo(ticketRequisicao, uuid(), uuid(), true);
+
+    const notificacao = notificador.obterNotificacoes(ticketRequisicao).pop();
+
+    expect(resultado).toEqual(null);
+    expect(notificacao!.Mensagem).toEqual(erroEsperado);
+  });
 });
 
 describe("Módulo ServicoDependente - ObterDependentePorId", () => {
@@ -578,6 +619,47 @@ describe("Módulo ServicoDependente - ObterDependentePorId", () => {
     });
 
     PrismaMock.dependente.findFirst.mockResolvedValueOnce(null);
+
+    const resultado = await servicoDependente.obterDependentePorId(uuid(), uuid(), ticketRequisicao);
+
+    const notificacao = notificador.obterNotificacoes(ticketRequisicao).pop();
+
+    expect(resultado).toEqual(null);
+    expect(notificacao!.Mensagem).toEqual(erroEsperado);
+  });
+
+  test("Ao obter dependente por id, especificando um id de dependente não associado ao sócio, deve retornar null", async () => {
+    const erroEsperado = 'Dependente não está associado ao sócio';
+    const ticketRequisicao = uuid();
+
+    const notificador = new Notificador();
+    const repositorioSocio = new RepositorioSocio(PrismaMock);
+    const repositorioCliente = new RepositorioCliente(PrismaMock);
+    const repositorioDependente = new RepositorioDependente(PrismaMock);
+
+    const servicoDependente = new ServicoDependente(notificador, PrismaMock, repositorioCliente, repositorioDependente, repositorioSocio);
+
+    PrismaMock.$transaction.mockImplementationOnce(callback => callback(PrismaMock));
+
+    PrismaMock.socio.findFirst.mockResolvedValueOnce({
+      Apelido: 'Alguém',
+      Contato: '35000000000',
+      DataAtualizacao: null,
+      DataCriacao: new Date(),
+      DiaVencimentoPagamento: 28,
+      Id: uuid(),
+      FkCliente: uuid(),
+      FkEndereco: uuid(),
+      FkPlano: uuid(),
+    });
+
+    PrismaMock.dependente.findFirst.mockResolvedValueOnce({
+      DataAtualizacao: null,
+      DataCriacao: new Date(),
+      FkCliente: uuid(),
+      FkSocio: uuid(),
+      Id: uuid(),
+    });
 
     const resultado = await servicoDependente.obterDependentePorId(uuid(), uuid(), ticketRequisicao);
 

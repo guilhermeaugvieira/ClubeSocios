@@ -424,7 +424,7 @@
         ]
       }
     },
-    "/api/socios/{idSocio}/veiculos/": {
+    "/api/socios/{idSocio}/veiculos": {
       "post": {
         "tags": [
           "veiculos"
@@ -458,63 +458,6 @@
             "description": "Created",
             "schema": {
               "$ref": "#/definitions/AdicionarVeiculoSocioResultProcessed"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "schema": {
-              "$ref": "#/definitions/ErroResult"
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      },
-      "get": {
-        "tags": [
-          "veiculos"
-        ],
-        "summary": "Obtém os veículos associados ao sócio",
-        "description": "Obtém os veículos associados ao sócio na aplicação",
-        "parameters": [
-          {
-            "name": "idSocio",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "schema": {
-              "$ref": "#/definitions/ObterVeiculoSocioResultProcessed"
             }
           },
           "400": {
@@ -724,6 +667,65 @@
             "description": "Ok",
             "schema": {
               "$ref": "#/definitions/ObterVeiculoSocioPorIdResultProcessed"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErroResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/socios/{idSocio}/veiculos/": {
+      "get": {
+        "tags": [
+          "veiculos"
+        ],
+        "summary": "Obtém os veículos associados ao sócio",
+        "description": "Obtém os veículos associados ao sócio na aplicação",
+        "parameters": [
+          {
+            "name": "idSocio",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ObterVeiculoSocioResultProcessed"
             }
           },
           "400": {
@@ -1720,11 +1722,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.982Z"
+          "example": "2023-06-28T14:28:40.715Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.716Z"
         }
       }
     },
@@ -1810,11 +1812,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.716Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         }
       }
     },
@@ -1873,11 +1875,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         }
       }
     },
@@ -1893,11 +1895,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         }
       }
     },
@@ -1969,11 +1971,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         }
       }
     },
@@ -2060,11 +2062,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         }
       }
     },
@@ -2101,11 +2103,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         }
       }
     },
@@ -2142,11 +2144,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         }
       }
     },
@@ -2189,11 +2191,11 @@
         },
         "dataCriacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         },
         "dataAtualizacao": {
           "type": "string",
-          "example": "2023-06-27T17:38:59.983Z"
+          "example": "2023-06-28T14:28:40.717Z"
         }
       }
     },

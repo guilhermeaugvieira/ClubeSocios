@@ -198,15 +198,15 @@ class ServicoDependente implements IServicoDependente {
 
       return null;
     }
-    
-    if(Validadores.ehIgual(dependenteEncontrado!.Cliente.Ativo, estaAtivo)){
-      this._notificador.adicionarNotificacao(new Notificacao(`Dependente já está ${this.obterStatus(estaAtivo)}`, TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
-
-      return null;
-    }
 
     if(!Validadores.ehIgual(dependenteEncontrado!.FkSocio, idSocio)){
       this._notificador.adicionarNotificacao(new Notificacao(`Dependente não está associado ao sócio`, TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
+
+      return null;
+    }
+    
+    if(Validadores.ehIgual(dependenteEncontrado!.Cliente.Ativo, estaAtivo)){
+      this._notificador.adicionarNotificacao(new Notificacao(`Dependente já está ${this.obterStatus(estaAtivo)}`, TipoNotificacao.RegraDeNegocio, this, ticketRequisicao));
 
       return null;
     }

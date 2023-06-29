@@ -67,7 +67,7 @@ class RepositorioDependente implements IRepositorioDependente {
 
   atualizarDependente = async (
     transactionContext: Omit<PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends" >,
-    idDependente: string | undefined = uuid()
+    idDependente: string
   ) : Promise<Dependente> => {
     return transactionContext.dependente.update({
       data: {

@@ -161,6 +161,10 @@ RotasDependentes.get('/:idSocio/dependentes/',
       schema: { $ref: '#/definitions/ObterDependenteResultProcessed' }
     }
 
+    #swagger.responses[204] = {
+      description: 'No Content',
+    }
+
     #swagger.responses[400] = {
       description: 'Bad Request',
       schema: { $ref: '#/definitions/ErroResult' }
